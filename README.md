@@ -1,5 +1,8 @@
 # CDL_Quantum_Hackathon_2021
-Collaboration repository for CDL bootcamp Quantum Hackathon 2021
+Collaboration repository for CDL bootcamp Quantum Hackathon 2021.
+
+The main branch contains a generic python 3 environment.
+Vendor specific environment can be found in other branches.
 
 This project uses [mybinder.org](https://mybinder.readthedocs.io/en/latest/introduction.html) online service.
 
@@ -14,7 +17,7 @@ Mybinder session expires after 20 minutes of inactivity. Make sure you save your
 You can find a quick tutorial [here](https://the-turing-way.netlify.app/reproducible-research/renv/renv-binder.html)
 
 ## Dependencies
-The ```requirements.txt``` file is auto-generated using ```pip-compile``` which reads the ```requirements.in``` file in the same folder. You can either update it manually or regenerate by adding/modifying dependencies in the ```requirements.in``` file.  Here are the steps:
+The ```requirements.txt``` file is auto-generated using ```pip-compile``` which reads the ```requirements.in``` file in the same folder. You can either update it manually or regenerate by adding/modifying dependencies in the ```requirements.in``` file. The latter is preferred as it validates versions compatibility. Here are the steps:
 
 1. Install pip-tools in your local environment:
 ```
