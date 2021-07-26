@@ -13,8 +13,10 @@ Original environment creation steps (only do this if step 2 did not work):
 ```
 conda create -n zebraket-cdl-hackathon-2021 python=3.9
 source activate zebraket-cdl-hackathon-2021
+conda install --name zebraket-cdl-hackathon-2021 ipykernel -y
 conda install --name zebraket-cdl-hackathon-2021 pylint -y
 conda install pandas==1.3.0
+pip install dwave-ocean-sdk
 ```
 
 ## How to Use
