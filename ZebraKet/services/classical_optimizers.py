@@ -67,6 +67,9 @@ def discrete_profit_optimizer(price_data: pd.DataFrame, budget:float) -> tuple[l
                         dp[i] = max(dp[i], dp[i - wt[j]] + val[j])
                         solution_set[i][j] += 1
                         cost[i] += wt[j]
+                    else:
+                        solution_set[i][j] = solution_set[i][j - 1]
+                        cost[i] = cost[i-1]
 
         return solution_set[W], cost[W], dp[W]
 
