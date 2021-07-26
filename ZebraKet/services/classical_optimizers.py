@@ -4,8 +4,8 @@ import numpy as np
 from itertools import combinations
 from models.data import parse_profit_dataframe
 
-def profit_optimizer(price_data: pd.DataFrame, budget: float) -> tuple[list[int], float, float]:
-    """Optimizes the profit problem classically
+def binary_profit_optimizer(price_data: pd.DataFrame, budget: float) -> tuple[list[int], float, float]:
+    """Optimizes the profit problem classically using a binary formulation
     
     Keyword arguments:
     price_data -- 1D DataFrame of how much we will charge per item where the columns are the item names and values are the price in floats
@@ -52,6 +52,6 @@ if __name__ == "__main__":
     fake_data = pd.DataFrame([prices, costs], columns=items, index=row_names)
     print('Here is our generated data: \n', fake_data)
 
-    result, max_cost, max_price = profit_optimizer(price_data=fake_data, budget=budget)
+    result, max_cost, max_price = binary_profit_optimizer(price_data=fake_data, budget=budget)
     print('found solution: ', max_cost, max_price)
     print('result\n', result)

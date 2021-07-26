@@ -17,7 +17,7 @@ conda install pandas==1.3.0
 
 ## How to Use
 Example:
-python -m  services.ClassicalOptimizer
+python -m  services.classical_optimizers
 
 ## Challenge(s) You Solved
 
