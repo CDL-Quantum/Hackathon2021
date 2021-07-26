@@ -12,7 +12,7 @@ def generate_mock_cost_data(number_products: int=10, number_suppliers:int=10):
     #cost of all items for every supplier
     for i in range (number_products):
         #base cost used to calculate the cost of the item at each supplier
-        c_base = random.random()*1000
+        c_base = random.random()*25
         for s in range (number_suppliers):
             #Cost of item fluctuates from c_base 
             C[s, i] = random.randint(90,130) / 100 * c_base
