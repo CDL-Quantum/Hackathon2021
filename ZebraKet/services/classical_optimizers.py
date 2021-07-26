@@ -111,13 +111,13 @@ if __name__ == "__main__":
     print('Here is our generated data: \n', fake_data)
 
     # Test the binary knapsack solution
-    discrete_solution, discrete_cost, discrete_profit = binary_profit_optimizer(price_data=fake_data, budget=budget)
-    print('\n\nfound solution for BINARY knapsack: ', discrete_cost, discrete_profit)
-    print('result\n', discrete_solution, '\n\n')
+    binary_solution, binary_cost, binary_profit = binary_profit_optimizer(price_data=fake_data, budget=budget)
+    print('\n\nfound solution for BINARY knapsack: ', binary_cost, binary_profit)
+    print('result\n', binary_solution, '\n\n')
 
     # Test the discrete knapsack
-    binary_profit = discrete_profit_optimizer(price_data=fake_data, budget=budget)
-    print('found solution for DISCRETE knapsack: ', 'profit', binary_profit) 
+    discrete_profit = discrete_profit_optimizer(price_data=fake_data, budget=budget)
+    print('found solution for DISCRETE knapsack: ', 'profit', discrete_profit) 
 
     # Test the set cover 
     universe = set(range(1, 11))
