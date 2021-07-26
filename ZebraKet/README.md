@@ -1,4 +1,6 @@
-Fill in this README.md. Example Structure:
+<p align="center">
+  <img  height="200" src="./resources/logo.png">
+</p>
 
 ## Project Description 
 (3-4 lines about what it is and how you did it)
