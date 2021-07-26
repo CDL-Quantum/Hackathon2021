@@ -4,8 +4,7 @@ import numpy as np
 import random
 import os
 import time
-
-save_dir = os.path.join('data')
+from config import save_dir
 
 def generate_mock_data(number_products: int=10, number_suppliers:int=10, save_name=None, markup: float=2.4):
     """Generates 2 dataframes for cost per supplier and price per item
