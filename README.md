@@ -48,11 +48,11 @@ The event will take place online. You will be responsible for coordinating meeti
 
 Participants may use any of the quantum platforms provided by the following technical partners:
 
-- D-Wave
+- IBM Q
 
 - Xanadu
 
-- IBM Q
+- D-Wave
 
 - Rigetti
 
@@ -71,6 +71,7 @@ Prizes will be given for 1st, 2nd, and 3rd place, as well as for the choice team
 Partner choices - $1000 each
 
 # Challenges
+<<<<<<< HEAD
 To be announced at opening.
 =======
 # CDL_Quantum_Hackathon_2021
@@ -108,3 +109,52 @@ pip-compile
 3. Commit and push the generated ```requirements.txt``` file to the GIT repo.
 4. Re-launch the project in [mybinder.org](https://mybinder.org/v2/gh/olegxtend/CDL_Quantum_Hackathon_2021/HEAD)
 >>>>>>> main-binder
+=======
+The following problems were provided by our technical partners. Teams can choose to work on one of the problems or an appropriate generalization thereof.
+
+## IBM Q’s Challenge:
+
+Qiskit Pulse allows you to program real quantum computers at the pulse level. Namely, it provides a language for specifying the microwave control tones (i.e. control of the continuous time dynamics of input signals) that program the quantum state.
+In most quantum algorithms/applications, computations are carried out over a 2^n-dimensional Hilbert space spanned by {|0>,|1⟩}^n, where n is the number of qubits. In IBM's quantum hardware, however, there also exists higher energy states which are typically avoided. (e.g. the single qubit "DRAG" pulse helps reduce unintentionally occupation in the |2> state).
+
+In this challenge we want you to use Qiskit Pulse to explore the higher energy states, and put together a unique project which shows how that higher energy state directly benefits or makes your idea possible.
+The best application of this idea will be the winner. Preference will be given to projects that:
+- Use Qiskit and/or IBM Quantum's devices
+- Explain issues faced, problem your team overcame, and future implications of your project
+- Show how your project could benefit the quantum computing community
+- Delve into why this is important for future research or applications
+
+**Background reading:**
+IBM released pulse gates to all users on IBM Quantum systems to attach custom gates defined via their pulse representation, called "calibrations" in Qiskit, to QASM circuits. This allows for a streamlined way to incorporate pulse-level control with the simplicity of QASM circuit construction. A [tutorial](https://qiskit.org/documentation/tutorials/circuits_advanced/05_pulse_gates.html) is available to help you implement this feature into your code.
+
+## Xanadu’s Challenge:
+
+Choose your favourite scientific paper proposing a quantum algorithm that can be run on small-scale devices. Implement it on a simulator using PennyLane or Strawberry Fields. Bonus: implement it also on quantum hardware.
+
+## D-Wave’s Challenge:
+Practical applications require domain knowledge and solutions that work at a real-world scale. Hybrid development brings the power of quantum to the scale of classical. Users are challenged to select a practical problem and to solve it at scale with Leap's hybrid solvers (BQM and DQM hybrid solvers). 
+
+As a hint, problems with graph structure like the maximum independent set, structural imbalance, and maximum cut can be translated to a binary quadratic model without additional variables and problems like graph coloring and clustering can be efficiently mapped to the discrete quadratic model. 
+
+Check out https://cloud.dwavesys.com/leap/examples/ for ideas, but use your creativity! The best projects would be the ones that solve the most practical problems.
+
+**Note:** Refer to the Bootcamp training for ideas on how to use the most recent Ocean features.
+
+## Rigetti Challenge:
+
+One of the most exciting applications of quantum computers is Quantum Machine Learning (QML).
+Broadly speaking, this refers to the intersection of quantum computing and (classical) machine
+learning, and is a growing area of interest among both academic researchers and industry
+practitioners. One of the ways in which these two fields come together is by using quantum resources
+to process classical data. This has incredibly far-reaching implications in that it may be impactful
+for every industry which already leverages some form of data science to drive business decisions
+or to increase business value.
+
+For many such QML algorithms, encoding classical data into quantum states is an important step.
+An example of this is the amplitude encoding subroutine, which has been implemented for you in
+pyQuil. You could use this to implement some QML algorithm, e.g. the one in
+https://arxiv.org/abs/1703.10793, or something entirely new and interesting of your own
+choosing. The code and jupyter notebook has been provided for amplitude encoding, but feel
+free to ask Rigetti Staff for other tips or best practices.
+
+>>>>>>> 8516851dc68e9adf6dcef004b12701bc3a1d2dae
