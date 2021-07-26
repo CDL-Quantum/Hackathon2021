@@ -2,8 +2,12 @@
 import pandas as pd
 import numpy as np
 import random
+import os
+import time
 
-def generate_mock_data(number_products: int=10, number_suppliers:int=10, markup: float=2.4):
+save_dir = os.path.join('data')
+
+def generate_mock_data(number_products: int=10, number_suppliers:int=10, save_name=None, markup: float=2.4):
     """Generates 2 dataframes for cost per supplier and price per item
 
     Input Paramaters: 
@@ -45,14 +49,24 @@ def generate_mock_data(number_products: int=10, number_suppliers:int=10, markup:
 
     cost_df = generate_mock_cost_data(number_products=number_products, number_suppliers=number_suppliers)
     price_df = generate_mock_price_data(cost_dataframe=cost_df, markup=markup)
+    save_name = save_name if save_name is not None else f'-n_products_{number_products}-n_suppliers_{number_suppliers}-{time.strftime("%Y%m%d-%H%M%S")}.csv'
+
+    cost_save_dir = os.path.join(save_dir, f'cost{save_name}')
+    price_save_dir = os.path.join(save_dir, f'price{save_name}')
+
+    print(f'Saving cost data to {cost_save_dir}')
+    print(f'Saving price data to {price_save_dir}')
+
+    cost_df.to_csv(cost_save_dir)
+    price_df.to_csv(price_save_dir)
 
     return cost_df, price_df
 
 def parse_profit_dataframe(data: pd.DataFrame) -> list[list[str], list[float], list[float]]:
-    """Parses the profit dataframe
+    """Creates the profit dataframe
 
     Keyword arguments:
-    data -- DataFrame of how profit / cost for each product. There must be a "profit" row and "cost" row in the dataframe
+    data -- DataFrame containing profit and cost for each product. There must be a "profit" row and "cost" row in the dataframe
     
     Returns:
     Tuple of product names (str)
