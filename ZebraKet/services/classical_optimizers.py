@@ -50,6 +50,9 @@ def discrete_profit_optimizer(price_data: pd.DataFrame, budget:float) -> tuple[l
     Tuple of integers indicating the solution
     Maximum cost found
     Maximum weight found
+
+    TODO: We need to extract the solution and cost of this method
+    TODO: We need to add a bound to number of variable chosen
     """
 
     def unboundedKnapsack(W, n, val, wt):
@@ -57,21 +60,14 @@ def discrete_profit_optimizer(price_data: pd.DataFrame, budget:float) -> tuple[l
         # dp[i] is going to store maximum
         # value with knapsack capacity i.
         dp = [0 for _ in range(W + 1)]  # profit
-        cost = [0 for _ in range(W + 1)]
-        solution_set = [[0 for _ in range(n)] for _ in range(W + 1)]
         # Fill dp[] using above recursive formula
         for i in range(W + 1):
             for j in range(n):
                 if (wt[j] <= i):
                     if val[j] + dp[i - wt[j]] > dp[i]:
                         dp[i] = max(dp[i], dp[i - wt[j]] + val[j])
-                        solution_set[i][j] += 1
-                        cost[i] += wt[j]
-                    else:
-                        solution_set[i][j] = solution_set[i][j - 1]
-                        cost[i] = cost[i-1]
 
-        return solution_set[W], cost[W], dp[W]
+        return dp[W]
 
     products, cost, profit = parse_profit_dataframe(price_data)
 
@@ -81,19 +77,32 @@ def discrete_profit_optimizer(price_data: pd.DataFrame, budget:float) -> tuple[l
     profit_int = [int(p*multiplier) for p in profit]
     budget_int = int(budget*multiplier)
 
-    solution, cost_solution_int, profit_solution_int = unboundedKnapsack(budget_int, len(products), profit_int, cost_int)
+    profit_solution_int = unboundedKnapsack(budget_int, len(products), profit_int, cost_int)
 
-    ####### TODO: fix this: profit_solution_int is the only accurate number. Need a better way to track the solution + cost
+    return profit_solution_int / multiplier
 
-    return solution, cost_solution_int / multiplier, profit_solution_int / multiplier
-
+def binary_supplier_optimizer(inventory: set, supplier_inventory:set):
+    # Taken from https://www.codegrepper.com/code-examples/python/set+cover+problem+in+python
+    # Find a family of subsets that covers the universal set
+    elements = set(e for s in supplier_inventory for e in s)
+    # Check the subsets cover the universe
+    if elements != inventory:
+        return None
+    covered = set()
+    cover = []
+    # Greedily add the subsets with the most uncovered points
+    while covered != elements:
+        subset = max(supplier_inventory, key=lambda s: len(s - covered))
+        cover.append(subset)
+        covered |= subset
+    return cover
 
 if __name__ == "__main__":
 
     # Define some constants
     budget = 100 # 100 dollars buget
 
-    # Fake data (todo: implement this method in Data.py)
+    # Fake data (TODO: implement this method in Data.py)
     prices = (3.5, 3.4, 3.8, 6.1)
     costs = (1.5, 1.4, 1.8, 2.1)
     items = (f'item{i}' for i in range(len(prices)))
@@ -101,12 +110,22 @@ if __name__ == "__main__":
     fake_data = pd.DataFrame([prices, costs], columns=items, index=row_names)
     print('Here is our generated data: \n', fake_data)
 
+    # Test the binary knapsack solution
     discrete_solution, discrete_cost, discrete_profit = binary_profit_optimizer(price_data=fake_data, budget=budget)
-    print('found solution for BINARY knapsack: ', discrete_cost, discrete_profit)
+    print('\n\nfound solution for BINARY knapsack: ', discrete_cost, discrete_profit)
     print('result\n', discrete_solution, '\n\n')
 
-    binary_solution, binary_cost, binary_profit = discrete_profit_optimizer(price_data=fake_data, budget=budget)
-    print('found solution for DISCRETE knapsack: ', binary_cost, 'profit (only correct paramter for now): ', binary_profit)
-    print('result\n', binary_solution)
+    # Test the discrete knapsack
+    binary_profit = discrete_profit_optimizer(price_data=fake_data, budget=budget)
+    print('found solution for DISCRETE knapsack: ', 'profit', binary_profit) 
 
+    # Test the set cover 
+    universe = set(range(1, 11))
+    subsets = [set([1, 2, 3, 8, 9, 10]),
+        set([1, 2, 3, 4, 5]),
+        set([4, 5, 7]),
+        set([5, 6, 7]),
+        set([6, 7, 8, 9, 10])]
+    cover = binary_supplier_optimizer(universe, subsets)
+    print('\n\n', 'Found inventory optimization solution', cover)
 
