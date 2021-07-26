@@ -54,6 +54,10 @@ def generate_mock_data(number_products: int=10, number_suppliers:int=10, save_na
     cost_save_dir = os.path.join(save_dir, f'cost{save_name}')
     price_save_dir = os.path.join(save_dir, f'price{save_name}')
 
+    if not os.path.isdir(save_dir):
+        print(f'Creating data directory: {save_dir}')
+        os.makedirs(save_dir)
+
     print(f'Saving cost data to {cost_save_dir}')
     print(f'Saving price data to {price_save_dir}')
 
