@@ -21,7 +21,7 @@ def parse_profit_dataframe(data: pd.DataFrame) -> list[list[str], list[float], l
     Returns:
     Tuple of product names (str)
     Tuple of product cost (float)
-    Tuple of product prices (float)
+    Tuple of product profit (price - cost) (float)
 
     Example input: 
 
@@ -29,4 +29,7 @@ def parse_profit_dataframe(data: pd.DataFrame) -> list[list[str], list[float], l
     price   | 6.5    | 7.1
     cost    | 2.5    | 2.4
     """
-    return list(data), list(data.loc['cost']), list(data.loc['price'])
+    cost = list(data.loc['cost']) 
+    price = list(data.loc['price'])
+    profit = [p - c for p, c in zip(price, cost)]
+    return list(data), cost, profit
