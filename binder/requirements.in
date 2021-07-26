@@ -1,0 +1,2 @@
+qiskit==0.28.0
+qiskit[visualization]

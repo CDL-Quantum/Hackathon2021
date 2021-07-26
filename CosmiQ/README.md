@@ -5,7 +5,7 @@ This branch contains environment for IBM's [qiskit](https://qiskit.org/).
 
 This project uses [mybinder.org](https://mybinder.readthedocs.io/en/latest/introduction.html) online service.
 
-To run it, open the following [link](https://mybinder.org/v2/gh/olegxtend/CDL_Quantum_Hackathon_2021/ibmq) in your browser. It may take a couple minutes to launch.
+To run it, open the following [link](https://mybinder.org/v2/gh/olegxtend/Hackathon2021/HEAD) in your browser. It may take a couple minutes to launch.
 
 ## Note 1
 When you launch mybinder, it creates a snapshot of the repo from the latest versions of the code and it doesn't automatically merge the code from GIT. If you need to refresh the code, just close your session and open a new one by launching the above link.
@@ -30,7 +30,7 @@ python -m pip install pip-tools
 pip-compile
 ```
 3. Commit and push the generated ```requirements.txt``` file to the GIT repo.
-4. Re-launch the project in [mybinder.org](https://mybinder.org/v2/gh/olegxtend/CDL_Quantum_Hackathon_2021/ibmq)
+4. Re-launch the project in [mybinder.org](https://mybinder.org/v2/gh/olegxtend/Hackathon2021/HEAD)
 
 # CDL Readme for reference
 
