@@ -19,7 +19,7 @@ def binary_profit_optimizer(price_data: pd.DataFrame, budget: float) -> tuple[li
     products, cost, profit = parse_profit_dataframe(price_data)
 
     print('products:\n', products)
-    print('price:\n', profit)
+    print('profit:\n', profit)
 
     number_of_products = len(products)
     profit_cumulative = 0
@@ -106,7 +106,7 @@ if __name__ == "__main__":
     print('result\n', discrete_solution, '\n\n')
 
     binary_solution, binary_cost, binary_profit = discrete_profit_optimizer(price_data=fake_data, budget=budget)
-    print('found solution for DISCRETE knapsack: ', binary_cost, binary_profit)
+    print('found solution for DISCRETE knapsack: ', binary_cost, 'profit (only correct paramter for now): ', binary_profit)
     print('result\n', binary_solution)
 
 
