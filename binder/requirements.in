@@ -1,0 +1,36 @@
+# strawberryfields - https://github.com/XanaduAI/strawberryfields
+numpy>=1.19.2
+scipy
+sympy>=1.5
+tensorflow>=2.0
+tensorboard>=2.0
+networkx>=2.0
+git+https://github.com/XanaduAI/blackbird@master#egg=quantum-blackbird
+python-dateutil==2.8.0
+thewalrus>=0.15.0
+toml
+appdirs
+numba>=0.48.0
+requests==2.22.0
+urllib3==1.25.8
+plotly==4.4.1
+pytest>=6.2.2
+pytest-cov>=2.11.1
+pytest-mock>=3.5.1
+pytest-randomly>=3.5.0
+black>=20.8b1
+strawberryfields
+#pennylane - https://github.com/PennyLaneAI/pennylane
+#numpy
+#scipy
+cvxpy
+cvxopt
+#networkx
+tensornetwork==0.3
+autograd
+#toml
+appdirs
+semantic_version==2.6
+dask[delayed]
+autoray
+matplotlib
