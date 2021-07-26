@@ -87,7 +87,7 @@ The best application of this idea will be the winner. Preference will be given t
 **Background reading:**
 IBM released pulse gates to all users on IBM Quantum systems to attach custom gates defined via their pulse representation, called "calibrations" in Qiskit, to QASM circuits. This allows for a streamlined way to incorporate pulse-level control with the simplicity of QASM circuit construction. A [tutorial](https://qiskit.org/documentation/tutorials/circuits_advanced/05_pulse_gates.html) is available to help you implement this feature into your code.
 
-## Xanadu’s Challenge(s):
+## Xanadu’s Challenge:
 
 Choose your favourite scientific paper proposing a quantum algorithm that can be run on small-scale devices. Implement it on a simulator using PennyLane or Strawberry Fields. Bonus: implement it also on quantum hardware.
 
