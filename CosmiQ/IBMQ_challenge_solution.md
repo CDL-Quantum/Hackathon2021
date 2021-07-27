@@ -29,7 +29,7 @@ The approach is based on a few observations.
 1. A transmon qubit can be modelled using a Hamiltonian that describes the Duffing oscillator,
 
 
-![Duffing Oscillator Hamiltian](https://latex.codecogs.com/gif.latex?H%20%3D%20%5Comega%20a%5E%5Cdagger%20a%20&plus;%20%5Cfrac%7B%5Calpha%7D%7B2%7D%20%3Ea%5E%5Cdagger%20a%5E%5Cdagger%20a%20a)
+![Duffing Oscillator Hamiltonian](https://latex.codecogs.com/gif.latex?H%20%3D%20%5Comega%20a%5E%5Cdagger%20a%20&plus;%20%5Cfrac%7B%5Calpha%7D%7B2%7D%20a%5E%5Cdagger%20a%5E%5Cdagger%20a%20a)
 
 
   where ![omega](https://latex.codecogs.com/gif.latex?%5Comega) gives the ![zero-to-one](https://latex.codecogs.com/gif.latex?0%5Crightarrow1) excitation frequency (![](https://latex.codecogs.com/gif.latex?%5Comega%20%5Cequiv%20%5Comega%5E%7B0%5Crightarrow1%7D)) and ![alpha](https://latex.codecogs.com/gif.latex?%5Calpha) is the anharmonicity between the ![zero-to-one](https://latex.codecogs.com/gif.latex?0%5Crightarrow1) and ![one-to-two](https://latex.codecogs.com/gif.latex?1%5Crightarrow2) frequencies (![alpha_is_delta_omega](https://latex.codecogs.com/gif.latex?%5Calpha%20%5Cequiv%20%5Comega%5E%7B1%5Crightarrow2%7D%20-%20%5Comega%5E%7B0%5Crightarrow1%7D)).
