@@ -10,10 +10,10 @@ import scipy.linalg as la
 
 class FlatNetwork():
     
-    def __init__(self, L):
+    def __init__(self, L, d):
         
         self.L = L #In format: (N_t, N, N_q)                       
-        self.d = 3
+        self.d = d
         
         #Variables needed for graph creation                              
         self.qubitmap = lambda t,i,q: t*L[1]*L[2] + i*L[2] + q
@@ -340,9 +340,11 @@ def ss(x, d = 3):
     
 if __name__ == '__main__':
     
-    d = 2
+    d = 4
+    
+    #Nt x N x N_q
     L = [2,2,2]
-    fn = FlatNetwork(L)
+    fn = FlatNetwork(L, d)
     
     mpos = fn.get_mpos()
     print('Number of MPOs:',len(mpos))
