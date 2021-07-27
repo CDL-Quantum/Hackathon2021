@@ -28,7 +28,11 @@ class Calibration:
         assert self.backend_config.open_pulse, "Backend doesn't support Pulse"
         self.dt = self.backend_config.dt
         self.backend_defaults = self.backend.defaults()
-        
+
+    ###################################
+    ## Schedules ######################
+    ###################################
+            
     def frequency01_schedules(self,span_range=1/200,qbit=0):
         schedules = []
         self.f01_default = self.backend_defaults.qubit_freq_est[qbit]
@@ -123,6 +127,35 @@ class Calibration:
         results = job.result()
         result_data = [results.get_memory(i)[0]*SCALE for i in range(len(results.results))]
         return result_data
+
+    def measurement_schedule(self,num_exp=25,qbit=0):
+
+        with pulse.build(backend=self.backend) as st0:
+            with pulse.align_sequential():
+                pulse.measure(qbit)
+                
+        with pulse.build(backend=self.backend) as st1:
+            with pulse.align_sequential():
+                pulse.shift_frequency(self.df01_calib, pulse.DriveChannel(qbit))
+                pulse.play(self.pulse_rx01(), pulse.DriveChannel(qbit))
+                pulse.measure(qbit)
+        
+        with pulse.build(backend=self.backend) as st2:
+            with pulse.align_sequential():
+                pulse.shift_frequency(self.df01_calib, pulse.DriveChannel(qbit))
+                pulse.play(self.pulse_rx01(), pulse.DriveChannel(qbit))
+                pulse.shift_frequency(self.df12_calib, pulse.DriveChannel(qbit))
+                pulse.play(self.pulse_rx12(), pulse.DriveChannel(qbit))
+                pulse.measure(qbit)
+                
+        schedules = [st0,st1,st2]
+        states = [0,1,2]
+        
+        return states,schedules    
+    
+    ###################################
+    ## Fittings #######################
+    ###################################
     
     def fit_results_f01(self,result_data,frequencies):
         params = match_sinc2(np.abs(result_data),frequencies)
@@ -141,7 +174,11 @@ class Calibration:
         X = np.angle(result_data)
         params = match_sine(X,drive_powers)
         self.a12_calib = params[0]
-        
+    
+    ###################################
+    ## Pulses #########################
+    ###################################
+    
     def pulse_rx01(self,theta=np.pi):
         # Define the drive pulse
         drive_sigma = SAMPLE * round(SIGMA/ SAMPLE/ self.dt)       # The width of the gaussian in units of dt
@@ -159,7 +196,58 @@ class Calibration:
         drive_power = self.a12_calib*theta_wrap/np.pi
         gauss = pulse_lib.gaussian(duration=drive_samples,sigma=drive_sigma,amp=drive_power)
         return gauss
-    
+
+    def classify_results(self,result_data):
+        # D dims distance to center [real class, shots , center class]
+        D = np.abs(np.expand_dims(self.state_centers,axis=(0,1))-np.expand_dims(result_data,axis=2))
+        result_state = np.argmin(D,axis=2)
+        return result_state
+        
+    def fit_measurements(self,result_data,boolPlot = True):
+        
+        num_shots = result_data.shape[1]
+        num_states = result_data.shape[0]
+        
+        #rough etimation of centers thanks to median
+        self.state_centers = np.median(np.real(result_data),axis=1)+ 1j * np.median(np.imag(result_data),axis=1)
+        #distance to the centers, to eliminate outliers and plot cumulative distribution
+        dist = np.abs(np.expand_dims(self.state_centers,axis=1)-result_data)
+        dist_sort=np.sort(dist,axis=1)
+        
+        #update centers with only inliers
+        self.state_centers = [np.mean(result_data[i,dist[i,:]<5]) for i in range(num_states)]
+        #for display purposes only
+        radius = [np.mean(dist[i,dist[i,:]<10]) for i in range(num_states)]
+        
+        if boolPlot == True:
+            plt.figure(figsize=(10,5))
+            plt.subplot(1,2,1)
+            colors = ['b','r','g']
+            for s in range(num_states):
+                plt.scatter(np.real(result_data[s,:]), np.imag(result_data[s,:]),s=1,c = colors[s],alpha=0.5)
+                plt.scatter(np.real(self.state_centers[s]),np.imag(self.state_centers[s]),s=30,c = 'k')
+                t = np.linspace(0,2*np.pi,100)
+                circle = np.exp(1j*t)*radius[s]+self.state_centers[s]
+                plt.plot(np.real(circle),np.imag(circle),'k')
+                plt.axis("equal")
+                plt.title("measurements per class")
+                plt.xlabel("real")
+                plt.ylabel("imag")
+
+            plt.subplot(1,2,2)
+            for s in states:
+                plt.plot(dist_sort[s,:],np.arange(dist.shape[1]),colors[s],label = f"state {s}")
+                plt.title("cumulative distribution of distance wrt centers per class")
+                plt.legend()
+
+        result_state = self.classify_results(result_data)
+        confusion_matrix=np.zeros((num_states,num_states)) #rows are true classes, columns are derived classes
+        for i in range(num_states):
+            for j in range(num_states):
+                confusion_matrix[i,j]=np.sum(result_state[i,:]==j)
+
+        self.confusion_matrix = confusion_matrix/num_shots
+        
 def match_sine(X,ps,booltPlot=True):
     
     N=len(X)
