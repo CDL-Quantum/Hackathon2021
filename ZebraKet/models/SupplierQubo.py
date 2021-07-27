@@ -7,7 +7,7 @@ class SupplierQubo(AbstractQubo):
     lagrange_a = 2
     lagrange_b = 1
 
-    def __init__(self, inventory: list[int or str], supplier_inventory: list[set[int or str]]) -> None:
+    def __init__(self, inventory: list[int or str] or None, supplier_inventory: list[set[int or str]] or None) -> None:
         """Initializes the SupplierQubo
         
         inventory (list):
@@ -16,13 +16,26 @@ class SupplierQubo(AbstractQubo):
             List for each supplier their inventory
         """
         super().__init__()
+        self.inventory = None
+        self.supplier_inventory = None
+        self.indicators = None
+
+        if inventory is not None and supplier_inventory is not None:
+            self.build(inventory, supplier_inventory)
+
+    def build(self, inventory: list[int or str] or None, supplier_inventory: list[set[int or str]] or None): 
+        """Bulds the qubo
+
+        Args: 
+        inventory (list):
+            List of items we want for our inventory
+        supplier_inventory (list of sets):
+            List for each supplier their inventory
+        """
+        print(f'Building QUBO')
+        # profits: list[float], costs: list[float], budget: float, max_number_of_products=10
         self.inventory = inventory
         self.supplier_inventory = supplier_inventory
-        # Create indicator variables
-        self.indicators = []
-        for i in range(len(self.supplier_inventory)):
-            self.indicators.append([1 if self.inventory[a] in self.supplier_inventory[i] else 0 for a in range(len(self.inventory))])
-
         self.qubo = self.construct_bqm()
 
     def construct_bqm(self):
@@ -32,6 +45,11 @@ class SupplierQubo(AbstractQubo):
         Returns:
             Binary quadratic model instance
         """
+
+        # Create indicator variables
+        self.indicators = []
+        for i in range(len(self.supplier_inventory)):
+            self.indicators.append([1 if self.inventory[a] in self.supplier_inventory[i] else 0 for a in range(len(self.inventory))])
 
         ##@  Binary Quadratic Model @##
         bqm = BinaryQuadraticModel(BINARY)
@@ -83,6 +101,8 @@ if __name__ == "__main__":
     # V = [set(np.random.randint(10, size=(5))) for i in range(5)]
     V = [set([1]),set([1,2]),set([4]), set([2])]
     
+    sampler = SimulatedAnnealingSampler().sample
+
     qubo = SupplierQubo(U, V)
-    qubo.solve(SimulatedAnnealingSampler().sample, **{"num_reads":100, "num_sweeps": 100000})
-    print(qubo.solution_set)
+    qubo.solve(sampler, **{"num_reads":100, "num_sweeps": 100000})
+    print(qubo.response)

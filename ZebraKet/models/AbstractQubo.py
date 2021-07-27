@@ -1,9 +1,8 @@
 from abc import ABC, abstractmethod
 
 class AbstractQubo(ABC):
-    def __init__(self, sampler) -> None:
+    def __init__(self) -> None:
         super().__init__()
-        self.sampler = sampler
         self.solution_set = None
         self.energy_set = None
         self.response = None
@@ -13,12 +12,12 @@ class AbstractQubo(ABC):
     def build(self):
         pass
 
-    def solve(self, **kwargs):
-        """Solves the qubo using the passed in sampler
+    def solve(self, sampler, **kwargs):
+        """Solves the qubo using the passed in sampler and arguments
         """
         if self.qubo is None:
             raise ValueError('Qubo has not been built. Please call .build()')
-        self.response = self.sampler(self.qubo, **kwargs)
+        self.response = sampler(self.qubo, **kwargs)
         self.solution_set = self.response.record.sample
         self.energy_set = self.response.record.energy
 
