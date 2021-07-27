@@ -4,25 +4,40 @@ import numpy as np
 from models.AbstractQubo import AbstractQubo
 
 class ProfitQubo(AbstractQubo):
-    def __init__(self, profits: list[float], costs: list[float], budget: float, max_number_of_products=10) -> None:
+    def __init__(self, profits=None, costs=None, budget: float=100, max_number_of_products=10) -> None:
         """Initializes the ProfitQubo
         
         profits (list):
             List of profits associated with the items
+            If None, you must call self.build() before calling self.solve()
         costs (list):
             List of costs associated with the items
+            If None, you must call self.build() before calling self.solve()
         budget (int):
             Maximum allowable cost
         max_number_of_products(int):
             Maximum allowable products for each product
         """
         super().__init__()
-        self.profits = np.array(profits)
-        self.costs = np.array(costs)
+        self.profits = profits
+        self.costs = costs
         self.budget = budget
         self.max_number_of_products = max_number_of_products + 1 # also take into account the value 0
-        self.qubo = self.construct_dqm()
+        if profits is not None and costs is not None: 
+            self.build(profits, costs)
 
+    def build(self, profits: list[float], costs: list[float]): 
+        """Bulds the qubo
+
+        Args: 
+        profits - list of profits we can get per product
+        costs - list of costs per product
+        """
+        print(f'Building QUBO')
+        self.profits = np.array(profits)
+        self.costs = np.array(costs)
+        self.qubo = self.construct_dqm()
+    
     def construct_dqm(self):
         """Construct DQM for the generalized knapsack problem
         Args:
@@ -98,10 +113,19 @@ class ProfitQubo(AbstractQubo):
 if __name__ == "__main__":
 
     from dwave.system import LeapHybridDQMSampler
+    from neal import SimulatedAnnealingSampler
     
     prices = [3.5, 3.4, 3.8, 6.1]
     costs = [1.5, 1.4, 1.8, 2.1]
     profits = [p - c for p, c in zip(prices, costs)]
     
+    # qubo = ProfitQubo(LeapHybridDQMSampler().sample_dqm, profits=profits, costs=costs, budget=100, max_number_of_products=20)
+    # qubo.solve()
+
+    # sampler = SimulatedAnnealingSampler().sample_dqm
+
+    sampler = LeapHybridDQMSampler().sample_dqm
+
     qubo = ProfitQubo(profits=profits, costs=costs, budget=100, max_number_of_products=20)
-    qubo.solve(LeapHybridDQMSampler().sample_dqm)
+    qubo.solve(sampler)
+    print(qubo.response)

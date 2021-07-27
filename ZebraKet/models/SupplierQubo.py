@@ -7,7 +7,7 @@ class SupplierQubo(AbstractQubo):
     lagrange_a = 2
     lagrange_b = 1
 
-    def __init__(self, inventory: list[int or str], supplier_inventory: list[set[int or str]]) -> None:
+    def __init__(self, inventory: list[int or str] or None, supplier_inventory: list[set[int or str]] or None) -> None:
         """Initializes the SupplierQubo
         
         inventory (list):
@@ -16,13 +16,26 @@ class SupplierQubo(AbstractQubo):
             List for each supplier their inventory
         """
         super().__init__()
+        self.inventory = None
+        self.supplier_inventory = None
+        self.indicators = None
+
+        if inventory is not None and supplier_inventory is not None:
+            self.build(inventory, supplier_inventory)
+
+    def build(self, inventory: list[int or str] or None, supplier_inventory: list[set[int or str]] or None): 
+        """Bulds the qubo
+
+        Args: 
+        inventory (list):
+            List of items we want for our inventory
+        supplier_inventory (list of sets):
+            List for each supplier their inventory
+        """
+        print(f'Building QUBO')
+        # profits: list[float], costs: list[float], budget: float, max_number_of_products=10
         self.inventory = inventory
         self.supplier_inventory = supplier_inventory
-        # Create indicator variables
-        self.indicators = []
-        for i in range(len(self.supplier_inventory)):
-            self.indicators.append([1 if self.inventory[a] in self.supplier_inventory[i] else 0 for a in range(len(self.inventory))])
-
         self.qubo = self.construct_bqm()
 
     def construct_bqm(self):
@@ -33,12 +46,17 @@ class SupplierQubo(AbstractQubo):
             Binary quadratic model instance
         """
 
+        # Create indicator variables
+        self.indicators = []
+        for i in range(len(self.supplier_inventory)):
+            self.indicators.append([1 if self.inventory[a] in self.supplier_inventory[i] else 0 for a in range(len(self.inventory))])
+
         ##@  Binary Quadratic Model @##
         bqm = BinaryQuadraticModel(BINARY)
 
         # Add linear terms
         # x linear terms
-        x = [bqm.add_variable(f'x_{i+1}', SupplierQubo.lagrange_a*sum(self.indicators[i])+SupplierQubo.lagrange_b) for i in range(0,len(self.supplier_inventory))]
+        self.x = [bqm.add_variable(f'x_{i+1}', SupplierQubo.lagrange_a*sum(self.indicators[i])+SupplierQubo.lagrange_b) for i in range(0,len(self.supplier_inventory))]
         # print('x variables:',x)
 
         # y_am linear terms
@@ -71,18 +89,29 @@ class SupplierQubo(AbstractQubo):
         
         return bqm
 
+    def _post_process(self, solutions):
+        """Hack to return data formatted as expected"""
+        res = []
+        for solution in solutions:
+            res.append([solution[i] for i in self.x])
+        return res
+
+
 if __name__ == "__main__":
 
     # from dimod import ExactSolver
     from neal import SimulatedAnnealingSampler
-   
-    # Define a simple set cover problem
-    # U = list(set(np.random.randint(10, size=(5))))
-    U = list(set([1,2,4]))
-
-    # V = [set(np.random.randint(10, size=(5))) for i in range(5)]
-    V = [set([1]),set([1,2]),set([4]), set([2])]
+    from utils.data import read_inventory_optimization_data
+    from config import standard_mock_data
     
-    qubo = SupplierQubo(U, V)
-    qubo.solve(SimulatedAnnealingSampler().sample, **{"num_reads":100, "num_sweeps": 100000})
-    print(qubo.solution_set)
+    inventory, supplier_inventories = read_inventory_optimization_data(standard_mock_data['small'])
+    sampler = SimulatedAnnealingSampler().sample
+
+    qubo = SupplierQubo(inventory, supplier_inventories)
+    qubo.solve(sampler, **{"num_reads":100, "num_sweeps": 100})
+
+    print(qubo.response)
+
+    print('\nLength of solution', len(qubo.solution_set[0]))
+    print(f'Found {np.sum(qubo.solution_set[0])} suppliers with energy {qubo.energy_set[0]}')
+    print('\nAll solutions: ', qubo.solution_set)
