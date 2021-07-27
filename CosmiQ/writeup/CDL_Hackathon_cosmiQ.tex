@@ -41,7 +41,7 @@
 \section*{Task 2}
 
 \begin{align}
-\hat{D} &= \sum_{t_0}^{t_f-1} \sum_i -\mu(i,t) \left[ \frac{1}{K}\sum_{q=0}^{N_q-1} d^q \hat{n}(i,t,q) \right]
+\hat{D} &= \sum_{t_0}^{t_f-1} \sum_i -\mu(t,i) \left[ \frac{1}{K}\sum_{q=0}^{N_q-1} d^q \hat{n}(i,t,q) \right]
 + \frac{\gamma}{2}\sum_{t=t_0}^{t_f-1} \sum_{ij} \Sigma^t_{ij} \left[ \frac{1}{K} \sum_{q=0}^{N_q-1} d^q \hat{n}(i,t,q) \right] \left[ \frac{1}{K} \sum_{\bar{q}=0}^{N_q-1} d^q \hat{n}(j,t,\bar{q}) \right] \nonumber\\
 &+ \sum_{t_0}^{t_f-1} \sum_{ij} \lambda(t,i)\lambda(t,j) \Bigg\{ \left[ \frac{1}{K} \sum_{q=0}^{N_q-1} d^q \hat{n}(j,t+1,q) \right]\left[ \frac{1}{K} \sum_{q=0}^{N_q-1} d^q \hat{n}(i,t+1,q) \right] \nonumber\\ 
 &-2\left[ \frac{1}{K} \sum_{q=0}^{N_q-1} d^q \hat{n}(i,t+1,q) \right]\left[ \frac{1}{K} \sum_{q=0}^{N_q-1} d^q \hat{n}(j,t,q)\right] +\left[ \frac{1}{K} \sum_{q=0}^{N_q-1} d^q \hat{n}(i,t,q) \right] \left[ \frac{1}{K} \sum_{q=0}^{N_q-1} d^q \hat{n}(j,t,q) \right] \Bigg\} \nonumber\\
@@ -51,14 +51,75 @@
 
 Which we may further simplify by collecting terms:
 \begin{align}
-K\hat{D} &= \sum_{t_0}^{t_f-1} \sum_i \sum_{q=0}^{N_q-1} (-\mu(i,t) - 2\rho) d^q \hat{n}(i,t,q) \nonumber\\
+K\hat{D} &= \sum_{t_0}^{t_f-1} \sum_i \sum_{q=0}^{N_q-1} (-\mu(t,i) - 2\rho) d^q \hat{n}(i,t,q) \nonumber\\
 &+ \frac{1}{K} \sum_{t_0}^{t_f-1} \sum_{ij} \sum_{q=0}^{N_q-1}\sum_{\bar{q}=0}^{N_q-1} \left[ \frac{\gamma}{2}{\Sigma^t_{ij}} + \lambda(t,i)\lambda(t,j) + \rho \right] d^q \hat{n}(i,t,q) d^q \hat{n}(j,t,\bar{q}) \nonumber\\
 &+ \frac{1}{K} \sum_{t_0}^{t_f-1} \sum_{ij} \sum_{q=0}^{N_q-1}\sum_{\bar{q}=0}^{N_q-1} \lambda(t,i)\lambda(t,j) \left[ d^q \hat{n}(i,t+1,q) d^q \hat{n}(j,t+1,\bar{q}) - 2 d^q \hat{n}(i,t+1,q) d^q \hat{n}(j,t,\bar{q}) \right] \nonumber\\    
-&+\frac{\rho}{K}  \sum_{ij} \sum_{q=0}^{N_q-1}\sum_{\bar{q}=0}^{N_q-1} d^q \hat{n}(i,t_f,q) d^q \hat{n}(i,t_f,\bar{q}) - 2\rho \sum_i \sum_{q=0}^{N_q-1} d^q \hat{n}(i,t_f,q) \nonumber\\
+&+\frac{\rho}{K}  \sum_{ij} \sum_{q=0}^{N_q-1}\sum_{\bar{q}=0}^{N_q-1} d^q \hat{n}(i,t_f,q) d^q \hat{n}(j,t_f,\bar{q}) - 2\rho \sum_i \sum_{q=0}^{N_q-1} d^q \hat{n}(i,t_f,q) \nonumber\\
 &+ K\cdot N_t\cdot N^2 
 \end{align}
 
-Note that while the boundary term contributes to the inner Hamiltonian, it only appears as a separate term due to the constraint. We have no information available about relative profits ($\mu(i,t_f)$), risk ($\Sigma^{t_f}_{ij}$), and transaction cost ($\lambda(t,i)$) at the final time $t = t_f$.
+Note that while the boundary term contributes to the inner Hamiltonian, it only appears as a separate term due to the constraint. We have no information available about relative profits ($\mu(i,t_f)$), risk ($\Sigma^{t_f}_{ij}$), and transaction cost ($\lambda(t,i)$) at the final time $t = t_f$.\\
+
+Using $\mu(t_f,i) = 0$ and $\Sigma^{t_f} = 0$, a more compressed notation gives us:
+\begin{align}
+K\hat{D} &= \sum_{t_0}^{t_f} \sum_i \sum_{q=0}^{N_q-1} (-\mu(t,i) - 2\rho) d^q \hat{n}(i,t,q) \nonumber\\
+&+ \frac{1}{K} \sum_{t_0}^{t_f} \sum_{i<j} \sum_{q=0}^{N_q-1}\sum_{\bar{q}=0}^{N_q-1} 2\left[ \frac{\gamma}{2} {\Sigma^t_{ij}} + \lambda(t,i)\lambda(t,j) + \rho \right] d^q \hat{n}(i,t,q) d^q \hat{n}(j,t,\bar{q}) \nonumber\\
+&+ \frac{1}{K} \sum_{t_0}^{t_f} \sum_{i} \sum_{q=0}^{N_q-1}\sum_{\bar{q}=0}^{N_q-1} \left[ \frac{\gamma}{2} {\Sigma^t_{ii}} + \lambda(t,i)\lambda(t,i) + \rho \right] d^q \hat{n}(i,t,q) d^q \hat{n}(i,t,\bar{q}) \nonumber\\
+&+ \frac{1}{K} \sum_{t_0}^{t_f-1} \sum_{i<j} \sum_{q=0}^{N_q-1}\sum_{\bar{q}=0}^{N_q-1} 2\lambda(t,i)\lambda(t,j) \left[ d^q \hat{n}(i,t+1,q) d^q \hat{n}(j,t+1,\bar{q}) - 2 d^q \hat{n}(i,t+1,q) d^q \hat{n}(j,t,\bar{q}) \right] \nonumber\\    
+&+ \frac{1}{K} \sum_{t_0}^{t_f-1} \sum_{i} \sum_{q=0}^{N_q-1}\sum_{\bar{q}=0}^{N_q-1} 2\lambda(t,i)\lambda(t,i) \left[ d^q \hat{n}(i,t+1,q) d^q \hat{n}(i,t+1,\bar{q}) - 2 d^q \hat{n}(i,t+1,q) d^q \hat{n}(i,t,\bar{q}) \right] \nonumber\\    
+&+ K\cdot N_t\cdot N^2 
+\end{align}
+
+For MPS we need to collect terms a little differently:
+\begin{align}
+%1
+K\hat{D} &= \sum_{t_0}^{t_f} \sum_i \sum_{q=0}^{N_q-1} (-\mu(t,i) - 2\rho) d^q \hat{n}(i,t,q) \nonumber\\
+%2
+&+ \frac{1}{K} \sum_{t_0}^{t_f} \sum_{i<j} \sum_{q<\bar{q}}^{N_q-1} 4\left[ \frac{\gamma}{2} {\Sigma^t_{ij}} + \lambda(t,i)\lambda(t,j) + \rho \right] d^q \hat{n}(i,t,q) d^q \hat{n}(j,t,\bar{q}) \nonumber\\
+%3
+&+ \frac{1}{K} \sum_{t_0}^{t_f} \sum_{i<j} \sum_{q}^{N_q-1} 2\left[ \frac{\gamma}{2} {\Sigma^t_{ij}} + \lambda(t,i)\lambda(t,j) + \rho \right] d^q \hat{n}(i,t,q) d^q \hat{n}(j,t,q) \nonumber\\
+%4
+&+ \frac{1}{K} \sum_{t_0}^{t_f} \sum_{i} \sum_{q<\bar{q}}^{N_q-1} 2\left[ \frac{\gamma}{2} {\Sigma^t_{ii}} + \lambda(t,i)\lambda(t,i) + \rho \right] d^q \hat{n}(i,t,q) d^q \hat{n}(i,t,\bar{q}) \nonumber\\
+%5
+&+ \frac{1}{K} \sum_{t_0}^{t_f} \sum_{i} \sum_{q=0}^{N_q-1} \left[ \frac{\gamma}{2} {\Sigma^t_{ii}} + \lambda(t,i)\lambda(t,i) + \rho \right] d^q \hat{n}(i,t,q) d^q \hat{n}(i,t,{q}) \nonumber\\
+%6
+&+ \frac{1}{K} \sum_{t_0}^{t_f-1} \sum_{i<j} \sum_{q<\bar{q}}^{N_q-1} 4\lambda(t,i)\lambda(t,j) \left[ d^q \hat{n}(i,t+1,q) d^q \hat{n}(j,t+1,\bar{q}) - 2 d^q \hat{n}(i,t+1,q) d^q \hat{n}(j,t,\bar{q}) \right] \nonumber\\    
+%7
+&+ \frac{1}{K} \sum_{t_0}^{t_f-1} \sum_{i<j} \sum_{q=0}^{N_q-1} 2\lambda(t,i)\lambda(t,j) \left[ d^q \hat{n}(i,t+1,q) d^q \hat{n}(j,t+1,{q}) - 2 d^q \hat{n}(i,t+1,q) d^q \hat{n}(j,t,{q}) \right] \nonumber\\    
+%8
+&+ \frac{1}{K} \sum_{t_0}^{t_f-1} \sum_{i} \sum_{q<\bar{q}}^{N_q-1}4\lambda(t,i)\lambda(t,i) \left[ d^q \hat{n}(i,t+1,q) d^q \hat{n}(i,t+1,\bar{q}) - 2 d^q \hat{n}(i,t+1,q) d^q \hat{n}(i,t,\bar{q}) \right] \nonumber\\    
+%9
+&+ \frac{1}{K} \sum_{t_0}^{t_f-1} \sum_{i} \sum_{q=0}^{N_q-1} 2\lambda(t,i)\lambda(t,i) \left[ d^q \hat{n}(i,t+1,q) d^q \hat{n}(i,t+1,{q}) - 2 d^q \hat{n}(i,t+1,q) d^q \hat{n}(i,t,{q}) \right] \nonumber\\ 
+%10
+&+ K\cdot N_t\cdot N^2 
+\end{align}
+
+And we rearrange to have all the on-site pieces together:
+\begin{align}
+%1
+K\hat{D} &= \sum_{t_0}^{t_f} \sum_i \sum_{q=0}^{N_q-1} (-\mu(t,i) - 2\rho) d^q \hat{n}(i,t,q) \nonumber\\
+%5
+&+ \frac{1}{K} \sum_{t_0}^{t_f} \sum_{i} \sum_{q=0}^{N_q-1} \left[ \frac{\gamma}{2} {\Sigma^t_{ii}} + \lambda(t,i)\lambda(t,i) + \rho \right] d^q \hat{n}(i,t,q) d^q \hat{n}(i,t,{q}) \nonumber\\
+%9a
+&+ \frac{1}{K} \sum_{t_0}^{t_f-1} \sum_{i} \sum_{q=0}^{N_q-1} 2\lambda(t,i)\lambda(t,i) d^q \hat{n}(i,t+1,q) d^q \hat{n}(i,t+1,{q}) \nonumber\\ 
+%2
+&+ \frac{1}{K} \sum_{t_0}^{t_f} \sum_{i<j} \sum_{q<\bar{q}}^{N_q-1} 4\left[ \frac{\gamma}{2} {\Sigma^t_{ij}} + \lambda(t,i)\lambda(t,j) + \rho \right] d^q \hat{n}(i,t,q) d^q \hat{n}(j,t,\bar{q}) \nonumber\\
+%3
+&+ \frac{1}{K} \sum_{t_0}^{t_f} \sum_{i<j} \sum_{q}^{N_q-1} 2\left[ \frac{\gamma}{2} {\Sigma^t_{ij}} + \lambda(t,i)\lambda(t,j) + \rho \right] d^q \hat{n}(i,t,q) d^q \hat{n}(j,t,q) \nonumber\\
+%4
+&+ \frac{1}{K} \sum_{t_0}^{t_f} \sum_{i} \sum_{q<\bar{q}}^{N_q-1} 2\left[ \frac{\gamma}{2} {\Sigma^t_{ii}} + \lambda(t,i)\lambda(t,i) + \rho \right] d^q \hat{n}(i,t,q) d^q \hat{n}(i,t,\bar{q}) \nonumber\\
+%6
+&+ \frac{1}{K} \sum_{t_0}^{t_f-1} \sum_{i<j} \sum_{q<\bar{q}}^{N_q-1} 4\lambda(t,i)\lambda(t,j) \left[ d^q \hat{n}(i,t+1,q) d^q \hat{n}(j,t+1,\bar{q}) - 2 d^q \hat{n}(i,t+1,q) d^q \hat{n}(j,t,\bar{q}) \right] \nonumber\\    
+%7
+&+ \frac{1}{K} \sum_{t_0}^{t_f-1} \sum_{i<j} \sum_{q=0}^{N_q-1} 2\lambda(t,i)\lambda(t,j) \left[ d^q \hat{n}(i,t+1,q) d^q \hat{n}(j,t+1,{q}) - 2 d^q \hat{n}(i,t+1,q) d^q \hat{n}(j,t,{q}) \right] \nonumber\\    
+%8
+&+ \frac{1}{K} \sum_{t_0}^{t_f-1} \sum_{i} \sum_{q<\bar{q}}^{N_q-1}4\lambda(t,i)\lambda(t,i) \left[ d^q \hat{n}(i,t+1,q) d^q \hat{n}(i,t+1,\bar{q}) - 2 d^q \hat{n}(i,t+1,q) d^q \hat{n}(i,t,\bar{q}) \right] \nonumber\\    
+%9b
+&+ \frac{1}{K} \sum_{t_0}^{t_f-1} \sum_{i} \sum_{q=0}^{N_q-1} 2\lambda(t,i)\lambda(t,i) \left[ - 2 d^q \hat{n}(i,t+1,q) d^q \hat{n}(i,t,{q}) \right] \nonumber\\ 
+%10
+&+ K\cdot N_t\cdot N^2 
+\end{align}
+
 
 \begin{thebibliography}{10}
 \end{thebibliography}
