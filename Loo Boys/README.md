@@ -23,19 +23,8 @@ We also partner with industry experts like PFF (Pro Football Focus) and SIS (Spo
 - "I haven't had to buy a drink in years and my friends are asking me for debt forgiveness" - Alex 
 - "I love the platform; it makes fantasy easy and fun! My boyfriend's friends can't belive I'm so good!" - Stacy
 
-See [here](Business_app.md) for our business application. 
+See [here](Business_app.md) for our business application and set-up workflow. 
 
-## Setup
-
-1. Make sure you have X installed and configured.
-
-2. Set up your preferred virtual environment.
-
-3. pip install -r requirements.txt
-
-## How to Use
-
-From command line: Use python solvers/script.py -h
 
 ## Contributors 
 
