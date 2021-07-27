@@ -58,27 +58,7 @@ class Calibration:
             schedules.append(spec)
         
         return frequencies,schedules
-    
-    def amplitude01_schedules(self,max_amp=1.0,qbit=0):
-        schedules = []
-        drive_powers = np.linspace(0, max_amp, MAXFREQS)
-
-        # Define the drive pulse
-        drive_sigma = SAMPLE * round(SIGMA/ SAMPLE/ self.dt)       # The width of the gaussian in units of dt
-        drive_samples = TRUNC * drive_sigma   # The truncating parameter in units of dt
-
-        for drive_power in drive_powers:
-            gauss = pulse_lib.gaussian(duration=drive_samples,sigma=drive_sigma,amp=drive_power)
-            with pulse.build(backend=self.backend) as spec:
-                with pulse.align_sequential():
-                    pulse.shift_frequency(self.df01_calib, pulse.DriveChannel(qbit))
-                    pulse.play(gauss, pulse.DriveChannel(qbit))
-                    pulse.measure(qbit)
-
-            schedules.append(spec)
         
-        return drive_powers,schedules
-    
     def frequency12_schedules(self,span_range=1/200,qbit=0,span=[-0.36e9, -0.32e9]):
         schedules = []
         frequencies = np.linspace(span[0],span[1], MAXFREQS)
@@ -98,14 +78,33 @@ class Calibration:
             schedules.append(spec)
         
         return frequencies,schedules
-    
-    def amplitude12_schedules(self,max_amp=1.0,qbit=0):
+
+    def amplitude01_schedules(self,max_amp=1.0,qbit=0):
         schedules = []
         drive_powers = np.linspace(0, max_amp, MAXFREQS)
 
         # Define the drive pulse
         drive_sigma = SAMPLE * round(SIGMA/ SAMPLE/ self.dt)       # The width of the gaussian in units of dt
         drive_samples = TRUNC * drive_sigma   # The truncating parameter in units of dt
+
+        for drive_power in drive_powers:
+            gauss = pulse_lib.gaussian(duration=drive_samples,sigma=drive_sigma,amp=drive_power)
+            with pulse.build(backend=self.backend) as spec:
+                with pulse.align_sequential():
+                    pulse.shift_frequency(self.df01_calib, pulse.DriveChannel(qbit))
+                    pulse.play(gauss, pulse.DriveChannel(qbit))
+                    pulse.measure(qbit)
+
+            schedules.append(spec)
+        
+        return drive_powers,schedules    
+    
+    def amplitude12_schedules(self,max_amp=1.0,qbit=0):
+        schedules = []
+        drive_powers = np.linspace(0, max_amp, MAXFREQS)
+
+        drive_sigma = SAMPLE * round(SIGMA/ SAMPLE/ self.dt)       
+        drive_samples = TRUNC * drive_sigma   
 
         for drive_power in drive_powers:
             gauss = pulse_lib.gaussian(duration=drive_samples,sigma=drive_sigma,amp=drive_power)
@@ -120,7 +119,94 @@ class Calibration:
             schedules.append(spec)
         
         return drive_powers,schedules
+
+    def amplitude_y01_schedules(self,max_amp=1.0,qbit=0):
+        schedules = []
+        drive_powers = np.linspace(0, max_amp, MAXFREQS)
+
+        # Define the drive pulse
+        drive_sigma = SAMPLE * round(SIGMA/ SAMPLE/ self.dt)       
+        drive_samples = TRUNC * drive_sigma  
+        drive_power = cal.a01_calib*1j
+        yrot_pulse =cal.gaussian_pulse(drive_power=drive_power/2)
+        
+        for drive_power in drive_powers:
+            gauss = pulse_lib.gaussian(duration=drive_samples,sigma=drive_sigma,amp=drive_power)
+            with pulse.build(backend=self.backend) as spec:
+                with pulse.align_sequential():
+                    pulse.shift_frequency(self.df01_calib, pulse.DriveChannel(qbit))
+                    pulse.play(yrot_pulse, pulse.DriveChannel(qbit)) #sqrt(y)
+                    pulse.play(self.pulse_rx01(), pulse.DriveChannel(qbit)) #x
+                    pulse.play(yrot_pulse, pulse.DriveChannel(qbit)) #sqrt(y)
+                    pulse.measure(qbit)
+
+            schedules.append(spec)
+        
+        return drive_powers,schedules    
     
+    def amplitude_h12_schedules(self, max_amp=1.0,qbit=0):
+        schedules = []
+        drive_powers = np.linspace(0, max_amp, MAXFREQS)
+
+        drive_sigma = SAMPLE * round(SIGMA/ SAMPLE/ self.dt)       
+        drive_samples = TRUNC * drive_sigma   
+
+        for drive_power in drive_powers:
+            gauss = pulse_lib.gaussian(duration=drive_samples,sigma=drive_sigma,amp=drive_power)
+            with pulse.build(backend=self.backend) as spec:
+                with pulse.align_sequential():
+                    pulse.shift_frequency(self.df01_calib, pulse.DriveChannel(qbit))
+                    pulse.play(self.pulse_rx01(), pulse.DriveChannel(qbit))
+                    pulse.shift_frequency(self.df12_calib, pulse.DriveChannel(qbit))
+                    pulse.play(self.pulse_rx12(np.pi/2), pulse.DriveChannel(qbit))
+                    pulse.measure(qbit)
+            schedules.append(spec)
+        
+        return drive_powers,schedules         
+
+    def amplitude_h02_schedules(self, max_amp=1.0,qbit=0):
+        schedules = []
+        drive_powers = np.linspace(0, max_amp, MAXFREQS)
+
+        drive_sigma = SAMPLE * round(SIGMA/ SAMPLE/ self.dt)       
+        drive_samples = TRUNC * drive_sigma  
+        theta1 = 2*np.cos(1/np.sqrt(3))
+        theta2 = np.pi/2
+        for drive_power in drive_powers:
+            gauss = pulse_lib.gaussian(duration=drive_samples,sigma=drive_sigma,amp=drive_power)
+            with pulse.build(backend=self.backend) as spec:
+                with pulse.align_sequential():
+                    pulse.shift_frequency(self.df01_calib, pulse.DriveChannel(qbit))
+                    pulse.play(self.pulse_rx01(theta = np.pi/2), pulse.DriveChannel(qbit))
+                    pulse.shift_frequency(self.df12_calib, pulse.DriveChannel(qbit))
+                    pulse.play(self.pulse_rx12(), pulse.DriveChannel(qbit))
+                    pulse.measure(qbit)
+            schedules.append(spec)
+        
+        return drive_powers,schedules     
+    
+    def amplitude_equal_superposition_schedules(self, max_amp=1.0,qbit=0):
+        schedules = []
+        drive_powers = np.linspace(0, max_amp, MAXFREQS)
+
+        # Define the drive pulse
+        drive_sigma = SAMPLE * round(SIGMA/ SAMPLE/ self.dt)       # The width of the gaussian in units of dt
+        drive_samples = TRUNC * drive_sigma   # The truncating parameter in units of dt
+        theta1 = 2*np.cos(1/np.sqrt(3))
+        theta2 = np.pi/2
+        for drive_power in drive_powers:
+            gauss = pulse_lib.gaussian(duration=drive_samples,sigma=drive_sigma,amp=drive_power)
+            with pulse.build(backend=self.backend) as spec:
+                with pulse.align_sequential():
+                    pulse.shift_frequency(self.df01_calib, pulse.DriveChannel(qbit))
+                    pulse.play(self.pulse_rx01(theta=theta1), pulse.DriveChannel(qbit))
+                    pulse.shift_frequency(self.df12_calib, pulse.DriveChannel(qbit))
+                    pulse.play(self.pulse_rx12(theta=theta2), pulse.DriveChannel(qbit))
+                    pulse.measure(qbit)
+            schedules.append(spec)
+        
+        return drive_powers,schedules        
+                  
     def run_schedule(self,schedules):
         job = self.backend.run(schedules, meas_level=1)
         job_monitor(job)
@@ -175,6 +261,26 @@ class Calibration:
         params = match_sine(X,drive_powers)
         self.a12_calib = params[0]
     
+    def fit_results_a_y01(self,result_data,drive_powers):
+        Y = np.angle(result_data)
+        params = match_sine(Y,drive_powers)
+        self.y01_calib = params[0]
+    
+    def fit_results_a_h12(self, result_data, drive_powers):
+        H = np.angle(result_data)
+        params = match_sine(H, drive_powers)
+        self.h12_calib = params[0]
+
+    def fit_results_a_h02(self, result_data, drive_powers):
+        H = np.angle(result_data)
+        params = match_sine(H, drive_powers)
+        self.h02_calib = params[0]
+        
+    def fit_results_a_eq_sup(self, result_data, drive_powers):
+        ES = np.angle(result_data)
+        params = match_sine(ES, drive_powers)
+        self.eq_sup_calib = params[0]
+        
     ###################################
     ## Pulses #########################
     ###################################
@@ -197,6 +303,19 @@ class Calibration:
         gauss = pulse_lib.gaussian(duration=drive_samples,sigma=drive_sigma,amp=drive_power)
         return gauss
 
+    def pulse_y01(self,theta=np.pi):
+        # Define the drive pulse
+        drive_sigma = SAMPLE * round(SIGMA/ SAMPLE/ self.dt)       # The width of the gaussian in units of dt
+        drive_samples = TRUNC * drive_sigma   # The truncating parameter in units of dt
+        theta_wrap = theta - 2*np.pi*np.floor(theta/(2*np.pi))
+        drive_power = self.y01_calib*theta_wrap/np.pi
+        gauss = pulse_lib.gaussian(duration=drive_samples,sigma=drive_sigma,amp=drive_power)
+        return gauss    
+    
+    ###################################
+    ## Measurements ###################
+    ###################################    
+    
     def classify_results(self,result_data):
         # D dims distance to center [real class, shots , center class]
         D = np.abs(np.expand_dims(self.state_centers,axis=(0,1))-np.expand_dims(result_data,axis=2))
