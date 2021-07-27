@@ -17,6 +17,7 @@ The Lord's Vig is an immersive Fantasy Sports and Betting platform, the first of
 - Machine Learning models to predict betting lines & tournament winners
 - Trade simulator to ensure you are never on the side of a sub-optimal transaction!
 
+We also partner with industry experts like PFF (Pro Football Focus) and SIS (Sports Info Solutions) to ensure you have the best metrics to guage player value and ensure YOU maintain the bragging rights. We do all the hard work- so you can rely on inferring value from key statistics. 
 
 ## Setup
 
