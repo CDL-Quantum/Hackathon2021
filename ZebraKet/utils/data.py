@@ -114,6 +114,7 @@ def read_profit_optimization_data(cost_file:str, selected_suppliers:list[str or 
     else: 
         # Determine the price we charge based on the minimum cost from the selected suppliers
         cost_array = np.array(cost_dataframe.loc[selected_suppliers])
+        cost_array[cost_array == missing_product_price] = np.inf  # Hack so that cost is not -1
         cost = np.amin(cost_array, axis=0)
         
     price = [p*markup for p in cost]
@@ -143,3 +144,7 @@ if __name__ == "__main__":
     profit, cost = read_profit_optimization_data('data/small-cost-mock.csv')
     print('\nProfit', profit)
     print('\nCost', cost)
+
+    profit2, cost2 = read_profit_optimization_data('data/small-cost-mock.csv', ['supplier1', 'supplier2','supplier5','supplier6'])
+    print('\nProfit2', profit2)
+    print('\nCost2', cost2)
