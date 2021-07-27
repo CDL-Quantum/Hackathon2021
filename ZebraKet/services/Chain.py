@@ -1,6 +1,5 @@
 from utils.data import read_inventory_optimization_data
 
-
 class Chain(list):
     def __init__(self) -> None:
         super().__init__()
@@ -29,8 +28,6 @@ class Chain(list):
             qubo.build(**next_iteration_data)
             qubo.solve(sampler, **sampler_params)
             previous_qubo = qubo
-            print('found solution: \n', qubo.response)
-        
 
 if __name__ == "__main__":
 
@@ -40,6 +37,7 @@ if __name__ == "__main__":
     from config import standard_mock_data
     from neal import SimulatedAnnealingSampler
     from dwave.system import LeapHybridDQMSampler
+    import numpy as np
 
     budget = 1000
     max_number_of_products = 30
@@ -56,7 +54,8 @@ if __name__ == "__main__":
         def post_process_inventory_qubo(solution, energy):
             from utils.data import read_profit_optimization_data
 
-            profit, cost = read_profit_optimization_data(data_file, solution)
+            hacky_suppliers = [f'supplier{i}' for i in np.where(solution)[0]]  # looses the name, but its a hackathon.
+            profit, cost = read_profit_optimization_data(data_file, hacky_suppliers)
 
             return dict(
                 profits=profit,
@@ -72,26 +71,6 @@ if __name__ == "__main__":
     qubo1 = ProfitQubo()
     sampler1 = LeapHybridDQMSampler().sample_dqm
     sampler1_params = dict()
-
-    # profit, cost = read_profit_optimization_data(standard_mock_data['small'])
-    # sampler1 = LeapHybridDQMSampler().sample_dqm
-    # sampler2 = LeapHybridDQMSampler().sample_dqm
-    
-
-    # # supplier_qubo = SupplierQubo()
-
-    # # price_qubo = ProfitQubo(sampler1, profit, cost)
-    # # qubo0.define_post_process_function(lambda solution, energy: dict(profits=profit, costs=cost))
-    # # # qubo0.solve()
-    # # # print(qubo0.post_process)
-    # # qub
-    
-    # # qubo1 = ProfitQubo(sampler2)
-
-    # qubo0 = ProfitQubo(profit, cost)
-    # qubo0.define_post_process_function(lambda solution, energy: dict(profits=profit, costs=cost))
-
-    # qubo1 = ProfitQubo()
 
     chain = Chain()
     chain.append(qubo0)
