@@ -20,7 +20,7 @@ Sports betting is a 203 BILLION dollar industry in the U.S. Couple that with the
 
 ## Presentation
 
-
+Slides to our presentation can be found [here](https://docs.google.com/presentation/d/1uoSEKO_CzY3tWiS7wWERNEAjORk5LXj8cneoCqp16gU/edit?usp=sharing).
 
 
 ![cdl](img/cdl.jpg)
