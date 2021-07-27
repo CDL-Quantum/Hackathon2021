@@ -38,7 +38,7 @@ The approach is based on a few observations.
 
   where ![omega](https://latex.codecogs.com/gif.latex?%5Comega) gives the ![zero-to-one](https://latex.codecogs.com/gif.latex?0%5Crightarrow1) excitation frequency (![](https://latex.codecogs.com/gif.latex?%5Comega%20%5Cequiv%20%5Comega%5E%7B0%5Crightarrow1%7D)) and ![alpha](https://latex.codecogs.com/gif.latex?%5Calpha) is the anharmonicity between the ![zero-to-one](https://latex.codecogs.com/gif.latex?0%5Crightarrow1) and ![one-to-two](https://latex.codecogs.com/gif.latex?1%5Crightarrow2) frequencies (![alpha_is_delta_omega](https://latex.codecogs.com/gif.latex?%5Calpha%20%5Cequiv%20%5Comega%5E%7B1%5Crightarrow2%7D%20-%20%5Comega%5E%7B0%5Crightarrow1%7D)).
 
-![Duffing oscillator](ibmq/Anharmonic_oscillator.gif)
+![Duffing oscillator](ibmq/images/Anharmonic_oscillator.gif)
 
 Figure used with permission from Wikipedia
 
@@ -51,7 +51,7 @@ The (![zero-to-one](https://latex.codecogs.com/gif.latex?0%5Crightarrow1) excita
 
 This is demonstrated in the figure below.
 
-![Frequency sweep pulse](ibmq/img_freq_sweep.png)
+![Frequency sweep pulse](ibmq/images/img_freq_sweep.png)
 
 3. Once the frequency of the qubit is calibrated, the next step is to determine the strength of a ![pi](https://latex.codecogs.com/gif.latex?%5Cpi) pulse. The latter chages the qubit state from ![](https://latex.codecogs.com/gif.latex?%7C%200%20%5Crangle) to ![](https://latex.codecogs.com/gif.latex?%7C%201%20%5Crangle), and vice versa. This is also called the ![X](https://latex.codecogs.com/gif.latex?X) or ![X180](https://latex.codecogs.com/gif.latex?X180) gate, or bit-flip operator.
 A technique called Rabi experiment is used to calibrate the amplitude needed to achieve a ![pi](https://latex.codecogs.com/gif.latex?%5Cpi) rotation from ![](https://latex.codecogs.com/gif.latex?%7C%200%20%5Crangle) to ![](https://latex.codecogs.com/gif.latex?%7C%201%20%5Crangle). The desired rotation is shown on the Bloch sphere in the figure below - you can see that the ![pi](https://latex.codecogs.com/gif.latex?%5Cpi) pulse gets its name from the angle it sweeps over on a Bloch sphere.
@@ -60,19 +60,19 @@ A technique called Rabi experiment is used to calibrate the amplitude needed to 
 
 In the Rabi experiment, a Gaussian pulse schedule is created with fixed duration, sigma and frequency (that was obtained in the previous experiment), and the amplitude is changed in small increments. The qubit response is then measured after each pulse to determine the optimal amplitude.
 
-![Rabi experiment](ibmq/img_rabi.png)
+![Rabi experiment](ibmq/images/img_rabi.png)
 
 4. Similar technique can be used to calibrate and measure the second excited state.
 However, due to hardware limitations we cannot apply a strong enough pulse in order to excite the transmon from the ground state to the second excited state directly.
 We use the above technique to take the qubit to the first excited state first, and then apply a sideband frequency sweep to find and calibrate the frequency and amplitude needed to take the transmon to the second excited state.
 
-<img src="ibmq/img_sideband_freq.png">
+<img src="ibmq/images/img_sideband_freq.png">
 
 5. Once our ![pi](https://latex.codecogs.com/gif.latex?%5Cpi) pulses have been calibrated, we can now create the states ![](https://latex.codecogs.com/gif.latex?%7C%201%20%5Crangle) and ![](https://latex.codecogs.com/gif.latex?%7C2%5Crangle) with good probability.
 We can use this to find out what the states ![](https://latex.codecogs.com/gif.latex?%7C%200%20%5Crangle), ![](https://latex.codecogs.com/gif.latex?%7C%201%20%5Crangle) and ![](https://latex.codecogs.com/gif.latex?%7C2%5Crangle) look like in our measurements, by repeatedly preparing them and plotting the measured signal.
 The results of the measurements are used to build a discriminator, which is a function which takes a measured and kerneled complex value and classifies it as 0, 1 or 2.
 
-<img src="ibmq/img_discriminator.png">
+<img src="ibmq/images/img_discriminator.png">
 
 
 ## Implementing Single-qutrit Gates
