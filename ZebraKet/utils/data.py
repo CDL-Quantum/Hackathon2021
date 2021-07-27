@@ -7,8 +7,8 @@ import os
 import time
 from config import data_dir, missing_product_price
 
-def generate_mock_data(number_products: int=10, number_suppliers:int=10, price_save_name=None, cost_save_name=None, markup: float=2.4):
-    """Generates 2 dataframes for cost per supplier and price per item
+def generate_mock_data(number_products: int=10, number_suppliers:int=10, save_name=None):
+    """Generates dataframe for cost per supplier
 
     Input Paramaters: 
     int number_products -- Number of products to mock
@@ -17,60 +17,36 @@ def generate_mock_data(number_products: int=10, number_suppliers:int=10, price_s
     
     Returns: 
     Cost Dataframe (rows = suppliers, columns = products)
-    Price Dataframe (rows = ['price'], columns = products)
     """
-    def generate_mock_cost_data(number_products: int=10, number_suppliers:int=10):
-        """Generates fake data for cost of products per supplier as a pandas table where rows are suppliers and columns are products
-        """
-        # Cost Matrix
-        # random.seed(a=1, version=2)
-        C = np.zeros((number_suppliers, number_products)) + missing_product_price
-        #cost of all items for every supplier
-        for i in range (number_products):
-            #base cost used to calculate the cost of the item at each supplier
-            c_base = random.random()*25
-            for s in range (number_suppliers):
-                # There will be a 25% chance that a given supplier does not have a product 
-                if random.random() > 0.25:
-                    #Cost of item fluctuates from c_base 
-                    C[s, i] = random.randint(90,130) / 100 * c_base
-        
-        df = pd.DataFrame(C, index=[f'supplier{i}' for i in range(number_suppliers)], columns=[f'item{i}' for i in range(number_products)])
-        return df
-        
-    def generate_mock_price_data(cost_dataframe: pd.DataFrame, markup: float):
-        """Generates fake data for cost of products per supplier as a pandas table where rows are suppliers and columns are products
-        
-        This uses the cost_dataframe generated from "generate_mock_cost_data" and marks the price up by multiplying by markup
-        """
-        cost = np.array(cost_dataframe)
-        cost[cost==missing_product_price] = np.inf  # Make missing prices infinite so that we can easily calculate the min cost
-        min_cost = np.amin(cost, axis=0) 
-        profit = [c*markup for c in min_cost]
-        df = pd.DataFrame([profit, min_cost], columns=cost_dataframe.columns, index=['price', 'cost'])
-        return df
 
-    cost_df = generate_mock_cost_data(number_products=number_products, number_suppliers=number_suppliers)
-    price_df = generate_mock_price_data(cost_dataframe=cost_df, markup=markup)
+    # Cost Matrix
+    # random.seed(a=1, version=2)
+    cost = np.zeros((number_suppliers, number_products)) + missing_product_price
+    #cost of all items for every supplier
+    for i in range(number_products):
+        # base cost used to calculate the cost of the item at each supplier
+        cost_base = random.random() * 25
+        for supplier in range (number_suppliers):
+            # There will be a 25% chance that a given supplier does not have a product 
+            if random.random() > 0.25:
+                #Cost of item fluctuates from c_base 
+                cost[supplier, i] = random.randint(90,130) / 100 * cost_base
+    
+    cost_df = pd.DataFrame(cost, index=[f'supplier{i}' for i in range(number_suppliers)], columns=[f'item{i}' for i in range(number_products)])
 
     default_save_name = f'-n_products_{number_products}-n_suppliers_{number_suppliers}-{time.strftime("%Y%m%d-%H%M%S")}.csv'
-    price_filename = f'price{default_save_name}' if price_save_name is None else price_save_name
-    cost_filename = f'cost{default_save_name}' if cost_save_name is None else cost_save_name
-
+    cost_filename = f'cost{default_save_name}' if save_name is None else save_name
     cost_data_dir = os.path.join(data_dir, cost_filename)
-    price_data_dir = os.path.join(data_dir, price_filename)
 
     if not os.path.isdir(data_dir):
         print(f'Creating data directory: {data_dir}')
         os.makedirs(data_dir)
 
     print(f'Saving cost data to {cost_data_dir}')
-    print(f'Saving price data to {price_data_dir}')
 
     cost_df.to_csv(cost_data_dir)
-    price_df.to_csv(price_data_dir)
 
-    return cost_df, price_df
+    return cost_df
 
 def parse_profit_dataframe(data: pd.DataFrame) -> list[list[str], list[float], list[float]]:
     """Creates the profit dataframe
@@ -116,19 +92,34 @@ def read_inventory_optimization_data(cost_file:str) -> tuple[list, list[set]]:
 
     return product_names, supplier_inventories
 
-def read_profit_optimization_data(cost_file:str, price_file:str) -> tuple[list[float], list[float]]:
+def read_profit_optimization_data(cost_file:str, selected_suppliers:list[str or int]=None, markup=2.4) -> tuple[list[float], list[float]]:
     """Reads cost and price csv files to return data suitable to be ingested in the profit optimization formulation
     
     Params (both files can be generated by generate_mock_data):
     str cost_file -- filepath to the cost matrix
-    str price_file -- filepath to the price matrix
+    list[str|int] selected_suppliers -- if we know what suppliers we will take, we use this to specify them and deduce the price we charge based on their costs
+                                        if this is not specified, we deduce the price we charge based on the maximum costs for all suppliers
+    float markup -- amount of markup to apply to the found cost (i.e. price = markup*cost)
 
     Returns
-    List of floats indicating the cost per item
     List of floats indicating the profit per item
+    List of floats indicating the cost per item
     """
-    price_df = pd.read_csv(price_file, index_col=0)
-    pass
+    cost_dataframe = pd.read_csv(cost_file, index_col=0)
+    
+    if selected_suppliers is None: 
+        # Determine the price we charge based on the maximum cost for every supplier
+        cost_array = np.array(cost_dataframe)
+        cost = np.amax(cost_array, axis=0) 
+    else: 
+        # Determine the price we charge based on the minimum cost from the selected suppliers
+        cost_array = np.array(cost_dataframe.loc[selected_suppliers])
+        cost = np.amin(cost_array, axis=0)
+        
+    price = [p*markup for p in cost]
+    profit = [p - c for p, c in zip(price, cost)]
+
+    return profit, cost
 
 
 if __name__ == "__main__":
@@ -144,6 +135,11 @@ if __name__ == "__main__":
     # print(p1)
 
     # # Example usage reading data for the inventory problem
-    inventory, supplier_inventories = read_inventory_optimization_data('data/small-cost-mock.csv')
-    print('\nMy desired inventory', inventory)
-    print('\n\nSupplier inventories', supplier_inventories)
+    # inventory, supplier_inventories = read_inventory_optimization_data('data/small-cost-mock.csv')
+    # print('\nMy desired inventory', inventory)
+    # print('\n\nSupplier inventories', supplier_inventories)
+
+    # # Example usage reading data for the profit optimization problem
+    profit, cost = read_profit_optimization_data('data/small-cost-mock.csv')
+    print('\nProfit', profit)
+    print('\nCost', cost)
