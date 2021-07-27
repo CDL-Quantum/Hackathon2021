@@ -117,7 +117,7 @@ def read_inventory_optimization_data(cost_file:str) -> tuple[list, list[set]]:
 
 if __name__ == "__main__":
 
-    # # Example usage
+    # # Example usage creating data
     # cost_dataframe, price_dataframe = generate_mock_data(20, 10)
     # print('Cost DataFrame:\n', cost_dataframe, '\n')
 
@@ -127,6 +127,7 @@ if __name__ == "__main__":
     # p1 = pd.read_csv(standard_mock_data['small']['price'], index_col=0)
     # print(p1)
 
+    # # Example usage reading data for the inventory problem
     inventory, supplier_inventories = read_inventory_optimization_data('data/small-cost-mock.csv')
     print('\nMy desired inventory', inventory)
     print('\n\nSupplier inventories', supplier_inventories)
