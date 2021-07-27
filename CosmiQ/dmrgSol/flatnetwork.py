@@ -21,11 +21,11 @@ class FlatNetwork():
         print('Max MPO dim: ',self.maxl)
         
         #Parameters
-        self.mu = lambda t,i: 1.0
-        self.lam = lambda t,i: 1.0
-        self.Sig = lambda t,i,j: 1.0
+        self.mu = lambda t,i: 1.0 
+        self.lam = lambda t,i: 0.0
+        self.Sig = lambda t,i,j: (0.01 if i == j else 0.0)
         self.ga = 1.0
-        self.rho = 1.0
+        self.rho = 2.0
         self.K = self.d**self.L[2]        
         
         #Store mpos
@@ -80,13 +80,15 @@ class FlatNetwork():
             
                     print(t,i,q)
                     #Do diagonal pieces for all sites
-                    lo.set(targetrow,0,dmrg.N((-self.mu(t,i)+2.0*self.rho)*pds[q], d=self.d)) #on-site term
+                    lo.set(targetrow,0,dmrg.N((-self.mu(t,i)-2.0*self.rho)*pds[q], d=self.d)) #on-site term
+                    
                     lo.add(targetrow,0,dmrg.N2((self.ga/2*self.Sig(t,i,i) + self.lam(t,i)**2 + self.rho)*pds[q]**2/self.K, d = self.d))
                     if(t>0):
                         lo.add(targetrow,0,dmrg.N2((2.*self.lam(t-1,i)**2)*pds[q]**2/self.K,d=self.d))
 
                     #We are done if it's the last qubit
                     if(t==self.L[0]-1 and i==self.L[1]-1 and q==self.L[2]-1):
+                        mpoc.append(lo)
                         continue
                     
                                
@@ -115,14 +117,14 @@ class FlatNetwork():
                                 lo.set(targetrow,sep,dmrg.N(-8.0*self.lam(t,i)*self.lam(t,j)*pds[q]*pds[qp]/self.K,d=self.d))
                             
                             sep = abs(qm(t+1,j,q) - qm(t,i,q))
-                            lo.set(targetrow,sep,dmrg.N(-4.0*self.lam(t,i)*self.lam(t,j)*pds[q]*pds[q]/self.K,d=self.d))
-                         
-                        sep = abs(qm(t+1,i,q) - qm(t,i,q))
-                        lo.set(targetrow,sep,dmrg.N(-4.0*self.lam(t,i)**2*pds[q]**2/self.K,d=self.d))
-                               
+                            lo.set(targetrow,sep,dmrg.N(-4.0*self.lam(t,i)*self.lam(t,j)*pds[q]**2/self.K,d=self.d))
+    
                         for qp in range(q+1, self.L[2]):
                             sep = abs(qm(t+1,i,qp) - qm(t,i,q))
                             lo.set(targetrow,sep,dmrg.N(-8.0*self.lam(t,i)**2*pds[q]*pds[qp]/self.K,d=self.d))
+                            
+                        sep = abs(qm(t+1,i,q) - qm(t,i,q))
+                        lo.set(targetrow,sep,dmrg.N(-4.0*self.lam(t,i)**2*pds[q]**2/self.K,d=self.d))
                         
                     for j in range(i+1,self.L[1]):
                         for qp in range(q+1, self.L[2]):
@@ -130,20 +132,33 @@ class FlatNetwork():
                             lo.set(targetrow,sep,dmrg.N(4.0/self.K*pds[q]*pds[qp]*(self.ga/2*self.Sig(t,i,j) + self.lam(t,i)*self.lam(t,j) + self.rho),d=self.d))
                                    
                         sep = abs(qm(t,j,q) - qm(t,i,q))
-                        lo.set(targetrow,sep,dmrg.N(2.0/self.K*pds[q]*pds[qp]*(self.ga/2*self.Sig(t,i,j) + self.lam(t,i)*self.lam(t,j) + self.rho),d=self.d))
-                                                
-            mpoc.append(lo)
-            #print(pairs)
-            #lo.show()                    
+                        lo.set(targetrow,sep,dmrg.N(2.0/self.K*pds[q]**2*(self.ga/2*self.Sig(t,i,j) + self.lam(t,i)*self.lam(t,j) + self.rho),d=self.d))
+                                       
+                    mpoc.append(lo)
+                    #print(pairs)
+                    #lo.show()                    
          
         self.mpoc = mpoc
         return mpoc            
+        
+    def initialize(self):
+        #Setup DMRG parameters
+        dmrgp = dmrg.dmrgParams()
+        dmrgp.L = np.prod(self.L)
+        dmrgp.d = self.d
+        
+        #Get MPOS and MPS
+        mpos = self.get_mpos()
+        mps = dmrg.MPS(dmrgp, allocate=False)        
+        dm = dmrg.DMRG(dmrgp,mps,mpos)
+        return dm
         
     def run(self, cnvgThreshold = 1.0e-6, **kwargs):
         
         #Setup DMRG parameters
         dmrgp = dmrg.dmrgParams()
-        dmrgp.L = self.L
+        dmrgp.L = np.prod(self.L)
+        dmrgp.d = self.d
         
         #Get MPOS and MPS
         mpos = self.get_mpos()
@@ -180,14 +195,15 @@ class FlatNetwork():
                     break
                 olde = newe
             
-            if(self.L<6):
+            '''
+            if(dmrgp.L<6):
                 amp = np.array(mps.getAmp())        
                 ampl = np.where(np.abs(amp)>1.0e-8)[0]
                 ampv = amp[ampl]
-                config = [bin(x)[2:].zfill(self.L) for x in ampl]
+                config = [bin(x)[2:].zfill(dmrgp.L) for x in ampl]
                 print(config)
                 print(ampv**2)  
-                        
+            '''        
             print('-----------')
         
             if(sch<len(sweepd)-1):
@@ -247,8 +263,7 @@ class FlatNetwork():
             tE = -1.0*sum(cs) + uE
             #print('** Current Energy: ',tE, 'for state: ',cs)                                                          
             print('** Current Energy: ',tE, end='')
-            
-            
+                       
             
             #Compute new MF values
             new_mfN = np.zeros(self.L)
@@ -283,13 +298,54 @@ class FlatNetwork():
             cs = lastState[1]
             
         return tE,cs
+
+def ss(x, d = 3):
+    s = ''
+    m = x
+    while(m>0):
+        r = m%d
+        s = str(r) + s
+        m = int(m/d)
+   
+    return s
     
 if __name__ == '__main__':
     
-    L = [2,2,4]
+    print(ss(80))
+    
+    L = [1,2,2]
     fn = FlatNetwork(L)
     
     mpos = fn.get_mpos()
-    for mpo in mpos:
-        mpo.show()
+    print('Number of MPOs:',len(mpos))
+    #for mpo in mpos:
+    #    mpo.show()
         
+    #Testing
+    dm = fn.initialize()
+    mps = dmrg.MPS.scalarMPS([0,0,0,0], d = 3)
+    print(dm.energyWith(mps))
+    
+    mps = dmrg.MPS.scalarMPS([0,0,0,1], d = 3)
+    print(dm.energyWith(mps))
+        
+    mps = dmrg.MPS.scalarMPS([1,1,1,1], d = 3)
+    print(dm.energyWith(mps))
+    
+    mps = dmrg.MPS.scalarMPS([2,2,2,2], d = 3)
+    print(dm.energyWith(mps))
+    
+    e, mps = fn.run()
+    amp2 = np.array(mps.getAmp())
+    ns = 3**np.prod(L)
+    print(amp2)
+    
+    print('Number of states: ',ns)
+        
+    ampl = np.where(np.abs(amp2)>1.0e-8)[0]
+    print('Sols size: ',len(ampl))
+    ampv = amp2[ampl]
+    config = [ss(x).zfill(np.prod(L)) for x in ampl]
+    print(config)
+    print(ampv**2)  
+    

@@ -86,15 +86,16 @@ class MPS:
         self.initfn = initfn
         
     @staticmethod
-    def scalarMPS(phystate):
+    def scalarMPS(phystate, d = 2):
         dmrgp = dmrgParams()
         dmrgp.L = len(phystate)
         dmrgp.D = 1
+        dmrgp.d = d
         
-        mps = MPS(dmrgp, initfn = initUniform, eps = 1.0)
+        mps = MPS(dmrgp, initfn = initUniform, eps = 0.0)
         
         for i in range(dmrgp.L):
-            mps.psi[i][1-phystate[i]][0] = 0.0
+            mps.psi[i][phystate[i]][0] = 1.0
         
         return mps
     
@@ -251,11 +252,21 @@ class MPS:
         return nrm
     
     def getAmp(self):
+                
+        def ss(x, d):
+            s = ''
+            m = x
+            while(m>0):
+                r = m%d
+                s = str(r) + s
+                m = int(m/d)
+
+            return s
         
         amp = []
         for i in range(self.dmrgp.d**self.dmrgp.L):
-            state = [int(x) for x in bin(i)[2:].zfill(self.dmrgp.L)]
-            scalarmps = MPS.scalarMPS(state)
+            state = [int(x) for x in ss(i,self.dmrgp.d).zfill(self.dmrgp.L)]
+            scalarmps = MPS.scalarMPS(state, d = self.dmrgp.d)
             amp.append(self.contractWith(scalarmps))
             
         return amp
@@ -421,6 +432,29 @@ class DMRG:
         nrm = self.mps.norm()
         return energy/nrm
 
+    def energyWith(self, mps):
+        
+        #First compute all right intermediates
+        psi = mps.psi
+        rintms = []
+        
+        intm = np.einsum('txr,lrtb->xlb',psi[self.dmrgp.L-1],self.mpos[self.dmrgp.L-1].op)
+        intm = np.einsum('byz,xlb->xly',asa(psi[self.dmrgp.L-1]).conj(),intm)
+        rintms.append(np.copy(intm))
+        
+        for i in range(self.dmrgp.L-2,0,-1):
+            intm = np.einsum('dij,jok->diok',psi[i],intm)
+            intm = np.einsum('tirk,lrtb->ikbl',intm,self.mpos[i].op)
+            intm = np.einsum('ikbl,bmk->ilm',intm,asa(psi[i]).conj())
+            rintms.append(np.copy(intm))
+            
+        rintms.reverse()
+        intm = rintms[0]
+        intm1 = np.einsum('dij,jok->doki',(psi[0]),intm)
+        intm2 = np.einsum('doki,iodb->bk',intm1,self.mpos[0].op)
+        energy = np.einsum('bk,bmk->m',intm2,asa(psi[0]).conj())
+        nrm = mps.norm()
+        return energy/nrm
     
     def sweepleft(self, tol=1.0e-8):
         if(not self.lintc):
