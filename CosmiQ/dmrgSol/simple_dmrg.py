@@ -281,7 +281,7 @@ class MPO:
         self.ops[ex][en] = lop.label
         self.coeff[ex,en] = lop.coeff
     
-    def add(self, en, ex, lop):
+    def add(self, ex, en, lop):
         cpy = self.op[ex,en] + lop.op
         self.op[ex,en] = cpy
 
@@ -319,6 +319,15 @@ class N:
             self.op[i,i] = i*v
         
         self.label = 'N'
+        self.coeff = v
+
+class N2:
+    def __init__(self,v,d=2):
+        self.op = np.zeros([d,d])
+        for i in range(1,d):
+            self.op[i,i] = i**2*v
+        
+        self.label = 'D'
         self.coeff = v
         
 class I:

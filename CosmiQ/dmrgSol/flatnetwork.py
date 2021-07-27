@@ -15,14 +15,15 @@ class FlatNetwork():
         self.L = L #In format: (N_t, N, N_q)                       
         self.d = 3
         
-        #Variables needed for graph creation                
-        self.maxl = qubitmap((0,0,0)) - qubitmap((1,L[1],L[2]-1))   #Longest long-range connection       
-        self.qubitmap = lambda ((t,i,q)): t*L[1]*L[2] + i*L[2] + q
+        #Variables needed for graph creation                              
+        self.qubitmap = lambda t,i,q: t*L[1]*L[2] + i*L[2] + q
+        self.maxl = abs(self.qubitmap(0,0,0) - self.qubitmap(1,L[1],L[2]-1))   #Longest long-range connection 
+        print('Max MPO dim: ',self.maxl)
         
         #Parameters
-        self.mu = lambda(t,i): 1.0
-        self.lam = lambda(t,i): 1.0
-        self.Sig = lambda(t,i,j): 1.0
+        self.mu = lambda t,i: 1.0
+        self.lam = lambda t,i: 1.0
+        self.Sig = lambda t,i,j: 1.0
         self.ga = 1.0
         self.rho = 1.0
         self.K = self.d**self.L[2]        
@@ -31,9 +32,9 @@ class FlatNetwork():
         self.mpoc = None
     
     def loadParams(self, mus, lams, Sigs, rho, ga, K):
-        self.mu = lambda(t,i): mus[t,i]
-        self.lam = lambda(t,i): lams[t,i]
-        self.Sig = lambda(t,i,j): Sigs[t,i,j]
+        self.mu = lambda t,i: mus[t,i]
+        self.lam = lambda t,i: lams[t,i]
+        self.Sig = lambda t,i,j: Sigs[t,i,j]
         self.rho = rho
         self.ga = ga
         self.K = K
@@ -77,11 +78,12 @@ class FlatNetwork():
                         
                         targetrow = self.maxl+1                            
             
+                    print(t,i,q)
                     #Do diagonal pieces for all sites
-                    lo.set(targetrow,0,dmrg.N((-self.mu(t,i)+2.0*self.rho)*pds[q], d=self.d) #on-site term
-                    lo.add(targetrow,0,dmrg.N2((self.ga/2*self.Sig(t,i,i) + self.lam(t,i)**2 + self.rho)*pds[q]**2/self.K, d = self.d)
+                    lo.set(targetrow,0,dmrg.N((-self.mu(t,i)+2.0*self.rho)*pds[q], d=self.d)) #on-site term
+                    lo.add(targetrow,0,dmrg.N2((self.ga/2*self.Sig(t,i,i) + self.lam(t,i)**2 + self.rho)*pds[q]**2/self.K, d = self.d))
                     if(t>0):
-                        lo.add(targetrow,0,dmrg.N2((2.*self.lam(t-1,i)**2)*pds[q]**2/self.K,d=self.d)
+                        lo.add(targetrow,0,dmrg.N2((2.*self.lam(t-1,i)**2)*pds[q]**2/self.K,d=self.d))
 
                     #We are done if it's the last qubit
                     if(t==self.L[0]-1 and i==self.L[1]-1 and q==self.L[2]-1):
@@ -283,7 +285,10 @@ class FlatNetwork():
     
 if __name__ == '__main__':
     
-    L = [6,20,8]
+    L = [2,2,4]
     fn = FlatNetwork(L)
-   
+    
+    mpos = fn.get_mpos()
+    for mpo in mpos:
+        mpo.show()
         
