@@ -10,46 +10,40 @@ import scipy.linalg as la
 
 class FlatNetwork():
     
-    def __init__(self, L, d):
+    def __init__(self, L, d, init=False):
         
         self.L = L #In format: (N_t, N, N_q)                       
         self.d = d
-       
-
  
         #Variables needed for graph creation                              
         self.qubitmap = lambda t,i,q: t*L[1]*L[2] + i*L[2] + q
         self.maxl = abs(self.qubitmap(0,0,0) - self.qubitmap(1,L[1],L[2]-1))   #Longest long-range connection 
         print('Max MPO dim: ',self.maxl)
         
-        
-        #Parameters
-        self.mu = lambda t,i: 1.0 
-        self.lam = lambda t,i: 0.00
-        self.Sig = lambda t,i,j: (0.00 if i == j else 0.0)
-        self.ga = 0.0
-        self.rho = 1000.0
-        self.K = self.d**self.L[2]        
-        self.Kscale = 1.0       
- 
-        #Flash best rho
-        constmax = (self.K-1)/2.0 - 1
-        if(constmax>0):
-            print('\Delta:',self.maxSplit(), 'Min rho: ',self.maxSplit()/constmax, 'Supplied rho: ',self.rho)
-        #self.rho = self.maxSplit()/constmax*2.0 
-
-        self.offset = self.L[0]*self.rho
         #Store mpos
         self.mpoc = None
-        self.make_mpos() 
+        
+        self.K = self.d**self.L[2]        
+        self.Kscale = 1.0       
+        self.offset = 0
+ 
+        if(init):    
+            #Parameters
+            self.mu = lambda t,i: 1.0 
+            self.rho = 1000.0
+ 
+            #Flash best rho
+            constmax = (self.K-1)/2.0 - 1
+            if(constmax>0):
+                print('\Delta:',self.maxSplit(), 'Min rho: ',self.maxSplit()/constmax, 'Supplied rho: ',self.rho)
+            #self.rho = self.maxSplit()/constmax*2.0 
+
+            self.offset = self.L[0]*self.rho        
+            self.make_mpos() 
     
-    def loadParams(self, mus, lams, Sigs, rho, ga, K):
-        self.mu = lambda t,i: mus[t,i]
-        self.lam = lambda t,i: lams[t,i]
-        self.Sig = lambda t,i,j: Sigs[t,i,j]
+    def loadParams(self, mu, rho):
+        self.mu = mu
         self.rho = rho
-        self.ga = ga
-        self.K = K
         
         self.offset = self.L[0]*self.rho
         self.mpoc = None
@@ -108,71 +102,34 @@ class FlatNetwork():
             
                     #print(t,i,q)
                     #Do diagonal pieces for all sites
-                    
 
                     #Term (1)
                     lo.set(targetrow,0,dmrg.N((-self.mu(t,i)-2.0*self.rho)*pds[q]/K, d=self.d)) #on-site term
                     
                     #Term (2-d)
-                    lo.add(targetrow,0,dmrg.N2((self.ga/2*self.Sig(t,i,i) + self.lam(t,i)**2 + self.rho)*pds[q]**2/K2, d = self.d))
-                    #Term (3-d)
-                    if(t<self.L[0]-1):
-                        lo.add(targetrow,0,dmrg.N2((self.lam(t+1,i)**2)*pds[q]**2/K2,d=self.d))
+                    lo.add(targetrow,0,dmrg.N2((self.rho)*pds[q]**2/K2, d = self.d))
                     
-                    #Term(0) constant
-                    #    lo.add(targerrow,0,I*self.offset, d=self.d)
-
                     #We are done if it's the last qubit
                     if(t==self.L[0]-1 and i==self.L[1]-1 and q==self.L[2]-1):
                         mpoc.append(lo)
                         continue
                                
                     #now set last row -- for everything all the way to the last qubit
-                    #Term 4-d    
-                    sep = abs(qm(t+1,i,q) - qm(t,i,q))
-                    lo.set(targetrow,sep,dmrg.N(-2.0*self.lam(t,i)**2*pds[q]**2/K2,d=self.d))
                         
-                    #Term 2-b
+                    #Term 2
                     for qp in range(q+1, self.L[2]):
                         sep = abs(qm(t,i,q) - qm(t,i,qp))
-                        lo.set(targetrow,sep,dmrg.N(2.0*(self.ga/2*self.Sig(t,i,i) + self.lam(t,i)**2 + self.rho)/K2*pds[q]*pds[qp],d=self.d))
-                        
-                        if(t<self.L[0]-1):
-                            #Term 3-c
-                            sep = abs(qm(t,i,q) - qm(t,i,qp))
-                            lo.add(targetrow,sep,dmrg.N(2*self.lam(t+1,i)**2*pds[q]*pds[qp]/K2,d=self.d))
-                            
-                            #Term 4-c
-                            sep = abs(qm(t+1,i,q) - qm(t,i,qp))
-                            lo.set(targetrow,sep,dmrg.N(-4*self.lam(t+1,i)**2*pds[q]*pds[qp]/K2,d=self.d))
+                        lo.set(targetrow,sep,dmrg.N(2.0*(self.rho)/K2*pds[q]*pds[qp],d=self.d))
                             
                     for j in range(i+1,self.L[1]):
                         for qp in range(q+1, self.L[2]):
-                            #Term 2-a
+                            #Term 4 
                             sep = abs(qm(t,j,qp) - qm(t,i,q))
-                            lo.set(targetrow,sep,dmrg.N(4.0/K2*pds[q]*pds[qp]*(self.ga/2*self.Sig(t,i,j) + self.lam(t,i)*self.lam(t,j) + self.rho),d=self.d))
-                        
-                            if(t<self.L[0]-1):
-                                #Term 3-a
-                                sep = abs(qm(t,i,q) - qm(t,j,qp))
-                                lo.add(targetrow,sep,dmrg.N(4*self.lam(t+1,i)*self.lam(t+1,j)*pds[q]*pds[qp]/K2,d=self.d))
-                        
-                                #Term 4-a
-                                sep = abs(qm(t+1,i,q) - qm(t,j,qp))
-                                lo.set(targetrow,sep,dmrg.N(-8*self.lam(t+1,i)*self.lam(t+1,j)*pds[q]*pds[qp]/K2,d=self.d))
-                        
-                        #Term 2-c
+                            lo.set(targetrow,sep,dmrg.N(4.0/K2*pds[q]*pds[qp]*(self.rho),d=self.d))
+
+                        #Term 3
                         sep = abs(qm(t,j,q) - qm(t,i,q))
-                        lo.set(targetrow,sep,dmrg.N(2.0/K2*pds[q]**2*(self.ga/2*self.Sig(t,i,j) + self.lam(t,i)*self.lam(t,j) + self.rho),d=self.d))    
-                                                
-                        if(t<self.L[0]-1):                                                
-                            #Term 3-b
-                            sep = abs(qm(t,i,q) - qm(t,j,q))
-                            lo.add(targetrow,sep,dmrg.N(2*self.lam(t+1,i)*self.lam(t+1,j)*pds[q]**2/K2,d=self.d))       
-                                       
-                            #Term 4-b
-                            sep = abs(qm(t+1,i,q) - qm(t,j,q))
-                            lo.set(targetrow,sep,dmrg.N(-4*self.lam(t+1,i)*self.lam(t+1,j)*pds[q]**2/K2,d=self.d))       
+                        lo.set(targetrow,sep,dmrg.N(2.0/K2*pds[q]**2*(self.rho),d=self.d))    
                                                 
                     mpoc.append(lo)
                     #print(pairs)
@@ -201,60 +158,27 @@ class FlatNetwork():
                     #Term (1)
                     S[(qm(t,i,q), qm(t,i,q))] = (-self.mu(t,i)-2.0*self.rho)*pds[q]/K
                                         
-                    #Term (2-d)
-                    D[(qm(t,i,q), qm(t,i,q))] = (self.ga/2*self.Sig(t,i,i) + self.lam(t,i)**2 + self.rho)*pds[q]**2/K2
+                    #Term (1b)
+                    D[(qm(t,i,q), qm(t,i,q))] = (self.rho)*pds[q]**2/K2
                     
-                    #Term (3-d)
-                    if(t<self.L[0]-1):
-                        D[(qm(t,i,q), qm(t,i,q))] += (self.lam(t+1,i)**2)*pds[q]**2/K2  
-
                     #We are done if it's the last qubit
                     if(t==self.L[0]-1 and i==self.L[1]-1 and q==self.L[2]-1):                        
                         continue
-                                                   
-                    #now set last row -- for everything all the way to the last qubit
-                    #Term 4-d
-                    assert(not(qm(t,i,q),qm(t+1,i,q)) in D)
-                    D[(qm(t,i,q),qm(t+1,i,q))] = -2.0*self.lam(t,i)**2*pds[q]**2/K2
                     
-                    for qp in range(q+1, self.L[2]):                                                
-                        #Term 2-b
-                        assert(not(qm(t,i,q),qm(t+1,i,qp)) in D)
-                        D[(qm(t,i,q),qm(t,i,qp))] = 2.0*(self.ga/2*self.Sig(t,i,i) + self.lam(t,i)**2 + self.rho)/K2*pds[q]*pds[qp]
-                        
-                        if(t<self.L[0]-1):
-                            #Term 3-c                            
-                            D[(qm(t,i,q),qm(t,i,qp))] += 2*self.lam(t+1,i)**2*pds[q]*pds[qp]/K2
+                    #Term 2
+                    for qp in range(q+1, self.L[2]):
+                        D[(qm(t,i,q),qm(t,i,qp))] = 2.0*(self.rho)/K2*pds[q]*pds[qp]
                             
-                            #Term 4-c                     
-                            assert(not(qm(t,i,qp),qm(t+1,i,q)) in D)
-                            D[(qm(t,i,qp),qm(t+1,i,q))] = -4*self.lam(t+1,i)**2*pds[q]*pds[qp]/K2
-                           
                     for j in range(i+1,self.L[1]):
                         for qp in range(q+1, self.L[2]):
-                            #Term 2-a                        
-                            assert(not(qm(t,i,q),qm(t,j,qp)) in D)
-                            D[(qm(t,i,q),qm(t,j,qp))] = 4.0/K2*pds[q]*pds[qp]*(self.ga/2*self.Sig(t,i,j) + self.lam(t,i)*self.lam(t,j) + self.rho)     
-                            
-                            if(t<self.L[0]-1):
-                                #Term 3-a
-                                D[(qm(t,i,q),qm(t,j,qp))] += 4*self.lam(t+1,i)*self.lam(t+1,j)*pds[q]*pds[qp]/K2
-                            
-                                #Term 4-a
-                                assert(not(qm(t,j,qp),qm(t+1,i,q)) in D)
-                                D[(qm(t,j,qp),qm(t+1,i,q))] = -8*self.lam(t+1,i)*self.lam(t+1,j)*pds[q]*pds[qp]/K2 
+                            #Term 4 
+                            sep = abs(qm(t,j,qp) - qm(t,i,q))
+                            D[(qm(t,i,q),qm(t,j,qp))] = 4.0/K2*pds[q]*pds[qp]*(self.rho)
+
+                        #Term 3
+                        sep = abs(qm(t,j,q) - qm(t,i,q))
+                        D[(qm(t,i,q),qm(t,j,q))] = 2.0/K2*pds[q]**2*(self.rho)
                                                    
-                        #Term 2-c
-                        assert(not(qm(t,i,q),qm(t,j,q)) in D)
-                        D[(qm(t,i,q),qm(t,j,q))] = 2.0/K2*pds[q]**2*(self.ga/2*self.Sig(t,i,j) + self.lam(t,i)*self.lam(t,j) + self.rho)
-                        if(t<self.L[0]-1):
-                            #Term 3-b
-                            D[(qm(t,i,q),qm(t,j,q))] += 2*self.lam(t+1,i)*self.lam(t+1,j)*pds[q]**2/K2
-                        
-                            #Term 4-b
-                            assert(not(qm(t,j,q),qm(t+1,i,q)) in D)
-                            D[(qm(t,j,q),qm(t+1,i,q))] = -4*self.lam(t+1,i)*self.lam(t+1,j)*pds[q]**2/K2
-    
         #Trim
         St = {key: S[key] for key in S if(abs(S[key]) > threshold)}
         Dt = {key: D[key] for key in D if(abs(D[key]) > threshold)}
