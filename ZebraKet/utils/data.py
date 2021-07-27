@@ -6,7 +6,7 @@ import os
 import time
 from config import data_dir, missing_product_price
 
-def generate_mock_data(number_products: int=10, number_suppliers:int=10, save_name=None, markup: float=2.4):
+def generate_mock_data(number_products: int=10, number_suppliers:int=10, price_save_name=None, cost_save_name=None, markup: float=2.4):
     """Generates 2 dataframes for cost per supplier and price per item
 
     Input Paramaters: 
@@ -50,10 +50,13 @@ def generate_mock_data(number_products: int=10, number_suppliers:int=10, save_na
 
     cost_df = generate_mock_cost_data(number_products=number_products, number_suppliers=number_suppliers)
     price_df = generate_mock_price_data(cost_dataframe=cost_df, markup=markup)
-    save_name = save_name if save_name is not None else f'-n_products_{number_products}-n_suppliers_{number_suppliers}-{time.strftime("%Y%m%d-%H%M%S")}.csv'
 
-    cost_data_dir = os.path.join(data_dir, f'cost{save_name}')
-    price_data_dir = os.path.join(data_dir, f'price{save_name}')
+    default_save_name = f'-n_products_{number_products}-n_suppliers_{number_suppliers}-{time.strftime("%Y%m%d-%H%M%S")}.csv'
+    price_filename = f'price{default_save_name}' if price_save_name is None else price_save_name
+    cost_filename = f'cost{default_save_name}' if cost_save_name is None else cost_save_name
+
+    cost_data_dir = os.path.join(data_dir, cost_filename)
+    price_data_dir = os.path.join(data_dir, price_filename)
 
     if not os.path.isdir(data_dir):
         print(f'Creating data directory: {data_dir}')
@@ -92,11 +95,6 @@ def parse_profit_dataframe(data: pd.DataFrame) -> list[list[str], list[float], l
 # def read_inventory_optimization_data(cost_file:str, price_file: str) -> tuple[list, list[set]]: 
 #     cost_df = pd.read_csv(cost_file, index_col=0)
 #     price_df = pd.read_csv(price_file, index_col=0)
-
-
-
-
-
 
 
 if __name__ == "__main__":
