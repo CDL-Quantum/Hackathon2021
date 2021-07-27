@@ -1,6 +1,6 @@
 import os
 
-data_dir = os.path.join('data')
+data_dir = os.path.join('.', 'data')
 missing_product_price = -1  # put into price matrix when supplier does not have a product
 standard_mock_data = dict(
     small = dict(
