@@ -4,7 +4,7 @@ import numpy as np
 import random
 import os
 import time
-from config import save_dir
+from config import data_dir
 
 def generate_mock_data(number_products: int=10, number_suppliers:int=10, save_name=None, markup: float=2.4):
     """Generates 2 dataframes for cost per supplier and price per item
@@ -50,18 +50,18 @@ def generate_mock_data(number_products: int=10, number_suppliers:int=10, save_na
     price_df = generate_mock_price_data(cost_dataframe=cost_df, markup=markup)
     save_name = save_name if save_name is not None else f'-n_products_{number_products}-n_suppliers_{number_suppliers}-{time.strftime("%Y%m%d-%H%M%S")}.csv'
 
-    cost_save_dir = os.path.join(save_dir, f'cost{save_name}')
-    price_save_dir = os.path.join(save_dir, f'price{save_name}')
+    cost_data_dir = os.path.join(data_dir, f'cost{save_name}')
+    price_data_dir = os.path.join(data_dir, f'price{save_name}')
 
-    if not os.path.isdir(save_dir):
-        print(f'Creating data directory: {save_dir}')
-        os.makedirs(save_dir)
+    if not os.path.isdir(data_dir):
+        print(f'Creating data directory: {data_dir}')
+        os.makedirs(data_dir)
 
-    print(f'Saving cost data to {cost_save_dir}')
-    print(f'Saving price data to {price_save_dir}')
+    print(f'Saving cost data to {cost_data_dir}')
+    print(f'Saving price data to {price_data_dir}')
 
-    cost_df.to_csv(cost_save_dir)
-    price_df.to_csv(price_save_dir)
+    cost_df.to_csv(cost_data_dir)
+    price_df.to_csv(price_data_dir)
 
     return cost_df, price_df
 
@@ -90,8 +90,11 @@ def parse_profit_dataframe(data: pd.DataFrame) -> list[list[str], list[float], l
 if __name__ == "__main__":
 
     # Example usage
-
     cost_dataframe, price_dataframe = generate_mock_data(20, 10)
     print('Cost DataFrame:\n', cost_dataframe, '\n')
 
     print('Price DataFrame:\n', price_dataframe, '\n')
+
+    from config import standard_mock_data
+    p1 = pd.read_csv(standard_mock_data['small']['price'], index_col=0)
+    print(p1)
