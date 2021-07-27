@@ -17,7 +17,7 @@ from qiskit import pulse
 from qiskit.pulse.library import Gaussian
 from qiskit.test.mock import FakeValencia
 
-def get_job_data(job, average):
+def get_job_data(job, average, qubit):
     """Retrieve data from a job that has already run.
     Args:
         job (Job): The job whose data you want.
@@ -26,6 +26,7 @@ def get_job_data(job, average):
     Return:
         list: List containing job result data. 
     """
+    scale_factor = 1e-14
     job_results = job.result(timeout=120) # timeout parameter set to 120 s
     result_data = []
     for i in range(len(job_results.results)):
