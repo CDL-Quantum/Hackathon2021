@@ -14,11 +14,15 @@ Qutrits are qudits constructed from quantum states like spin-1 systems, where th
 In order to have a unviversal quantum computer based on qutris we are required to have a well defined set of gates.
 For example, the ***X*** gates are,
 
-![X qtrits gates](https://latex.codecogs.com/gif.latex?X%5E%7B%2801%29%7D%20%3D%20%5Cbegin%7Bpmatrix%7D%200%20%26%201%20%26%200%20%5C%5C%201%20%26%200%20%26%200%5C%5C%200%20%26%200%20%26%201%20%5Cend%7Bpmatrix%7D%20%5C%3B%5C%3B%5C%3B%20X%5E%7B%2802%29%7D%20%3D%20%5Cbegin%7Bpmatrix%7D%200%20%26%200%20%26%201%20%5C%5C%200%20%26%201%20%26%200%5C%5C%201%20%26%200%20%26%200%20%5Cend%7Bpmatrix%7D%5C%3B%5C%3B%5C%3B%20X%5E%7B%2812%29%7D%20%3D%20%5Cbegin%7Bpmatrix%7D%201%20%26%200%20%26%200%20%5C%5C%200%20%26%200%20%26%201%20%5C%5C%200%20%26%201%20%26%200%20%5Cend%7Bpmatrix%7D)
+>
+>![X qtrits gates](https://latex.codecogs.com/gif.latex?X%5E%7B%2801%29%7D%20%3D%20%5Cbegin%7Bpmatrix%7D%200%20%26%201%20%26%200%20%5C%5C%201%20%26%200%20%26%200%5C%5C%200%20%26%200%20%26%201%20%5Cend%7Bpmatrix%7D%20%5C%3B%5C%3B%5C%3B%20X%5E%7B%2802%29%7D%20%3D%20%5Cbegin%7Bpmatrix%7D%200%20%26%200%20%26%201%20%5C%5C%200%20%26%201%20%26%200%5C%5C%201%20%26%200%20%26%200%20%5Cend%7Bpmatrix%7D%5C%3B%5C%3B%5C%3B%20X%5E%7B%2812%29%7D%20%3D%20%5Cbegin%7Bpmatrix%7D%201%20%26%200%20%26%200%20%5C%5C%200%20%26%200%20%26%201%20%5C%5C%200%20%26%201%20%26%200%20%5Cend%7Bpmatrix%7D)
+>
 
-And the Hamadard gates are given by,
+and the Hamadard gates are given by,
 
-![](https://latex.codecogs.com/gif.latex?%5Csmall%20H%5E%7B%2801%29%7D%20%3D%20%5Cfrac%7B1%7D%7B%5Csqrt%7B2%7D%7D%5Cbegin%7Bpmatrix%7D%201%20%26%201%20%26%200%20%5C%5C%20-1%20%26%201%20%26%200%5C%5C%200%20%26%200%20%26%20%5Csqrt%7B2%7D%20%5Cend%7Bpmatrix%7D%20%5C%3B%5C%3B%5C%3BH%5E%7B%2802%29%7D%20%3D%20%5Cfrac%7B1%7D%7B%5Csqrt%7B2%7D%7D%5Cbegin%7Bpmatrix%7D%201%20%26%200%20%26%201%20%5C%5C%201%20%26%20%5Csqrt%7B2%7D%20%26%200%5C%5C%20a%20%26%200%20%26%20-1%20%5Cend%7Bpmatrix%7D%20%5C%3B%5C%3B%5C%3B%20X%5E%7B%2812%29%7D%20%3D%20%5Cfrac%7B1%7D%7B%5Csqrt%7B2%7D%7D%5Cbegin%7Bpmatrix%7D%20%5Csqrt%7B2%7D%20%26%200%20%26%200%20%5C%5C%200%20%26%201%20%26%201%20%5C%5C%200%20%26%20-1%20%26%201%20%5Cend%7Bpmatrix%7D)   
+>
+>![](https://latex.codecogs.com/gif.latex?%5Csmall%20H%5E%7B%2801%29%7D%20%3D%20%5Cfrac%7B1%7D%7B%5Csqrt%7B2%7D%7D%5Cbegin%7Bpmatrix%7D%201%20%26%201%20%26%200%20%5C%5C%20-1%20%26%201%20%26%200%5C%5C%200%20%26%200%20%26%20%5Csqrt%7B2%7D%20%5Cend%7Bpmatrix%7D%20%5C%3B%5C%3B%5C%3BH%5E%7B%2802%29%7D%20%3D%20%5Cfrac%7B1%7D%7B%5Csqrt%7B2%7D%7D%5Cbegin%7Bpmatrix%7D%201%20%26%200%20%26%201%20%5C%5C%201%20%26%20%5Csqrt%7B2%7D%20%26%200%5C%5C%20a%20%26%200%20%26%20-1%20%5Cend%7Bpmatrix%7D%20%5C%3B%5C%3B%5C%3B%20X%5E%7B%2812%29%7D%20%3D%20%5Cfrac%7B1%7D%7B%5Csqrt%7B2%7D%7D%5Cbegin%7Bpmatrix%7D%20%5Csqrt%7B2%7D%20%26%200%20%26%200%20%5C%5C%200%20%26%201%20%26%201%20%5C%5C%200%20%26%20-1%20%26%201%20%5Cend%7Bpmatrix%7D)   
+>
 
 ## Calibrating qubits and qutrits and creating single-qutrit gates using Qiskit Pulse
 
@@ -28,9 +32,9 @@ The approach is based on a few observations.
 
 1. A transmon qubit can be modelled using a Hamiltonian that describes the Duffing oscillator,
 
-
-![Duffing Oscillator Hamiltonian](https://latex.codecogs.com/gif.latex?H%20%3D%20%5Comega%20a%5E%5Cdagger%20a%20&plus;%20%5Cfrac%7B%5Calpha%7D%7B2%7D%20a%5E%5Cdagger%20a%5E%5Cdagger%20a%20a)
-
+>
+>![Duffing Oscillator Hamiltonian](https://latex.codecogs.com/gif.latex?H%20%3D%20%5Comega%20a%5E%5Cdagger%20a%20&plus;%20%5Cfrac%7B%5Calpha%7D%7B2%7D%20a%5E%5Cdagger%20a%5E%5Cdagger%20a%20a)
+>
 
   where ![omega](https://latex.codecogs.com/gif.latex?%5Comega) gives the ![zero-to-one](https://latex.codecogs.com/gif.latex?0%5Crightarrow1) excitation frequency (![](https://latex.codecogs.com/gif.latex?%5Comega%20%5Cequiv%20%5Comega%5E%7B0%5Crightarrow1%7D)) and ![alpha](https://latex.codecogs.com/gif.latex?%5Calpha) is the anharmonicity between the ![zero-to-one](https://latex.codecogs.com/gif.latex?0%5Crightarrow1) and ![one-to-two](https://latex.codecogs.com/gif.latex?1%5Crightarrow2) frequencies (![alpha_is_delta_omega](https://latex.codecogs.com/gif.latex?%5Calpha%20%5Cequiv%20%5Comega%5E%7B1%5Crightarrow2%7D%20-%20%5Comega%5E%7B0%5Crightarrow1%7D)).
 
@@ -50,11 +54,11 @@ This is demonstrated in the figure below.
 ![Frequency sweep pulse](ibmq/img_freq_sweep.png)
 
 3. Once the frequency of the qubit is calibrated, the next step is to determine the strength of a ![pi](https://latex.codecogs.com/gif.latex?%5Cpi) pulse. The latter chages the qubit state from ![](https://latex.codecogs.com/gif.latex?%7C%200%20%5Crangle) to ![](https://latex.codecogs.com/gif.latex?%7C%201%20%5Crangle), and vice versa. This is also called the ![X](https://latex.codecogs.com/gif.latex?X) or ![X180](https://latex.codecogs.com/gif.latex?X180) gate, or bit-flip operator.
-A technique called Rabi experiment is used to calibrate the amplitude needed to achieve a ![pi](https://latex.codecogs.com/gif.latex?%5Cpi) rotation from ![](https://latex.codecogs.com/gif.latex?%7C%200%20%5Crangle) to ![](https://latex.codecogs.com/gif.latex?%7C%201%20%5Crangle). The desired rotation is shown on the Bloch sphere in the figure below -- you can see that the ![pi](https://latex.codecogs.com/gif.latex?%5Cpi) pulse gets its name from the angle it sweeps over on a Bloch sphere.
+A technique called Rabi experiment is used to calibrate the amplitude needed to achieve a ![pi](https://latex.codecogs.com/gif.latex?%5Cpi) rotation from ![](https://latex.codecogs.com/gif.latex?%7C%200%20%5Crangle) to ![](https://latex.codecogs.com/gif.latex?%7C%201%20%5Crangle). The desired rotation is shown on the Bloch sphere in the figure below - you can see that the ![pi](https://latex.codecogs.com/gif.latex?%5Cpi) pulse gets its name from the angle it sweeps over on a Bloch sphere.
 
 ![PI Rotation on Bloch sphere](https://github.com/aasfaw/qiskit-intros/blob/master/zero_to_one_X180.png?raw=true")
 
-In the Rabi experiment, a Gaussian pulse schedule is created with fixed duration, sigma and frequency that was obtained in the previous experiment, and the amplitude is changed in small increments. The qubit response is then measured after each pulse to determine the optimal amplitude.
+In the Rabi experiment, a Gaussian pulse schedule is created with fixed duration, sigma and frequency (that was obtained in the previous experiment), and the amplitude is changed in small increments. The qubit response is then measured after each pulse to determine the optimal amplitude.
 
 ![Rabi experiment](ibmq/img_rabi.png)
 
@@ -77,36 +81,36 @@ We then used the results form the experiments to construct and test single-qutri
 
 1. ![X01](https://latex.codecogs.com/gif.latex?X%5E%7B%2801%29%7D) gate
 
-> The ![X01](https://latex.codecogs.com/gif.latex?X%5E%7B%2801%29%7D) gate flips qutrit from ![|0>](https://latex.codecogs.com/gif.latex?%7C0%5Crangle) state to ![|1>](https://latex.codecogs.com/gif.latex?%7C1%5Crangle) state and vice versa.
+> The ![X01](https://latex.codecogs.com/gif.latex?X%5E%7B%2801%29%7D) gate flips qutrit from ![0_state](https://latex.codecogs.com/gif.latex?%7C0%5Crangle) state to ![1_state](https://latex.codecogs.com/gif.latex?%7C1%5Crangle) state and vice versa.
 >
 
 2. ![X12](https://latex.codecogs.com/gif.latex?X%5E%7B%2812%29%7D) gate
 
-> The ![X12](https://latex.codecogs.com/gif.latex?X%5E%7B%2812%29%7D) gate flips qutrit from ![|1>](https://latex.codecogs.com/gif.latex?%7C1%5Crangle) state to ![|2>](https://latex.codecogs.com/gif.latex?%7C2%5Crangle) state and vice versa.
+> The ![X12](https://latex.codecogs.com/gif.latex?X%5E%7B%2812%29%7D) gate flips qutrit from ![1_state](https://latex.codecogs.com/gif.latex?%7C1%5Crangle) state to ![2_state](https://latex.codecogs.com/gif.latex?%7C2%5Crangle) state and vice versa.
 >
 
 3. ![X02](https://latex.codecogs.com/gif.latex?X%5E%7B%2802%29%7D)  gate
 
-> The ![X02](https://latex.codecogs.com/gif.latex?X%5E%7B%2802%29%7D) gate flips qutrit from ![|0>](https://latex.codecogs.com/gif.latex?%7C0%5Crangle) state to ![|2>](https://latex.codecogs.com/gif.latex?%7C2%5Crangle) state and vice versa.
+> The ![X02](https://latex.codecogs.com/gif.latex?X%5E%7B%2802%29%7D) gate flips qutrit from ![0_state](https://latex.codecogs.com/gif.latex?%7C0%5Crangle) state to ![2_state](https://latex.codecogs.com/gif.latex?%7C2%5Crangle) state and vice versa.
 >
 
 4. Hadamard ![H01](https://latex.codecogs.com/gif.latex?H%5E%7B%2801%29%7D) gate
 
-> The ![H01](https://latex.codecogs.com/gif.latex?H%5E%7B%2801%29%7D) gate takes qutrit from ![|0>](https://latex.codecogs.com/gif.latex?%7C0%5Crangle) state to a superposition of ![|0>](https://latex.codecogs.com/gif.latex?%7C0%5Crangle) and ![|1>](https://latex.codecogs.com/gif.latex?%7C1%5Crangle):
+> The ![H01](https://latex.codecogs.com/gif.latex?H%5E%7B%2801%29%7D) gate takes qutrit from ![0_state](https://latex.codecogs.com/gif.latex?%7C0%5Crangle) state to a superposition of ![0_state](https://latex.codecogs.com/gif.latex?%7C0%5Crangle) and ![1_state](https://latex.codecogs.com/gif.latex?%7C1%5Crangle):
 >
 > ![0_1_super](https://latex.codecogs.com/gif.latex?%5Csqrt%7B%5Cfrac%7B1%7D%7B2%7D%7D*%28%7C0%5Crangle%20&plus;%20%7C1%5Crangle%29)
 >
 
 5. Hadamard ![H02](https://latex.codecogs.com/gif.latex?H%5E%7B%2802%29%7D) gate
 
-> The ![H02](https://latex.codecogs.com/gif.latex?H%5E%7B%2802%29%7D) gate takes qutrit from ![|0>](https://latex.codecogs.com/gif.latex?%7C0%5Crangle) state to a superposition of ![|0>](https://latex.codecogs.com/gif.latex?%7C0%5Crangle) and ![|1>](https://latex.codecogs.com/gif.latex?%7C1%5Crangle):
+> The ![H02](https://latex.codecogs.com/gif.latex?H%5E%7B%2802%29%7D) gate takes qutrit from ![0_state](https://latex.codecogs.com/gif.latex?%7C0%5Crangle) state to a superposition of ![0_state](https://latex.codecogs.com/gif.latex?%7C0%5Crangle) and ![1_state](https://latex.codecogs.com/gif.latex?%7C1%5Crangle):
 >
 > ![0_2_super](https://latex.codecogs.com/gif.latex?%5Csqrt%7B%5Cfrac%7B1%7D%7B2%7D%7D*%28%7C0%5Crangle%20&plus;%20%7C2%5Crangle%29)
 >
 
 6. Hadamard ![H12](https://latex.codecogs.com/gif.latex?H%5E%7B%2812%29%7D) gate
 
-> The ![H12](https://latex.codecogs.com/gif.latex?H%5E%7B%2812%29%7D) gate takes qutrit from ![|0>](https://latex.codecogs.com/gif.latex?%7C0%5Crangle) state to a superposition of ![|1>](https://latex.codecogs.com/gif.latex?%7C1%5Crangle) and ![|2>](https://latex.codecogs.com/gif.latex?%7C2%5Crangle):
+> The ![H12](https://latex.codecogs.com/gif.latex?H%5E%7B%2812%29%7D) gate takes qutrit from ![0_state](https://latex.codecogs.com/gif.latex?%7C0%5Crangle) state to a superposition of ![1_state](https://latex.codecogs.com/gif.latex?%7C1%5Crangle) and ![2_state](https://latex.codecogs.com/gif.latex?%7C2%5Crangle):
 >
 > ![1_2_super](https://latex.codecogs.com/gif.latex?%5Csqrt%7B%5Cfrac%7B1%7D%7B2%7D%7D*%28%7C1%5Crangle%20&plus;%20%7C2%5Crangle%29)
 >
