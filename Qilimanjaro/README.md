@@ -24,3 +24,4 @@ From command line: Use python solvers/script.py -h
   - Link to Presentation
 
 ## Contributors 
+mod
