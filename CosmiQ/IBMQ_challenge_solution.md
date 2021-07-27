@@ -2,16 +2,16 @@
 
 ## QuTrits
 
-While the majority of quantum algorithms are based on qbits, 2-level systems with the ![](https://latex.codecogs.com/gif.latex?%7C%200%20%5Crangle%20%3D%20%5B0%2C1%5D) and ![](https://latex.codecogs.com/gif.latex?%7C%201%20%5Crangle%20%3D%20%5B1%2C0%5D).
-The majority of gate operations can be categorized into single-qbit gates, and two-qbits gates; for example, the *Pauli-X* rotates the state ![](https://latex.codecogs.com/gif.latex?%7C%201%20%5Crangle) to ![](https://latex.codecogs.com/gif.latex?%7C%200%20%5Crangle); ![](https://latex.codecogs.com/gif.latex?X%20%7C%201%20%5Crangle%20%3D%20%7C%200%20%5Crangle).
+The majority of the existing quantum algorithms are based on qubits, 2-level systems with the ![0_state](https://latex.codecogs.com/gif.latex?%7C%200%20%5Crangle%20%3D%20%5B0%2C1%5D) and ![1_state](https://latex.codecogs.com/gif.latex?%7C%201%20%5Crangle%20%3D%20%5B1%2C0%5D).
+Corresponding gate operations can be composed from single-qubit gates, and two-qubits gates; for example, the *Pauli-X* rotates the state ![1_state](https://latex.codecogs.com/gif.latex?%7C%201%20%5Crangle) to ![0_state](https://latex.codecogs.com/gif.latex?%7C%200%20%5Crangle); ![Pauli_eq](https://latex.codecogs.com/gif.latex?X%20%7C%201%20%5Crangle%20%3D%20%7C%200%20%5Crangle).
 
-As it was pointed in Ref. [1], quantum compting could also be done using multi-level quantum systems (**qudits**) as the building block in quantum information.
-Why bother using qudits? It has been theoretically illustrated that qudits can store and processes information more efficienlty than using qubits Ref. [2].
-The following natural arising question is how to engeneer qudits?, for example cold molecules in ultra cold temepratures have non-degenerate states  under the present of an external electric field (Stark shift) Ref. [3].
-None the less, it will be ideal to desing qudtis taking advantage of the current architectures, for example, superconducting quantum processors.
+As was pointed out in Ref. [1], quantum computing could also be done using multi-level quantum systems (**qudits**) as the building block in quantum information.
+Why bother using qudits? It has been theoretically illustrated (Ref. [2]) that qudits-based quantum systems can store and processes information more efficiently than those using only qubits.
+A natural question arises, how to engineer qudits?. For example, cold molecules in ultra cold temperatures have non-degenerate states  under the presence of an external electric field (Stark shift) Ref. [3].
+Nonetheless, it would be ideal to design qudits taking advantage of the current architectures, for example, superconducting quantum processors.
 
-Qutrits are qudits constructed from quantum states like spin-1 systems, where the basis is 1![](https://latex.codecogs.com/gif.latex?%7C0%5Crangle%2C%7C1%5Crangle) and ![](https://latex.codecogs.com/gif.latex?%7C2%5Crangle).
-In order to have a unviversal quantum computer based on qutris we are required to have a well defined set of gates.
+Qutrits are qudits that are constructed from quantum states like spin-1 systems, where the basis is ![](https://latex.codecogs.com/gif.latex?%7C0%5Crangle%2C%7C1%5Crangle) and ![](https://latex.codecogs.com/gif.latex?%7C2%5Crangle).
+In order to have a universal quantum computer based on qutris, we need to have a well defined set of gates.
 For example, the ***X*** gates are,
 
 >
