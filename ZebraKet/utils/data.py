@@ -1,4 +1,5 @@
 # Class to manage data (for example, loading data from csv, generating mock data etc)
+from math import prod
 import pandas as pd
 import numpy as np
 import random
@@ -92,19 +93,40 @@ def parse_profit_dataframe(data: pd.DataFrame) -> list[list[str], list[float], l
     profit = [p - c for p, c in zip(price, cost)]
     return list(data), cost, profit
 
-# def read_inventory_optimization_data(cost_file:str, price_file: str) -> tuple[list, list[set]]: 
-#     cost_df = pd.read_csv(cost_file, index_col=0)
-#     price_df = pd.read_csv(price_file, index_col=0)
+def read_inventory_optimization_data(cost_file:str) -> tuple[list, list[set]]: 
+    """Reads cost csv (from generate_mock_data) and converts it into a tuple suitable for use in the supplier optimization formulation
 
+    Params:
+    str cost_file -- filepath to the cost matrix
+
+    Returns:
+    list of products (our inventory),
+    list of sets of products (each set is the inventory of a particular supplier)
+    """
+    cost_df = pd.read_csv(cost_file, index_col=0)
+    cost_np = np.array(cost_df)
+    product_names = cost_df.columns
+    supplier_names = cost_df.index
+    
+    supplier_inventories = []
+    for supplier_idx in range(len(supplier_names)):
+        idx_in_stock = np.where(cost_np[supplier_idx] != missing_product_price)
+        supplier_inventories.append(set([product_names[idx] for idx in idx_in_stock[0]]))
+
+    return product_names, supplier_inventories
 
 if __name__ == "__main__":
 
-    # Example usage
-    cost_dataframe, price_dataframe = generate_mock_data(20, 10)
-    print('Cost DataFrame:\n', cost_dataframe, '\n')
+    # # Example usage
+    # cost_dataframe, price_dataframe = generate_mock_data(20, 10)
+    # print('Cost DataFrame:\n', cost_dataframe, '\n')
 
-    print('Price DataFrame:\n', price_dataframe, '\n')
+    # print('Price DataFrame:\n', price_dataframe, '\n')
 
-    from config import standard_mock_data
-    p1 = pd.read_csv(standard_mock_data['small']['price'], index_col=0)
-    print(p1)
+    # from config import standard_mock_data
+    # p1 = pd.read_csv(standard_mock_data['small']['price'], index_col=0)
+    # print(p1)
+
+    inventory, supplier_inventories = read_inventory_optimization_data('data/small-cost-mock.csv')
+    print('\nMy desired inventory', inventory)
+    print('\n\nSupplier inventories', supplier_inventories)
