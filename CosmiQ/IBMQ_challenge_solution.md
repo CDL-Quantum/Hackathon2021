@@ -117,7 +117,7 @@ We then used the results form the experiments to construct and test single-qutri
 
 ## Executing on IBM Q Backend
 
-We implemented the above experiments using Qiskit Pulse and executed them on the IBM Q's [ibmq_armonk](https://quantum-computing.ibm.com/services?services=systems) backend.
+We implemented the above experiments and constructed calibrated single-qutrit gates using Qiskit Pulse, and executed them on the IBM Q's [ibmq_armonk](https://quantum-computing.ibm.com/services?services=systems) backend.
 
 ## Python Code and Jupyter Notebooks
 
