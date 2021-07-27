@@ -7,10 +7,10 @@ class ProfitQubo(Qubo):
     def __init__(self, profits: list[float], costs: list[float], budget: float, max_number_of_products=10) -> None:
         """Initializes the ProfitQubo
         
-        profits (array-like):
-            Array of profits associated with the items
-        costs (array-like):
-            Array of costs associated with the items
+        profits (list):
+            List of profits associated with the items
+        costs (list):
+            List of costs associated with the items
         budget (int):
             Maximum allowable cost
         max_number_of_products(int):
