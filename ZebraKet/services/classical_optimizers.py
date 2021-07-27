@@ -81,12 +81,13 @@ def discrete_profit_optimizer(price_data: pd.DataFrame, budget:float) -> tuple[l
 
     return profit_solution_int / multiplier
 
-def binary_supplier_optimizer(inventory: set, supplier_inventory:set):
+def binary_supplier_optimizer(inventory: list[int or str], supplier_inventory:list[set[int or str]]):
     # Taken from https://www.codegrepper.com/code-examples/python/set+cover+problem+in+python
     # Find a family of subsets that covers the universal set
+    inventory_set = set(inventory)
     elements = set(e for s in supplier_inventory for e in s)
     # Check the subsets cover the universe
-    if elements != inventory:
+    if elements != inventory_set:
         return None
     covered = set()
     cover = []
@@ -120,12 +121,14 @@ if __name__ == "__main__":
     print('found solution for DISCRETE knapsack: ', 'profit', discrete_profit) 
 
     # Test the set cover 
-    universe = set(range(1, 11))
-    subsets = [set([1, 2, 3, 8, 9, 10]),
+    universe = range(1, 11)
+    subsets = [
+        set([1, 2, 3, 8, 9, 10]),
         set([1, 2, 3, 4, 5]),
         set([4, 5, 7]),
         set([5, 6, 7]),
-        set([6, 7, 8, 9, 10])]
+        set([6, 7, 8, 9, 10])
+    ]
     cover = binary_supplier_optimizer(universe, subsets)
     print('\n\n', 'Found inventory optimization solution', cover)
 
