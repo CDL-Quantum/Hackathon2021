@@ -4,7 +4,7 @@ import numpy as np
 import random
 import os
 import time
-from config import data_dir
+from config import data_dir, missing_product_price
 
 def generate_mock_data(number_products: int=10, number_suppliers:int=10, save_name=None, markup: float=2.4):
     """Generates 2 dataframes for cost per supplier and price per item
@@ -23,14 +23,16 @@ def generate_mock_data(number_products: int=10, number_suppliers:int=10, save_na
         """
         # Cost Matrix
         # random.seed(a=1, version=2)
-        C = np.zeros((number_suppliers, number_products))
+        C = np.zeros((number_suppliers, number_products)) + missing_product_price
         #cost of all items for every supplier
         for i in range (number_products):
             #base cost used to calculate the cost of the item at each supplier
             c_base = random.random()*25
             for s in range (number_suppliers):
-                #Cost of item fluctuates from c_base 
-                C[s, i] = random.randint(90,130) / 100 * c_base
+                # There will be a 25% chance that a given supplier does not have a product 
+                if random.random() > 0.25:
+                    #Cost of item fluctuates from c_base 
+                    C[s, i] = random.randint(90,130) / 100 * c_base
         
         df = pd.DataFrame(C, index=[f'supplier{i}' for i in range(number_suppliers)], columns=[f'item{i}' for i in range(number_products)])
         return df
@@ -86,6 +88,16 @@ def parse_profit_dataframe(data: pd.DataFrame) -> list[list[str], list[float], l
     price = list(data.loc['price'])
     profit = [p - c for p, c in zip(price, cost)]
     return list(data), cost, profit
+
+# def read_inventory_optimization_data(cost_file:str, price_file: str) -> tuple[list, list[set]]: 
+#     cost_df = pd.read_csv(cost_file, index_col=0)
+#     price_df = pd.read_csv(price_file, index_col=0)
+
+
+
+
+
+
 
 if __name__ == "__main__":
 
