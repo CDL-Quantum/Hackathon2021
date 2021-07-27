@@ -59,10 +59,10 @@ Please refer to the [CDL Quantum Hackathon 2021 README file](../README.md) for m
 
 ## References and Further Reading
 
-1. [T.Alexander,N.Kanazawa,D.J.Egger,L.Capelluto,C.J.Wood,A.Javadi-Abhari,D.C.McKay. Qiskit pulse: programming quantum computers through the cloud with pulses](https://iopscience.iop.org/article/10.1088/2058-9565/aba404)
-2. [Y.Wang,Z.Hu,B.C.Sanders,S.Kais. Qudits and High-Dimensional Quantum Computing](https://www.frontiersin.org/articles/10.3389/fphy.2020.589504/full)
-3. [P.Niemann,R.Wille,R.Drechsler. Equivalence Checking in Multi-level Quantum Systems](http://www.informatik.uni-bremen.de/agra/doc/konf/14_rc_equivalence_checking_multi-level_quantum_systems.pdf)
-
+1. T.Alexander,N.Kanazawa,D.J.Egger,L.Capelluto,C.J.Wood,A.Javadi-Abhari,D.C.McKay. [Qiskit pulse: programming quantum computers through the cloud with pulses](https://iopscience.iop.org/article/10.1088/2058-9565/aba404)
+2. Y.Wang,Z.Hu,B.C.Sanders,S.Kais. [Qudits and High-Dimensional Quantum Computing](https://www.frontiersin.org/articles/10.3389/fphy.2020.589504/full)
+3. P.Niemann,R.Wille,R.Drechsler. [Equivalence Checking in Multi-level Quantum Systems](http://www.informatik.uni-bremen.de/agra/doc/konf/14_rc_equivalence_checking_multi-level_quantum_systems.pdf)
+4. E.O.Kiktenko,A.K.Fedorov,O.V.Man’ko,V.I.Man’ko. [Multilevel superconducting circuits as two-qubit systems: Operations, state preparation, and entropic inequalities](https://arxiv.org/pdf/1411.0157.pdf)
 
 ## Contributors
 
