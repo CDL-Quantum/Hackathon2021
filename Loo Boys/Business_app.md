@@ -9,9 +9,13 @@ Sports betting is a 203 BILLION dollar industry in the U.S. Couple that with the
 
 ## Competitors
 
+- FanDuel: valued slightly less than 1 billion, FanDuel offers sportsbook, daily fantasy sports, online casino and online horse race betting products. They do not offer immersive analytics to help you with these products. They have a 40% share in online betting markets in the U.S
+- DraftKings: 19 billion dollar market cap;
+- Bet 365: 
 
 
-## What we offer than our Competitors don't
+## Business Model
+
 
 
 ## Presentation
