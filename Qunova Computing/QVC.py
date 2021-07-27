@@ -1,3 +1,5 @@
+from collections import Counter
+
 import qiskit
 import numpy as np
 from qiskit.algorithms.optimizers import SPSA
@@ -15,18 +17,18 @@ class VariationalClassifier:
         self.bool_ftn = bool_ftn
         self.use_bias = use_bias
         self.optimal_params = None
-        if self.use_bias:
-            self.num_params = len(self.vc.parameters) + 1
-        else:
+        try:
             self.num_params = len(self.vc.parameters)
+        except AttributeError:
+            self.num_params = self.vc.num_params
+        if self.use_bias:
+            self.num_params += 1
 
     @staticmethod
     def sig(x):
         return 1 / (1 + np.exp(-1 * x))
 
-    def cost(self, train_data, train_labels, num_shots=DEFAULT_SHOTS, train_params=None, **kwargs):
-
-        qasm_backend = qiskit.Aer.get_backend('aer_simulator')
+    def cost(self, train_data, train_labels, num_shots=DEFAULT_SHOTS, train_params=None, backend=None, **kwargs):
         tot_cost = 0
         if self.use_bias:
             bias = train_params[-1]
@@ -35,7 +37,7 @@ class VariationalClassifier:
             bias = 0
 
         for data_point, label in zip(train_data, train_labels):
-            py = self._get_py(data_point, label, train_params, qasm_backend, num_shots, **kwargs)
+            py = self._get_py(data_point, label, train_params, backend, num_shots, **kwargs)
 
             # Calculate Error Probability
             ep = self.sig(np.sqrt(num_shots) * (0.5 - py + label * bias / 2) / np.sqrt(2 * (1 - py) * py))
@@ -89,9 +91,9 @@ class VariationalClassifier:
 
         return accuracy / len(test_data)
 
-    def _get_py(self, data_point, label, train_params, qasm_backend=None, num_shots=DEFAULT_SHOTS, **kwargs):
-        if qasm_backend is None:
-            qasm_backend = qiskit.Aer.get_backend('aer_simulator')
+    def _get_py(self, data_point, label, train_params, backend=None, num_shots=DEFAULT_SHOTS, **kwargs):
+        if backend is None:
+            backend = qiskit.Aer.get_backend('aer_simulator')
 
         # Make the classifier circuit
         tot_circ = self.qfm.assign_parameters(data_point)
@@ -99,8 +101,8 @@ class VariationalClassifier:
         tot_circ.measure_all()
 
         # Run the circuit
-        tot_circ = qiskit.transpile(tot_circ, qasm_backend)
-        result = qasm_backend.run(tot_circ, shots=num_shots).result()
+        tot_circ = qiskit.transpile(tot_circ, backend)
+        result = backend.run(tot_circ, shots=num_shots).result()
         counts = result.get_counts(tot_circ)
 
         # Calculate p_y(x)
@@ -111,10 +113,25 @@ class VariationalClassifier:
         py = py / num_shots
         return py
 
-'''
-class PyquilVariationalClassifier(VariationalClassifier):
-    def _get_py(self, data_point, label, train_params, pyquil_backend=None, num_shots=DEFAULT_SHOTS, **kwargs):
-        if pyquil_backend is None or re.match(r"(\d+)q-qvm", pyquil_backend) is not None:
-            # Simulator
-'''
 
+class PyquilVariationalClassifier(VariationalClassifier):
+    def _get_py(self, data_point, label, train_params, backend=None, num_shots=DEFAULT_SHOTS, **kwargs):
+        qfm_param_name = self.qfm.param_name[0]
+        vc_param_name = self.vc.param_name[0]
+        input_dict = {qfm_param_name: data_point,
+                      vc_param_name: train_params}
+        tot_circ = self.qfm + self.vc
+        if backend is None or re.match(r"(\d+)q-qvm", backend) is not None:
+            # Simulator
+            samples = tot_circ.run_simulation(input_dict, num_shots)
+        else:
+            # QPU
+            samples = tot_circ.run_qpu(input_dict, backend, num_shots)
+        counts = Counter(["".join(tuple(str(x) for x in y)) for y in samples])
+
+        py = 0
+        for bitstring in counts:
+            if self.bool_ftn(bitstring) == label:
+                py += counts[bitstring]
+        py = py / num_shots
+        return py

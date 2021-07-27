@@ -6,3 +6,4 @@ matplotlib
 qiskit
 torch
 pyquil
+tensorboard
