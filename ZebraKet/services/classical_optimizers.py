@@ -4,11 +4,12 @@ import numpy as np
 from itertools import combinations
 from utils.data import parse_profit_dataframe
 
-def binary_profit_optimizer(price_data: pd.DataFrame, budget: float) -> tuple[list[int], float, float]:
+def binary_profit_optimizer(profit: list[float], cost: list[float], budget: float) -> tuple[list[int], float, float]:
     """Optimizes the profit problem classically using a binary formulation (AKA items can only be used once)
     
     Keyword arguments:
-    price_data -- 1D DataFrame of how much we will charge per item where the columns are the item names and values are the price in floats
+    profit - list of floats
+    cost - list of floats
     budget -- Float indicating your total budget
 
     Returns 
@@ -16,12 +17,8 @@ def binary_profit_optimizer(price_data: pd.DataFrame, budget: float) -> tuple[li
     Maximum cost found
     Maximum profit found
     """
-    products, cost, profit = parse_profit_dataframe(price_data)
 
-    print('products:\n', products)
-    print('profit:\n', profit)
-
-    number_of_products = len(products)
+    number_of_products = len(profit)
     profit_cumulative = 0
     cost_cumulative = 0
     result = []
@@ -39,11 +36,12 @@ def binary_profit_optimizer(price_data: pd.DataFrame, budget: float) -> tuple[li
 
     return result, cost_cumulative, profit_cumulative
 
-def discrete_profit_optimizer(price_data: pd.DataFrame, budget:float) -> tuple[list[int], float, float]:
+def discrete_profit_optimizer(profit: list[float], cost: list[float], budget:float) -> tuple[list[int], float, float]:
     """Optimizes the profit problem classically using a discrete formulation (AKA: items can be used more than once)
     
     Keyword arguments:
-    price_data -- 1D DataFrame of how much we will charge per item where the columns are the item names and values are the price in floats
+    profit - list of floats
+    cost - list of floats
     budget -- Float indicating your total budget
 
     Returns 
@@ -69,15 +67,13 @@ def discrete_profit_optimizer(price_data: pd.DataFrame, budget:float) -> tuple[l
 
         return dp[W]
 
-    products, cost, profit = parse_profit_dataframe(price_data)
-
     # Need to do some hacky-ness to convert these to integers
     multiplier = 100
     cost_int = [int(c*multiplier) for c in cost]
     profit_int = [int(p*multiplier) for p in profit]
     budget_int = int(budget*multiplier)
 
-    profit_solution_int = unboundedKnapsack(budget_int, len(products), profit_int, cost_int)
+    profit_solution_int = unboundedKnapsack(budget_int, len(profit), profit_int, cost_int)
 
     return profit_solution_int / multiplier
 
@@ -100,35 +96,23 @@ def binary_supplier_optimizer(inventory: list[int or str], supplier_inventory:li
 
 if __name__ == "__main__":
 
+    from utils.data import read_profit_optimization_data, read_inventory_optimization_data
+    from config import standard_mock_data
+
     # Define some constants
     budget = 100 # 100 dollars buget
 
-    # Fake data (TODO: implement this method in Data.py)
-    prices = (3.5, 3.4, 3.8, 6.1)
-    costs = (1.5, 1.4, 1.8, 2.1)
-    items = (f'item{i}' for i in range(len(prices)))
-    row_names = ['price', 'cost']
-    fake_data = pd.DataFrame([prices, costs], columns=items, index=row_names)
-    print('Here is our generated data: \n', fake_data)
+    # Example usage of the classical profit optimizers
+    profit, cost = read_profit_optimization_data(standard_mock_data['small'])
+    
+    binary_solution, binary_cost, binary_profit = binary_profit_optimizer(profit=profit, cost=cost, budget=budget)
+    print('\n\nFound binary (crude) profit optimization solution', binary_solution, binary_cost, binary_profit)
 
-    # Test the binary knapsack solution
-    binary_solution, binary_cost, binary_profit = binary_profit_optimizer(price_data=fake_data, budget=budget)
-    print('\n\nfound solution for BINARY knapsack: ', binary_cost, binary_profit)
-    print('result\n', binary_solution, '\n\n')
+    # TODO: fix the binary_profit_optimizer to yield solutions + costs
+    discrete_profit = discrete_profit_optimizer(profit=profit, cost=cost, budget=budget)
+    print('\n\nFound discrete (crude) profit optimization solution', discrete_profit)
 
-    # Test the discrete knapsack
-    discrete_profit = discrete_profit_optimizer(price_data=fake_data, budget=budget)
-    print('found solution for DISCRETE knapsack: ', 'profit', discrete_profit) 
-
-    # Test the set cover 
-    universe = range(1, 11)
-    subsets = [
-        set([1, 2, 3, 8, 9, 10]),
-        set([1, 2, 3, 4, 5]),
-        set([4, 5, 7]),
-        set([5, 6, 7]),
-        set([6, 7, 8, 9, 10])
-    ]
-    cover = binary_supplier_optimizer(universe, subsets)
-    print('\n\n', 'Found inventory optimization solution', cover)
-
+    # Example usage of the classical supplier optimizer
+    inventory, supplier_inventory = read_inventory_optimization_data(standard_mock_data['small'])
+    cover = binary_supplier_optimizer(inventory, supplier_inventory)
+    print('\n\nFound cover set solution: ', cover)
