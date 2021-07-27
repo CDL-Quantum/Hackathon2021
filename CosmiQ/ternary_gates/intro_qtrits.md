@@ -9,7 +9,7 @@ The following natural arising question is how to engeneer qudits?, for example c
 None the less, it will be ideal to desing qudtis taking advantage of the current architectures, for example, superconducting quantum processors.
 
 Qutrits are qudits constructed from quantum states like spin-1 systems, where the basis is ![](https://latex.codecogs.com/gif.latex?%7C0%5Crangle%2C%7C1%5Crangle) and ![](https://latex.codecogs.com/gif.latex?%7C2%5Crangle). 
-In order to have a unviversal quantum computer based on qutris we are required to have a well defined set of gates.
+In order to have a unviversal quantum computer based on qutris we are required to have a well defined set of ternary quantum gates.
 For example, the ***X*** and the **Z** gates are,
 
 ![X qtrits gates](https://latex.codecogs.com/gif.latex?X%5E%7B%2801%29%7D%20%3D%20%5Cbegin%7Bpmatrix%7D%200%20%26%201%20%26%200%20%5C%5C%201%20%26%200%20%26%200%5C%5C%200%20%26%200%20%26%201%20%5Cend%7Bpmatrix%7D%20%5C%3B%5C%3B%5C%3B%20X%5E%7B%2802%29%7D%20%3D%20%5Cbegin%7Bpmatrix%7D%200%20%26%200%20%26%201%20%5C%5C%200%20%26%201%20%26%200%5C%5C%201%20%26%200%20%26%200%20%5Cend%7Bpmatrix%7D%5C%3B%5C%3B%5C%3B%20X%5E%7B%2812%29%7D%20%3D%20%5Cbegin%7Bpmatrix%7D%201%20%26%200%20%26%200%20%5C%5C%200%20%26%200%20%26%201%20%5C%5C%200%20%26%201%20%26%200%20%5Cend%7Bpmatrix%7D)
