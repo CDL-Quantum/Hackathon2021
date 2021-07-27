@@ -100,7 +100,7 @@ if __name__ == "__main__":
     from config import standard_mock_data
 
     # Define some constants
-    budget = 100 # 100 dollars buget
+    budget = 1000 # 100 dollars buget
 
     # Example usage of the classical profit optimizers
     profit, cost = read_profit_optimization_data(standard_mock_data['small'])

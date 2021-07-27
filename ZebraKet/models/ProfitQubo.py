@@ -105,6 +105,3 @@ if __name__ == "__main__":
     
     qubo = ProfitQubo(profits=profits, costs=costs, budget=100, max_number_of_products=20)
     qubo.solve(LeapHybridDQMSampler().sample_dqm)
-
-    # for k in range(x_size):
-    #         dqm.set_linear('x' + str(k), lagrange * (costs[k]**2) * (np.array(pieces)**2) - profits[k]*pieces)
