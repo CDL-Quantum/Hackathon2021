@@ -1,9 +1,9 @@
 <p align="center">
-  <img  height="200" src="./resources/logo.png">
+  <img  height="200" src="./resources/ZebraKet%20Banner.png">
 </p>
 
 ## Project Description 
-(3-4 lines about what it is and how you did it)
+We show how an online grocer will optimize between two objectives 1) selection on least number of suppliers provding all required inventory and 2) maximizing inventory profit. We provide a novel approach to solving competing supply-chain objectives through our Chained Optimization Rules Engine&reg; CORE&reg; method.
 
 ## Setup
 1. Make sure you have Anaconda installed and configured.
