@@ -19,6 +19,7 @@ class data_loader():
         self.mus = np.log(values_window[1:,:,:]/values_window[:-1,:,:])
         
     def filter_assets(self,num_assets=20,method='random'):
+        num_assets = min(num_assets,self.num_assets)
         if method == 'random':
             inds = np.random.choice(self.num_assets, num_assets, replace=False)
         elif method =='relevant':
