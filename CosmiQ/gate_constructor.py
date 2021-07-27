@@ -1,25 +1,25 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import qiskit.pulse.library as pulse_lib
+
 from scipy.optimize import curve_fit
 from scipy.signal import find_peaks
 from qiskit import IBMQ
 from qiskit import pulse
-import qiskit.pulse.library as pulse_lib
 from qiskit.compiler import assemble
 from qiskit.tools.monitor import job_monitor
-from scipy.optimize import curve_fit
 
 IBMQ.enable_account("a1e179011c9095c208f4168f632df8f6a85c77a56663a083106ff6b51f7e0946d743f8ab54b118a3249afe67a7dea34d3d57918a73d06733ae0fc75aa6964c04")
-provider = IBMQ.get_provider(hub='ibm-q', group='open', project='main')
-backends = provider.backends()
+provider  = IBMQ.get_provider(hub='ibm-q', group='open', project='main')
+backends  = provider.backends()
 
 NUM_SHOTS = 1024
-SIGMA = 75e-9
-TRUNC = 8
-MAXFREQS = 75
-MAXDRIVE = 0.1
-SAMPLE = 16
-SCALE = 1e-14
+SIGMA     = 75e-9
+TRUNC     = 8
+MAXFREQS  = 75
+MAXDRIVE  = 0.1
+SAMPLE    = 16
+SCALE     = 1e-14
 
 class Calibration:
     def __init__(self,backend='ibmq_armonk'):
@@ -80,7 +80,7 @@ class Calibration:
         frequencies = np.linspace(span[0],span[1], MAXFREQS)
 
         # Define the drive pulse
-        gauss = self.gate_rx01()
+        gauss = self.pulse_rx01()
         
         for freq in frequencies:
             with pulse.build(backend=self.backend) as spec:
@@ -95,6 +95,28 @@ class Calibration:
         
         return frequencies,schedules
     
+    def amplitude12_schedules(self,max_amp=1.0,qbit=0):
+        schedules = []
+        drive_powers = np.linspace(0, max_amp, MAXFREQS)
+
+        # Define the drive pulse
+        drive_sigma = SAMPLE * round(SIGMA/ SAMPLE/ self.dt)       # The width of the gaussian in units of dt
+        drive_samples = TRUNC * drive_sigma   # The truncating parameter in units of dt
+
+        for drive_power in drive_powers:
+            gauss = pulse_lib.gaussian(duration=drive_samples,sigma=drive_sigma,amp=drive_power)
+            with pulse.build(backend=self.backend) as spec:
+                with pulse.align_sequential():
+                    pulse.shift_frequency(self.df01_calib, pulse.DriveChannel(qbit))
+                    pulse.play(self.pulse_rx01(), pulse.DriveChannel(qbit))
+                    pulse.shift_frequency(self.df12_calib, pulse.DriveChannel(qbit))
+                    pulse.play(gauss, pulse.DriveChannel(qbit))
+                    pulse.measure(qbit)
+
+            schedules.append(spec)
+        
+        return drive_powers,schedules
+    
     def run_schedule(self,schedules):
         job = self.backend.run(schedules, meas_level=1)
         job_monitor(job)
@@ -106,12 +128,21 @@ class Calibration:
         params = match_sinc2(np.abs(result_data),frequencies)
         self.df01_calib = params[0]
     
+    def fit_results_f12(self,result_data,frequencies):
+        params = match_sinc2(np.abs(result_data),frequencies)
+        self.df12_calib = params[0]
+    
     def fit_results_a01(self,result_data,drive_powers):
         X = np.angle(result_data)
         params = match_sine(X,drive_powers)
         self.a01_calib = params[0]
         
-    def gate_rx01(self,theta=np.pi):
+    def fit_results_a12(self,result_data,drive_powers):
+        X = np.angle(result_data)
+        params = match_sine(X,drive_powers)
+        self.a12_calib = params[0]
+        
+    def pulse_rx01(self,theta=np.pi):
         # Define the drive pulse
         drive_sigma = SAMPLE * round(SIGMA/ SAMPLE/ self.dt)       # The width of the gaussian in units of dt
         drive_samples = TRUNC * drive_sigma   # The truncating parameter in units of dt
@@ -120,6 +151,15 @@ class Calibration:
         gauss = pulse_lib.gaussian(duration=drive_samples,sigma=drive_sigma,amp=drive_power)
         return gauss
         
+    def pulse_rx12(self,theta=np.pi):
+        # Define the drive pulse
+        drive_sigma = SAMPLE * round(SIGMA/ SAMPLE/ self.dt)       # The width of the gaussian in units of dt
+        drive_samples = TRUNC * drive_sigma   # The truncating parameter in units of dt
+        theta_wrap = theta - 2*np.pi*np.floor(theta/(2*np.pi))
+        drive_power = self.a12_calib*theta_wrap/np.pi
+        gauss = pulse_lib.gaussian(duration=drive_samples,sigma=drive_sigma,amp=drive_power)
+        return gauss
+    
 def match_sine(X,ps,booltPlot=True):
     
     N=len(X)
