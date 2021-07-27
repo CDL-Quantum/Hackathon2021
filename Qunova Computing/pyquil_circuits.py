@@ -68,7 +68,8 @@ class ParamCircuitInterface(metaclass=ABCMeta):
                 print("set qpu backend first.")
                 raise RuntimeError
         for p_name in self._param_name:
-            self._qvm_executable.write_memory(region_name=p_name, value=x[p_name])
+            for i, v in enumerate(x[p_name]):
+                self._qvm_executable.write_memory(region_name=p_name, value=v, offset=i)
         return self._qpu.run(self._qpu_executable).readout_data.get(self._result_name)
 
     def run_simulation(self, x: Dict[str, Union[List[float], np.array]],
@@ -79,7 +80,8 @@ class ParamCircuitInterface(metaclass=ABCMeta):
             self._qvm = get_qc(f"{self._num_qubits}q-qvm")
             self._qvm_executable = self._qvm.compile(self.circuit)
         for p_name in self._param_name:
-            self._qvm_executable.write_memory(region_name=p_name, value=x[p_name])
+            for i, v in enumerate(x[p_name]):
+                self._qvm_executable.write_memory(region_name=p_name, value=v, offset=i)
         return self._qvm.run(self._qvm_executable).readout_data.get(self._result_name)
 
 
