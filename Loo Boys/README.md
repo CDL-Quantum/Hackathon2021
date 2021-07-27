@@ -23,7 +23,7 @@ We also partner with industry experts like PFF (Pro Football Focus) and SIS (Spo
 - "I haven't had to buy a drink in years and my friends are asking me for debt forgiveness" - Alex 
 - "I love the platform; it makes fantasy easy and fun! My boyfriend's friends can't belive I'm so good!" - Stacy
 
-See [here](Business_app.md) for our <ins>business application and set-up workflow</ins>. 
+For more information, see our [C<ins>business application and set-up workflow</ins>. ](Business_app.md)
 
 
 ## Contributors 
