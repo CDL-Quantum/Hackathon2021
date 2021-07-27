@@ -17,6 +17,9 @@ Sports betting is a 203 BILLION dollar industry in the U.S. Couple that with the
 - DraftKings: 19 billion dollar market cap;
 - Bet 365: 
 
+## Technologies Used
+
+
 
 ## Business Model
 
