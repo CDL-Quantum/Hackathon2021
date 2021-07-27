@@ -44,22 +44,28 @@ if __name__ == "__main__":
     budget = 1000
     max_number_of_products = 30
 
-    inventory_requirement, supplier_inventory = read_inventory_optimization_data(standard_mock_data['small'])
+    data_file = standard_mock_data['small']
+
+    inventory_requirement, supplier_inventory = read_inventory_optimization_data(data_file)
 
     # def return_
 
     qubo0 = SupplierQubo(inventory_requirement, supplier_inventory)
-    def post_process_inventory_qubo(solution, energy):
-        from utils.data import read_profit_optimization_data
+    def get_post_process_inventory_function(data_file:str): 
 
-        profit, cost = read_profit_optimization_data(standard_mock_data['small'], solution)
+        def post_process_inventory_qubo(solution, energy):
+            from utils.data import read_profit_optimization_data
 
-        return dict(
-            profits=profit,
-            costs=cost
-        )
+            profit, cost = read_profit_optimization_data(data_file, solution)
 
-    qubo0.define_post_process_function(post_process_inventory_qubo)
+            return dict(
+                profits=profit,
+                costs=cost
+            )
+        
+        return post_process_inventory_qubo
+
+    qubo0.define_post_process_function(get_post_process_inventory_function(data_file))
     sampler0 = SimulatedAnnealingSampler().sample
     sampler0_params = dict()
 
