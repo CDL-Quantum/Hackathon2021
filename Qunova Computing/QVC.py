@@ -2,117 +2,119 @@ import qiskit
 import numpy as np
 from qiskit.algorithms.optimizers import SPSA
 from torch.utils.tensorboard import SummaryWriter
+import re
+
+DEFAULT_SHOTS = 10000
+
 
 class VariationalClassifier:
 
-	def __init__(self, qfm, vc, boolftn, usebias):
-		self.qfm = qfm
-		self.vc = vc
-		self.boolftn = boolftn
-		self.usebias = usebias
-		if self.usebias:
-			self.numparams = len(self.vc.parameters) + 1
-		else:
-			self.numparams = len(self.vc.parameters)
+    def __init__(self, qfm, vc, bool_ftn, use_bias):
+        self.qfm = qfm
+        self.vc = vc
+        self.bool_ftn = bool_ftn
+        self.use_bias = use_bias
+        self.optimal_params = None
+        if self.use_bias:
+            self.num_params = len(self.vc.parameters) + 1
+        else:
+            self.num_params = len(self.vc.parameters)
 
-	def sig(self, x):
-		return 1/(1 + np.exp(-1*x))
+    @staticmethod
+    def sig(x):
+        return 1 / (1 + np.exp(-1 * x))
 
-	def cost(self, TrainData, TrainLabels, numshots, trainparams):
+    def cost(self, train_data, train_labels, num_shots=DEFAULT_SHOTS, train_params=None, **kwargs):
 
-		qasm_backend = qiskit.Aer.get_backend('aer_simulator')
-		totcost = 0
-		if self.usebias:
-			bias = trainparams[-1]
-			trainparams = trainparams[:-1]
-		else:
-			bias = 0
+        qasm_backend = qiskit.Aer.get_backend('aer_simulator')
+        tot_cost = 0
+        if self.use_bias:
+            bias = train_params[-1]
+            train_params = train_params[:-1]
+        else:
+            bias = 0
 
-		for datapoint, label in zip(TrainData, TrainLabels):
+        for data_point, label in zip(train_data, train_labels):
+            py = self._get_py(data_point, label, train_params, qasm_backend, num_shots, **kwargs)
 
-			# Make the classifier circuit
-			totcirc = self.qfm.assign_parameters(datapoint)
-			totcirc = totcirc.compose(self.vc.assign_parameters(trainparams))
-			totcirc.measure_all()
+            # Calculate Error Probability
+            ep = self.sig(np.sqrt(num_shots) * (0.5 - py + label * bias / 2) / np.sqrt(2 * (1 - py) * py))
+            tot_cost += ep
 
-			# Run the circuit
-			totcirc = qiskit.transpile(totcirc, qasm_backend)
-			result = qasm_backend.run(totcirc, shots = numshots).result()
-			counts = result.get_counts(totcirc)
+        return tot_cost / len(train_data)
 
-			# Calculate p_y(x)
-			py = 0
-			for bitstring in counts:
-				if self.boolftn(bitstring) == label:
-					py += counts[bitstring]
-			py = py / numshots
+    def train(self, train_data, train_labels, exp_name, num_shots=DEFAULT_SHOTS, **kwargs):
 
-			# Calculate Error Probability
-			ep = self.sig(np.sqrt(numshots) * (0.5 - py + label*bias/2) / np.sqrt(2*(1-py)*py))
-			totcost += ep
+        # Basic initializations
+        train_params = np.ones(self.num_params, dtype=float)
 
-		return totcost / len(TrainData)
+        writer = SummaryWriter('runs/' + exp_name)
 
-	def train(self, TrainData, TrainLabels, expname):
+        def callback(_nfev, _params, _fval, _step_size, _accept):
+            writer.add_scalar('training loss', _fval, int(_nfev / 3))
 
-		# Basic initializations
-		trainparams = list(np.ones(self.numparams))
-		numshots = 10000
+        def train_cost(_train_params):
+            return self.cost(train_data, train_labels, num_shots, _train_params)
 
-		writer = SummaryWriter('runs/' + expname)
-		def callback(nfev, params, fval, stepsize, accept):
-			writer.add_scalar('training loss', fval, int(nfev/3))
+        # Training Loop
+        optimizer = SPSA(maxiter=250, callback=callback, **kwargs)
+        if self.use_bias:
+            vbds = [(0, 2 * np.pi)] * (self.num_params - 1) + [(-1, 1)]
+        else:
+            vbds = [(0, 2 * np.pi)] * self.num_params
+        point, value, nfev = optimizer.optimize(self.num_params, train_cost, variable_bounds=vbds,
+                                                initial_point=train_params)
+        self.optimal_params = point
 
-		def train_cost(trainparams):
-			return self.cost(TrainData, TrainLabels, numshots, trainparams)
+        return point, value, nfev
 
-		# Training Loop
-		optimizer = SPSA(maxiter = 250, callback = callback)
-		if self.usebias:
-			vbds = [(0, 2*np.pi)]*(self.numparams-1) + [(-1, 1)]
-		else:
-			vbds = [(0, 2*np.pi)]*(self.numparams)
-		point, value, nfev = optimizer.optimize(self.numparams, train_cost, variable_bounds = vbds, 
-												initial_point = trainparams)
-		self.optimparams = point
+    def test(self, test_data, test_label, num_shots=DEFAULT_SHOTS, **kwargs):
 
-		return point, value, nfev
+        # Basic Initializations
+        qasm_backend = qiskit.Aer.get_backend('aer_simulator')
+        accuracy = 0
+        if self.use_bias:
+            bias = self.optimal_params[-1]
+            train_params = self.optimal_params[:-1]
+        else:
+            bias = 0
+            train_params = self.optimal_params
 
-	def test(self, TestData, TestLabels):
+        # Calculate for each test data_point / label
+        for data_point, label in zip(test_data, test_label):
+            py = self._get_py(data_point, label, train_params, qasm_backend, num_shots, **kwargs)
+            # See if py is large enough to classify correctly
+            if py > 1 - py - label * bias:
+                accuracy += 1
 
-		# Basic Initializations
-		numshots = 10000
-		qasm_backend = qiskit.Aer.get_backend('aer_simulator')
-		accuracy = 0
-		if self.usebias:
-			bias = self.optimparams[-1]
-			trainparams = self.optimparams[:-1]
-		else:
-			bias = 0
-			trainparams = self.optimparams
+        return accuracy / len(test_data)
 
-		# Calculate for each test datapoint / label
-		for datapoint, label in zip(TestData, TestLabels):
+    def _get_py(self, data_point, label, train_params, qasm_backend=None, num_shots=DEFAULT_SHOTS, **kwargs):
+        if qasm_backend is None:
+            qasm_backend = qiskit.Aer.get_backend('aer_simulator')
 
-			# Make the classifier circuit
-			totcirc = self.qfm.assign_parameters(datapoint)
-			totcirc = totcirc.compose(self.vc.assign_parameters(trainparams))
-			totcirc.measure_all()
+        # Make the classifier circuit
+        tot_circ = self.qfm.assign_parameters(data_point)
+        tot_circ = tot_circ.compose(self.vc.assign_parameters(train_params))
+        tot_circ.measure_all()
 
-			# Run the circuit
-			totcirc = qiskit.transpile(totcirc, qasm_backend)
-			result = qasm_backend.run(totcirc, shots = numshots).result()
-			counts = result.get_counts(totcirc)
+        # Run the circuit
+        tot_circ = qiskit.transpile(tot_circ, qasm_backend)
+        result = qasm_backend.run(tot_circ, shots=num_shots).result()
+        counts = result.get_counts(tot_circ)
 
-			# Calculate p_y(x)
-			py = 0
-			for bitstring in counts:
-				if self.boolftn(bitstring) == label:
-					py += counts[bitstring]
-			py = py / numshots
+        # Calculate p_y(x)
+        py = 0
+        for bitstring in counts:
+            if self.bool_ftn(bitstring) == label:
+                py += counts[bitstring]
+        py = py / num_shots
+        return py
 
-			# See if py is large enough to classify correctly
-			if py > 1-py - label*bias:
-				accuracy += 1
-			
-		return accuracy / len(TestData)
+'''
+class PyquilVariationalClassifier(VariationalClassifier):
+    def _get_py(self, data_point, label, train_params, pyquil_backend=None, num_shots=DEFAULT_SHOTS, **kwargs):
+        if pyquil_backend is None or re.match(r"(\d+)q-qvm", pyquil_backend) is not None:
+            # Simulator
+'''
+

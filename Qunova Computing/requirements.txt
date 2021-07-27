@@ -5,3 +5,4 @@ sklearn
 matplotlib
 qiskit
 torch
+pyquil
