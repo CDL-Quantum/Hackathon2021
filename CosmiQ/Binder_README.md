@@ -2,8 +2,6 @@
 
 Collaboration repository for CDL bootcamp Quantum Hackathon 2021.
 
-This branch contains environment for IBM's [qiskit](https://qiskit.org/).
-
 This project uses [mybinder.org](https://mybinder.readthedocs.io/en/latest/introduction.html) online service.
 
 Each branch contains provider specific settings that are defined in the [/binder](/binder) subfolder under the repository root.
