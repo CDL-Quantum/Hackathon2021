@@ -1,9 +1,9 @@
 from math import log2, floor
 from dimod import DiscreteQuadraticModel
 import numpy as np
-from models.Qubo import Qubo
+from models.AbstractQubo import AbstractQubo
 
-class ProfitQubo(Qubo):
+class ProfitQubo(AbstractQubo):
     def __init__(self, profits: list[float], costs: list[float], budget: float, max_number_of_products=10) -> None:
         """Initializes the ProfitQubo
         

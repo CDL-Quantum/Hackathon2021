@@ -1,8 +1,8 @@
 from dimod import BinaryQuadraticModel, BINARY
 import numpy as np
-from models.Qubo import Qubo
+from models.AbstractQubo import AbstractQubo
 
-class SupplierQubo(Qubo):
+class SupplierQubo(AbstractQubo):
     # Lagrange multipliers A>B>0
     lagrange_a = 2
     lagrange_b = 1
