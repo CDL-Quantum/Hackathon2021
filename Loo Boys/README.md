@@ -31,5 +31,6 @@ For more information, see our [<ins>business application and set-up workflow</in
 - William Ngana
 - Elijah Cavan
 - Jose H. Leon-Janampa
+- Teemu Salmela
 
 ![cdl](img/cdl.jpg)
