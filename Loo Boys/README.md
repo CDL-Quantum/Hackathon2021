@@ -30,8 +30,6 @@ The Lord's Vig is an immersive Fantasy Sports and Betting platform, the first of
 
 From command line: Use python solvers/script.py -h
 
-## Challenge(s) You Solved
-
 ## Project Details: 
   - Further walkthrough of what you did 
   - Links to any Jupyter notebooks/scripts
@@ -42,6 +40,8 @@ See [here](Business_app.md) for our business application.
 
 ## Contributors 
 
-William Ngana
-Elijah Cavan
-Jose H. Leon-Janampa
+- William Ngana
+- Elijah Cavan
+- Jose H. Leon-Janampa
+
+![cdl](img/cdl.jpg)
