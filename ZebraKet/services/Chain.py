@@ -49,7 +49,17 @@ if __name__ == "__main__":
     # def return_
 
     qubo0 = SupplierQubo(inventory_requirement, supplier_inventory)
-    qubo0.define_post_process_function(lambda solution, energy: dict(profits=profit, costs=cost))
+    def post_process_inventory_qubo(solution, energy):
+        from utils.data import read_profit_optimization_data
+
+        profit, cost = read_profit_optimization_data(standard_mock_data['small'], solution)
+
+        return dict(
+            profits=profit,
+            costs=cost
+        )
+
+    qubo0.define_post_process_function(post_process_inventory_qubo)
     sampler0 = SimulatedAnnealingSampler().sample
     sampler0_params = dict()
 
@@ -57,8 +67,6 @@ if __name__ == "__main__":
     sampler1 = LeapHybridDQMSampler().sample_dqm
     sampler1_params = dict()
 
-
-    
     # profit, cost = read_profit_optimization_data(standard_mock_data['small'])
     # sampler1 = LeapHybridDQMSampler().sample_dqm
     # sampler2 = LeapHybridDQMSampler().sample_dqm
