@@ -6,7 +6,7 @@ The leading quantum sports betting application. We are an all encompassing suite
 
 ## Welcome to the Suite
 
-The Lord's Vig is an immersive Fantasy Sports and Betting platform, the first of it's kind in the world to make use of Quantum technology. Here at LV we make use of state of the art algorithims to give YOU an advantage over your friends and colleagues. Some of the features include:
+The Lord's Vig is an immersive Fantasy Sports and Betting platform, the first of it's kind in the world to make use of Quantum technology. Here at LV we make use of state of the art algorithims (both classical and quantum) to give YOU an advantage over your friends and colleagues. Some of the features include:
 
 - state of the are optimization model to select/suggest players during an auction draft
 - optimize you're fantasy lineup (or pick a good team while playing an Ultimate Team mode)
