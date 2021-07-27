@@ -75,38 +75,38 @@ The results of the measurements are used to build a discriminator, which is a fu
 
 We then used the results form the experiments to construct and test single-qutrit gates on IBM Q's ibmq_armonk backend:
 
-1. ![X01](https://latex.codecogs.com/gif.latex?X%5E%2801%29) gate
+1. ![X01](https://latex.codecogs.com/gif.latex?X%5E%7B%2801%29%7D) gate
 
-> The ![X01](https://latex.codecogs.com/gif.latex?X%5E%2801%29) gate flips qutrit from ![|0>](https://latex.codecogs.com/gif.latex?%7C0%5Crangle) state to ![|1>](https://latex.codecogs.com/gif.latex?%7C1%5Crangle) state and vice versa.
+> The ![X01](https://latex.codecogs.com/gif.latex?X%5E%7B%2801%29%7D) gate flips qutrit from ![|0>](https://latex.codecogs.com/gif.latex?%7C0%5Crangle) state to ![|1>](https://latex.codecogs.com/gif.latex?%7C1%5Crangle) state and vice versa.
 >
 
-2. ![X12](https://latex.codecogs.com/gif.latex?X%5E%2812%29) gate
+2. ![X12](https://latex.codecogs.com/gif.latex?X%5E%7B%2812%29%7D) gate
 
-> The ![X12](https://latex.codecogs.com/gif.latex?X%5E%2812%29) gate flips qutrit from ![|1>](https://latex.codecogs.com/gif.latex?%7C1%5Crangle) state to ![|2>](https://latex.codecogs.com/gif.latex?%7C2%5Crangle) state and vice versa.
+> The ![X12](https://latex.codecogs.com/gif.latex?X%5E%7B%2812%29%7D) gate flips qutrit from ![|1>](https://latex.codecogs.com/gif.latex?%7C1%5Crangle) state to ![|2>](https://latex.codecogs.com/gif.latex?%7C2%5Crangle) state and vice versa.
 >
 
-3. ![X02](https://latex.codecogs.com/gif.latex?X%5E%2802%29)  gate
+3. ![X02](https://latex.codecogs.com/gif.latex?X%5E%7B%2802%29%7D)  gate
 
-> The ![X02](https://latex.codecogs.com/gif.latex?X%5E%2802%29) gate flips qutrit from ![|0>](https://latex.codecogs.com/gif.latex?%7C0%5Crangle) state to ![|2>](https://latex.codecogs.com/gif.latex?%7C2%5Crangle) state and vice versa.
+> The ![X02](https://latex.codecogs.com/gif.latex?X%5E%7B%2802%29%7D) gate flips qutrit from ![|0>](https://latex.codecogs.com/gif.latex?%7C0%5Crangle) state to ![|2>](https://latex.codecogs.com/gif.latex?%7C2%5Crangle) state and vice versa.
 >
 
-4. Hadamard ![H01](https://latex.codecogs.com/gif.latex?H%5E%2801%29) gate
+4. Hadamard ![H01](https://latex.codecogs.com/gif.latex?H%5E%7B%2801%29%7D) gate
 
-> The ![H01](https://latex.codecogs.com/gif.latex?H%5E%2801%29) gate takes qutrit from ![|0>](https://latex.codecogs.com/gif.latex?%7C0%5Crangle) state to a superposition of ![|0>](https://latex.codecogs.com/gif.latex?%7C0%5Crangle) and ![|1>](https://latex.codecogs.com/gif.latex?%7C1%5Crangle):
+> The ![H01](https://latex.codecogs.com/gif.latex?H%5E%7B%2801%29%7D) gate takes qutrit from ![|0>](https://latex.codecogs.com/gif.latex?%7C0%5Crangle) state to a superposition of ![|0>](https://latex.codecogs.com/gif.latex?%7C0%5Crangle) and ![|1>](https://latex.codecogs.com/gif.latex?%7C1%5Crangle):
 >
 > ![0_1_super](https://latex.codecogs.com/gif.latex?%5Csqrt%7B%5Cfrac%7B1%7D%7B2%7D%7D*%28%7C0%5Crangle%20&plus;%20%7C1%5Crangle%29)
 >
 
-5. Hadamard ![H02](https://latex.codecogs.com/gif.latex?H%5E%2802%29) gate
+5. Hadamard ![H02](https://latex.codecogs.com/gif.latex?H%5E%7B%2802%29%7D) gate
 
-> The ![H02](https://latex.codecogs.com/gif.latex?H%5E%2802%29) gate takes qutrit from ![|0>](https://latex.codecogs.com/gif.latex?%7C0%5Crangle) state to a superposition of ![|0>](https://latex.codecogs.com/gif.latex?%7C0%5Crangle) and ![|1>](https://latex.codecogs.com/gif.latex?%7C1%5Crangle):
+> The ![H02](https://latex.codecogs.com/gif.latex?H%5E%7B%2802%29%7D) gate takes qutrit from ![|0>](https://latex.codecogs.com/gif.latex?%7C0%5Crangle) state to a superposition of ![|0>](https://latex.codecogs.com/gif.latex?%7C0%5Crangle) and ![|1>](https://latex.codecogs.com/gif.latex?%7C1%5Crangle):
 >
 > ![0_2_super](https://latex.codecogs.com/gif.latex?%5Csqrt%7B%5Cfrac%7B1%7D%7B2%7D%7D*%28%7C0%5Crangle%20&plus;%20%7C2%5Crangle%29)
 >
 
-6. Hadamard ![H12](https://latex.codecogs.com/gif.latex?H%5E%2812%29) gate
+6. Hadamard ![H12](https://latex.codecogs.com/gif.latex?H%5E%7B%2812%29%7D) gate
 
-> The ![H12](https://latex.codecogs.com/gif.latex?H%5E%2812%29) gate takes qutrit from ![|0>](https://latex.codecogs.com/gif.latex?%7C0%5Crangle) state to a superposition of ![|1>](https://latex.codecogs.com/gif.latex?%7C1%5Crangle) and ![|2>](https://latex.codecogs.com/gif.latex?%7C2%5Crangle):
+> The ![H12](https://latex.codecogs.com/gif.latex?H%5E%7B%2812%29%7D) gate takes qutrit from ![|0>](https://latex.codecogs.com/gif.latex?%7C0%5Crangle) state to a superposition of ![|1>](https://latex.codecogs.com/gif.latex?%7C1%5Crangle) and ![|2>](https://latex.codecogs.com/gif.latex?%7C2%5Crangle):
 >
 > ![1_2_super](https://latex.codecogs.com/gif.latex?%5Csqrt%7B%5Cfrac%7B1%7D%7B2%7D%7D*%28%7C1%5Crangle%20&plus;%20%7C2%5Crangle%29)
 >
