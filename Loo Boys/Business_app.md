@@ -17,6 +17,9 @@ Sports betting is a 203 BILLION dollar industry in the U.S. Couple that with the
 - DraftKings: 19 billion dollar market cap;
 - Bet 365: 
 
+## Technologies Used
+
+
 
 ## Business Model
 
@@ -25,6 +28,19 @@ Sports betting is a 203 BILLION dollar industry in the U.S. Couple that with the
 ## Presentation
 
 Slides to our presentation can be found [here](https://docs.google.com/presentation/d/1uoSEKO_CzY3tWiS7wWERNEAjORk5LXj8cneoCqp16gU/edit?usp=sharing).
+
+
+## Setup
+
+1. Make sure you have X installed and configured.
+
+2. Set up your preferred virtual environment.
+
+3. pip install -r requirements.txt
+
+## How to Use
+
+From command line: Use python solvers/script.py -h
 
 
 ![cdl](img/cdl.jpg)
