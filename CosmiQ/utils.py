@@ -17,6 +17,15 @@ from qiskit import pulse
 from qiskit.pulse.library import Gaussian
 from qiskit.test.mock import FakeValencia
 
+
+# unit conversion factors -> all backend properties returned in SI (Hz, sec, etc.)
+GHz = 1.0e9 # Gigahertz
+MHz = 1.0e6 # Megahertz
+us  = 1.0e-6 # Microseconds
+ns  = 1.0e-9 # Nanoseconds
+
+
+
 def get_job_data(job, average, qubit):
     """Retrieve data from a job that has already run.
     Args:
@@ -99,7 +108,7 @@ def baseline_remove(values):
     """Center data around 0."""
     return np.array(values) - np.mean(values)
 
-def apply_sideband(pulse, freq):
+def apply_sideband(pulse, freq, dt, drive_samples, cal_qubit_freq):
     """Apply a sinusoidal sideband to this pulse at frequency freq.
     Args:
         pulse (SamplePulse): The pulse of interest.
@@ -118,7 +127,7 @@ def apply_sideband(pulse, freq):
     return sideband_pulse   
 
 
-def create_excited_freq_sweep_program(freqs, drive_power):
+def create_excited_freq_sweep_program(freqs, drive_power): #drive_chan, drive_samples, drive_sigma, measure, dt,cal_qubit_freq):
     """Builds a program that does a freq sweep by exciting the |1> state. 
     This allows us to obtain the 1->2 frequency. We get from the |0> to |1>
     state via a pi pulse using the calibrated qubit frequency. To do the 
@@ -143,11 +152,18 @@ using {len(freqs)} frequencies. The drive power is {drive_power}.")
                                         sigma=drive_sigma,
                                         amp=drive_power,
                                         name='base_12_pulse')
+    
+    pi_amp_01   = 0.1283062596553004
+    pi_pulse_01 = pulse_lib.gaussian(duration=drive_samples,
+                                 amp=pi_amp_01, 
+                                 sigma=drive_sigma,
+                                 name='pi_pulse_01')
+    
     schedules = []
     for jj, freq in enumerate(freqs):
         
         # add sideband to gaussian pulse
-        freq_sweep_12_pulse = apply_sideband(base_12_pulse, freq)
+        freq_sweep_12_pulse = apply_sideband(base_12_pulse, freq, dt, drive_samples, cal_qubit_freq)
         
         # add commands to schedule
         schedule = pulse.Schedule(name="Frequency = {}".format(freq))
