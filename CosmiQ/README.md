@@ -14,7 +14,7 @@ python3 -m venv cdl
 source cdl/bin/activate
 ```
 
-3. Configure two virtual conda environments, e.g.:
+3. Configure two conda environments to install vendor specific dependencies, e.g.:
 ```
 conda create -n CDLQ_IBMQ python=3
 conda create -n CDLQ_XANADU python=3
@@ -22,15 +22,17 @@ conda create -n CDLQ_XANADU python=3
 
 4. Activate corresponding environment and load vendor specific dependencies before starting `jupyter notebook` in each of the subfolders:
 
-   - [IBMQ
+   - IBMQ
+
    To run jupyter notebooks in the [ibmq](ibmq) folder, activate CDLQ_IBMQ environment and the corresponding jupyter kernel, then install dependencies:
    ```
    conda activate CDLQ_IBMQ
    ipython kernel install --name CDLQ_IBMQ --user
    pip install -r ibmq/requirements.txt
    ```
-   
+
    - XANADU
+
    To run jupyter notebooks in the [xanadu](xanadu) folder, activate CDLQ_XANADU environment and the corresponding jupyter kernel, then install dependencies:
    ```
    conda activate CDLQ_XANADU
