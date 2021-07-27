@@ -28,13 +28,11 @@ The approach is based on a few observations.
 
 1. A transmon qubit can be modelled using a Hamiltonian that describes the Duffing oscillator,
 
->
->$$
->H = \omega a^\dagger a + \frac{\alpha}{2} >a^\dagger a^\dagger a a,
->$$
->
 
-  where $\omega$ gives the $0\rightarrow1$ excitation frequency ($\omega \equiv \omega^{0\rightarrow1}$) and $\alpha$ is the anharmonicity between the $0\rightarrow1$ and $1\rightarrow2$ frequencies ($\alpha \equiv \omega^{1\rightarrow2} - \omega^{0\rightarrow1}$).
+![Duffing Oscillator Hamiltian](https://latex.codecogs.com/gif.latex?H%20%3D%20%5Comega%20a%5E%5Cdagger%20a%20&plus;%20%5Cfrac%7B%5Calpha%7D%7B2%7D%20%3Ea%5E%5Cdagger%20a%5E%5Cdagger%20a%20a)
+
+
+  where ![omega](https://latex.codecogs.com/gif.latex?%5Comega) gives the ![zero-to-one](https://latex.codecogs.com/gif.latex?0%5Crightarrow1) excitation frequency (![](https://latex.codecogs.com/gif.latex?%5Comega%20%5Cequiv%20%5Comega%5E%7B0%5Crightarrow1%7D)) and ![alpha](https://latex.codecogs.com/gif.latex?%5Calpha) is the anharmonicity between the ![zero-to-one](https://latex.codecogs.com/gif.latex?0%5Crightarrow1) and ![one-to-two](https://latex.codecogs.com/gif.latex?1%5Crightarrow2) frequencies (![alpha_is_delta_omega](https://latex.codecogs.com/gif.latex?%5Calpha%20%5Cequiv%20%5Comega%5E%7B1%5Crightarrow2%7D%20-%20%5Comega%5E%7B0%5Crightarrow1%7D)).
 
 ![Duffing oscillator](ibmq/Anharmonic_oscillator.gif)
 
@@ -43,15 +41,16 @@ Figure used with permission from Wikipedia
 Typical single-qubit calibration and classification experiments are used to extract information about the quantum device, such as oscillator frequencies and amplitudes. This information can be used to construct high-fidelity logical gates, perform error corrections, etc.
 
 2. In the calibration experiment, a series of microwave pulses (frequency sweep) is applied to a qubit in order to determine the qubit frequency, i.e. the difference between the first excited state and the ground state.
+
+The calibration experiment can be carried out by creating a Gaussian pulse schedule with fixed duration, sigma and amplitude, and then applying it to a given qubit by varying the frequency within a certain range.
+The (![zero-to-one](https://latex.codecogs.com/gif.latex?0%5Crightarrow1) excitation) frequency of the qubit is determined by measuring the qubit response (absorption rate) after each pulse using a Network Analyzer.
+
 This is demonstrated in the figure below.
 
 ![Frequency sweep pulse](ibmq/img_freq_sweep.png)
 
-The calibration experiment can be carried out by creating a Gaussian pulse schedule with fixed duration, sigma and amplitude, and then applying it to a given qubit by varying the frequency within a certain range.
-The ($0\rightarrow1$ excitation) frequency of the qubit is determined by measuring the qubit response (absorption rate) after each pulse using a Network Analyzer.
-
-3. Once the frequency of the qubit is calibrated, the next step is to determine the strength of a $\pi$ pulse. The latter chages the qubit state from $\vert0\rangle$ to $\vert1\rangle$, and vice versa. This is also called the $X$ or $X180$ gate, or bit-flip operator.
-A technique called Rabi experiment is used to calibrate the amplitude needed to achieve a $\pi$ rotation from $\vert0\rangle$ to $\vert1\rangle$. The desired rotation is shown on the Bloch sphere in the figure below -- you can see that the $\pi$ pulse gets its name from the angle it sweeps over on a Bloch sphere.
+3. Once the frequency of the qubit is calibrated, the next step is to determine the strength of a ![pi](https://latex.codecogs.com/gif.latex?%5Cpi) pulse. The latter chages the qubit state from ![](https://latex.codecogs.com/gif.latex?%7C%200%20%5Crangle) to ![](https://latex.codecogs.com/gif.latex?%7C%201%20%5Crangle), and vice versa. This is also called the ![X](https://latex.codecogs.com/gif.latex?X) or ![X180](https://latex.codecogs.com/gif.latex?X180) gate, or bit-flip operator.
+A technique called Rabi experiment is used to calibrate the amplitude needed to achieve a ![pi](https://latex.codecogs.com/gif.latex?%5Cpi) rotation from ![](https://latex.codecogs.com/gif.latex?%7C%200%20%5Crangle) to ![](https://latex.codecogs.com/gif.latex?%7C%201%20%5Crangle). The desired rotation is shown on the Bloch sphere in the figure below -- you can see that the ![pi](https://latex.codecogs.com/gif.latex?%5Cpi) pulse gets its name from the angle it sweeps over on a Bloch sphere.
 
 ![PI Rotation on Bloch sphere](https://github.com/aasfaw/qiskit-intros/blob/master/zero_to_one_X180.png?raw=true")
 
@@ -65,8 +64,8 @@ We use the above technique to take the qubit to the first excited state first, a
 
 <img src="ibmq/img_sideband_freq.png">
 
-5. Once our $\pi$ pulses have been calibrated, we can now create the states $\vert1\rangle$ and $\vert2\rangle$ with good probability.
-We can use this to find out what the states $\vert0\rangle$, $\vert1\rangle$ and $\vert2\rangle$ look like in our measurements, by repeatedly preparing them and plotting the measured signal.
+5. Once our ![pi](https://latex.codecogs.com/gif.latex?%5Cpi) pulses have been calibrated, we can now create the states ![](https://latex.codecogs.com/gif.latex?%7C%201%20%5Crangle) and ![](https://latex.codecogs.com/gif.latex?%7C2%5Crangle) with good probability.
+We can use this to find out what the states ![](https://latex.codecogs.com/gif.latex?%7C%200%20%5Crangle), ![](https://latex.codecogs.com/gif.latex?%7C%201%20%5Crangle) and ![](https://latex.codecogs.com/gif.latex?%7C2%5Crangle) look like in our measurements, by repeatedly preparing them and plotting the measured signal.
 The results of the measurements are used to build a discriminator, which is a function which takes a measured and kerneled complex value and classifies it as 0, 1 or 2.
 
 <img src="ibmq/img_discriminator.png">
@@ -76,40 +75,40 @@ The results of the measurements are used to build a discriminator, which is a fu
 
 We then used the results form the experiments to construct and test single-qutrit gates on IBM Q's ibmq_armonk backend:
 
-1. $X^(01)$ gate
+1. ![X01](https://latex.codecogs.com/gif.latex?X%5E%2801%29) gate
 
-> The $X^(01)$ gate flips qutrit from $|0\rangle$ state to $|1\rangle$ state and vice versa.
+> The ![X01](https://latex.codecogs.com/gif.latex?X%5E%2801%29) gate flips qutrit from ![|0>](https://latex.codecogs.com/gif.latex?%7C0%5Crangle) state to ![|1>](https://latex.codecogs.com/gif.latex?%7C1%5Crangle) state and vice versa.
 >
 
-2. $X^(12)$ gate
+2. ![X12](https://latex.codecogs.com/gif.latex?X%5E%2812%29) gate
 
-> The $X^(12)$ gate flips qutrit from $|1\rangle$ state to $|2\rangle$ state and vice versa.
+> The ![X12](https://latex.codecogs.com/gif.latex?X%5E%2812%29) gate flips qutrit from ![|1>](https://latex.codecogs.com/gif.latex?%7C1%5Crangle) state to ![|2>](https://latex.codecogs.com/gif.latex?%7C2%5Crangle) state and vice versa.
 >
 
-3. $X^(02)$  gate
+3. ![X02](https://latex.codecogs.com/gif.latex?X%5E%2802%29)  gate
 
-> The $X^(02)$ gate flips qutrit from $|0\rangle$ state to $|2\rangle$ state and vice versa.
+> The ![X02](https://latex.codecogs.com/gif.latex?X%5E%2802%29) gate flips qutrit from ![|0>](https://latex.codecogs.com/gif.latex?%7C0%5Crangle) state to ![|2>](https://latex.codecogs.com/gif.latex?%7C2%5Crangle) state and vice versa.
 >
 
-4. Hadamard $H^(01)$ gate
+4. Hadamard ![H01](https://latex.codecogs.com/gif.latex?H%5E%2801%29) gate
 
-> The $H^(01)$ gate takes qutrit from $|0\rangle$ state to a superposition of $|0\rangle$ and $|1\rangle$:
+> The ![H01](https://latex.codecogs.com/gif.latex?H%5E%2801%29) gate takes qutrit from ![|0>](https://latex.codecogs.com/gif.latex?%7C0%5Crangle) state to a superposition of ![|0>](https://latex.codecogs.com/gif.latex?%7C0%5Crangle) and ![|1>](https://latex.codecogs.com/gif.latex?%7C1%5Crangle):
 >
-> $\sqrt{\frac{1}{2}}*(|0\rangle + |1\rangle)$
->
-
-5. Hadamard $H^(02)$ gate
-
-> The $H^(02)$ gate takes qutrit from $|0\rangle$ state to a superposition of $|0\rangle$ and $|2\rangle$:
->
-> $\sqrt{\frac{1}{2}}*(|0\rangle + |2\rangle)$
+> ![0_1_super](https://latex.codecogs.com/gif.latex?%5Csqrt%7B%5Cfrac%7B1%7D%7B2%7D%7D*%28%7C0%5Crangle%20&plus;%20%7C1%5Crangle%29)
 >
 
-6. Hadamard $H^(12)$ gate
+5. Hadamard ![H02](https://latex.codecogs.com/gif.latex?H%5E%2802%29) gate
 
-> The $H^(12)$ gate takes qutrit from $|0\rangle$ state to a superposition of $|1\rangle$ and $|2\rangle$:
+> The ![H02](https://latex.codecogs.com/gif.latex?H%5E%2802%29) gate takes qutrit from ![|0>](https://latex.codecogs.com/gif.latex?%7C0%5Crangle) state to a superposition of ![|0>](https://latex.codecogs.com/gif.latex?%7C0%5Crangle) and ![|1>](https://latex.codecogs.com/gif.latex?%7C1%5Crangle):
 >
-> $\sqrt{\frac{1}{2}}*(|1\rangle + |2\rangle)$
+> ![0_2_super](https://latex.codecogs.com/gif.latex?%5Csqrt%7B%5Cfrac%7B1%7D%7B2%7D%7D*%28%7C0%5Crangle%20&plus;%20%7C2%5Crangle%29)
+>
+
+6. Hadamard ![H12](https://latex.codecogs.com/gif.latex?H%5E%2812%29) gate
+
+> The ![H12](https://latex.codecogs.com/gif.latex?H%5E%2812%29) gate takes qutrit from ![|0>](https://latex.codecogs.com/gif.latex?%7C0%5Crangle) state to a superposition of ![|1>](https://latex.codecogs.com/gif.latex?%7C1%5Crangle) and ![|2>](https://latex.codecogs.com/gif.latex?%7C2%5Crangle):
+>
+> ![1_2_super](https://latex.codecogs.com/gif.latex?%5Csqrt%7B%5Cfrac%7B1%7D%7B2%7D%7D*%28%7C1%5Crangle%20&plus;%20%7C2%5Crangle%29)
 >
 
 ## Executing on IBM Q Backend
@@ -118,7 +117,7 @@ We implemented the above experiments using Qiskit Pulse and executed them on the
 
 ## Python Code and Jupyter Notebooks
 
-Python code using Qiskit Pulse can be found in the [/ibmq](ibmq) subfolder.
+Python code using Qiskit Pulse can be found in the [ibmq](ibmq) subfolder.
 
 Please review the implementation of the above calibration technique and single-qutrit gates in the attached [ibmq/Gates Jupyter notebook](ibmq/class_gates.ipynb).
 
