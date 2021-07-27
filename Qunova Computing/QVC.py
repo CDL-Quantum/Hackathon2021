@@ -2,6 +2,7 @@ from collections import Counter
 
 import qiskit
 import numpy as np
+from qcs_api_client.util.errors import QCSHTTPStatusError
 from qiskit.algorithms.optimizers import SPSA
 from torch.utils.tensorboard import SummaryWriter
 import re
@@ -45,7 +46,7 @@ class VariationalClassifier:
 
         return tot_cost / len(train_data)
 
-    def train(self, train_data, train_labels, exp_name, num_shots=DEFAULT_SHOTS, **kwargs):
+    def train(self, train_data, train_labels, exp_name, num_shots=DEFAULT_SHOTS, backend=None, **kwargs):
 
         # Basic initializations
         train_params = np.ones(self.num_params, dtype=float)
@@ -56,7 +57,7 @@ class VariationalClassifier:
             writer.add_scalar('training loss', _fval, int(_nfev / 3))
 
         def train_cost(_train_params):
-            return self.cost(train_data, train_labels, num_shots, _train_params)
+            return self.cost(train_data, train_labels, num_shots, _train_params, backend, **kwargs)
 
         # Training Loop
         optimizer = SPSA(maxiter=250, callback=callback, **kwargs)
@@ -70,10 +71,9 @@ class VariationalClassifier:
 
         return point, value, nfev
 
-    def test(self, test_data, test_label, num_shots=DEFAULT_SHOTS, **kwargs):
+    def test(self, test_data, test_label, num_shots=DEFAULT_SHOTS, backend=None, verbose=False, **kwargs):
 
         # Basic Initializations
-        qasm_backend = qiskit.Aer.get_backend('aer_simulator')
         accuracy = 0
         if self.use_bias:
             bias = self.optimal_params[-1]
@@ -83,13 +83,28 @@ class VariationalClassifier:
             train_params = self.optimal_params
 
         # Calculate for each test data_point / label
+        py_list = list()
+        ans_list = list()
         for data_point, label in zip(test_data, test_label):
-            py = self._get_py(data_point, label, train_params, qasm_backend, num_shots, **kwargs)
-            # See if py is large enough to classify correctly
-            if py > 1 - py - label * bias:
-                accuracy += 1
-
-        return accuracy / len(test_data)
+            try:
+                py = self._get_py(data_point, label, train_params, backend, num_shots, **kwargs)
+                # See if py is large enough to classify correctly
+                if py > 1 - py - label * bias:
+                    accuracy += 1
+                    ans_list.append(True)
+                else:
+                    ans_list.append(False)
+                py_list.append(py)
+            except QCSHTTPStatusError:
+                print("Bad request from QPU. Terminate.")
+                if verbose:
+                    return accuracy / len(py_list), py_list, ans_list
+                else:
+                    return accuracy / len(py_list)
+        if verbose:
+            return accuracy / len(test_data), py_list, ans_list
+        else:
+            return accuracy / len(test_data)
 
     def _get_py(self, data_point, label, train_params, backend=None, num_shots=DEFAULT_SHOTS, **kwargs):
         if backend is None:

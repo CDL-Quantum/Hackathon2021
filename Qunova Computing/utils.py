@@ -1,13 +1,23 @@
-from sklearn.model_selection import train_test_split
-from sklearn.decomposition import PCA
-
 import math
-import pandas as pd
-import numpy as np
 import random
 
+import numpy as np
+import pandas as pd
+from sklearn.decomposition import PCA
+from sklearn.model_selection import train_test_split
 
-def LoadData(TestSize, NumPCs):
+
+def samples(lst, k):
+    n = len(lst)
+    indices = []
+    while len(indices) < k:
+        index = random.randrange(n)
+        if index not in indices:
+            indices.append(index)
+    return [lst[i] for i in indices]
+
+
+def LoadData(TestSize, NumPCs, seed=None):
     cov_related_genes = ['ACE2', 'AGTR1', 'NFKB1', 'RELA', 'IL12A', 'CCL2', 'ISG15', 'IFIH1', 'TBK1', 'C2', 'C3', 'C5',
                          'C1R', 'C1S', 'FGA', 'FGB', 'FGG', 'RPS2', 'RPS3',
                          'RPS3A', 'RPS4X', 'RPS4Y1', 'RPS5', 'RPS6', 'RPS7', 'RPS8', 'RPS9', 'RPS11', 'RPS12', 'RPS13',
@@ -18,8 +28,9 @@ def LoadData(TestSize, NumPCs):
     # Data Preprocessing
     df = pd.read_csv('./GSE147507_Series6,16.csv', index_col=0)
     not_related_genes_ = [x for x in df.index if x not in cov_related_genes]
-    not_related_genes = random.sample([x for x in not_related_genes_ if 0 not in list(df.loc[x, :])],
-                                      len(cov_related_genes))
+    random.seed(seed)
+    not_related_genes = samples([x for x in not_related_genes_ if 0 not in list(df.loc[x, :])],
+                                len(cov_related_genes))
 
     df_sample = df.loc[cov_related_genes + not_related_genes, :]
     for gene in df_sample.index:
@@ -58,9 +69,9 @@ def LoadData(TestSize, NumPCs):
     x_div = dataset[:, 0:6]
     y_div = dataset[:, 6]
 
-    x_div_train, x_div_test, y_div_train, y_div_test = train_test_split(x_div, y_div, test_size=TestSize)
+    x_div_train, x_div_test, y_div_train, y_div_test = train_test_split(x_div, y_div, test_size=TestSize, random_state=seed)
 
-    pca = PCA(n_components=NumPCs)
+    pca = PCA(n_components=NumPCs, random_state=seed)
     pca.fit(x_div_train)
     TrainData = pca.transform(x_div_train)
     TestData = pca.transform(x_div_test)
