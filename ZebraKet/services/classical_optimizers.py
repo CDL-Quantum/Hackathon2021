@@ -2,7 +2,7 @@
 import pandas as pd
 import numpy as np
 from itertools import combinations
-from models.data import parse_profit_dataframe
+from utils.data import parse_profit_dataframe
 
 def binary_profit_optimizer(price_data: pd.DataFrame, budget: float) -> tuple[list[int], float, float]:
     """Optimizes the profit problem classically using a binary formulation (AKA items can only be used once)
