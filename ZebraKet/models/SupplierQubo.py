@@ -56,7 +56,7 @@ class SupplierQubo(AbstractQubo):
 
         # Add linear terms
         # x linear terms
-        x = [bqm.add_variable(f'x_{i+1}', SupplierQubo.lagrange_a*sum(self.indicators[i])+SupplierQubo.lagrange_b) for i in range(0,len(self.supplier_inventory))]
+        self.x = [bqm.add_variable(f'x_{i+1}', SupplierQubo.lagrange_a*sum(self.indicators[i])+SupplierQubo.lagrange_b) for i in range(0,len(self.supplier_inventory))]
         # print('x variables:',x)
 
         # y_am linear terms
@@ -89,20 +89,29 @@ class SupplierQubo(AbstractQubo):
         
         return bqm
 
+    def _post_process(self, solutions):
+        """Hack to return data formatted as expected"""
+        res = []
+        for solution in solutions:
+            res.append([solution[i] for i in self.x])
+        return res
+
+
 if __name__ == "__main__":
 
     # from dimod import ExactSolver
     from neal import SimulatedAnnealingSampler
-   
-    # Define a simple set cover problem
-    # U = list(set(np.random.randint(10, size=(5))))
-    U = list(set([1,2,4]))
-
-    # V = [set(np.random.randint(10, size=(5))) for i in range(5)]
-    V = [set([1]),set([1,2]),set([4]), set([2])]
+    from utils.data import read_inventory_optimization_data
+    from config import standard_mock_data
     
+    inventory, supplier_inventories = read_inventory_optimization_data(standard_mock_data['small'])
     sampler = SimulatedAnnealingSampler().sample
 
-    qubo = SupplierQubo(U, V)
-    qubo.solve(sampler, **{"num_reads":100, "num_sweeps": 100000})
+    qubo = SupplierQubo(inventory, supplier_inventories)
+    qubo.solve(sampler, **{"num_reads":100, "num_sweeps": 100})
+
     print(qubo.response)
+
+    print('\nLength of solution', len(qubo.solution_set[0]))
+    print(f'Found {np.sum(qubo.solution_set[0])} suppliers with energy {qubo.energy_set[0]}')
+    print('\nAll solutions: ', qubo.solution_set)

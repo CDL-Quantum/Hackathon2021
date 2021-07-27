@@ -19,8 +19,16 @@ class AbstractQubo(ABC):
         if self.qubo is None:
             raise ValueError('Qubo has not been built. Please call .build()')
         self.response = sampler(self.qubo, **kwargs)
-        self.solution_set = self.response.record.sample
+        # HACK - for supplier qubo.... 
+        hack_post_process = getattr(self, "_post_process", None)
+        if hack_post_process:
+            self.solution_set = hack_post_process(self.response.samples())
+        else:
+            self.solution_set = self.response.record.sample
         self.energy_set = self.response.record.energy
+
+        print('Solved')
+        print(self.response)
 
     def define_post_process_function(self, fn):
         self.post_process_function = fn
