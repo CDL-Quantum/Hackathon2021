@@ -98,22 +98,27 @@ And we rearrange to have all the on-site pieces together:
 \begin{align}
 %1
 K\hat{D} &= \sum_{t_0}^{t_f} \sum_i \sum_{q=0}^{N_q-1} (-\mu(t,i) - 2\rho) d^q \hat{n}(i,t,q) \nonumber\\
-%5
+%2
 &+ \frac{1}{K} \sum_{t_0}^{t_f} \sum_{i} \sum_{q=0}^{N_q-1} \left[ \frac{\gamma}{2} {\Sigma^t_{ii}} + \lambda(t,i)\lambda(t,i) + \rho \right] d^q \hat{n}(i,t,q) d^q \hat{n}(i,t,{q}) \nonumber\\
-%9a
-&+ \frac{1}{K} \sum_{t_0}^{t_f-1} \sum_{i} \sum_{q=0}^{N_q-1} 2\lambda(t,i)\lambda(t,i) d^q \hat{n}(i,t+1,q) d^q \hat{n}(i,t+1,{q}) \nonumber\\ 
+%3
+&+ \frac{1}{K} \sum_{t_0 = 1}^{t_f} \sum_{i} \sum_{q=0}^{N_q-1} 2\lambda(t-1,i)\lambda(t-1,i) d^q \hat{n}(i,t,q) d^q \hat{n}(i,t,{q}) \nonumber\\ 
+%
+%
+%4
+&+ \frac{1}{K} \sum_{t_0}^{t_f} \sum_{i} \sum_{q<\bar{q}}^{N_q-1} 2\left[ \frac{\gamma}{2} {\Sigma^t_{ii}} + \lambda(t,i)\lambda(t,i) + \rho \right] d^q \hat{n}(i,t,q) d^q \hat{n}(i,t,\bar{q}) \nonumber\\
+%
+%
+%
+%8
+&+ \frac{1}{K} \sum_{t_0}^{t_f-1} \sum_{i} \sum_{q<\bar{q}}^{N_q-1}4\lambda(t,i)\lambda(t,i) \left[ d^q \hat{n}(i,t+1,q) d^q \hat{n}(i,t+1,\bar{q}) - 2 d^q \hat{n}(i,t+1,q) d^q \hat{n}(i,t,\bar{q}) \right] \nonumber\\    
 %2
 &+ \frac{1}{K} \sum_{t_0}^{t_f} \sum_{i<j} \sum_{q<\bar{q}}^{N_q-1} 4\left[ \frac{\gamma}{2} {\Sigma^t_{ij}} + \lambda(t,i)\lambda(t,j) + \rho \right] d^q \hat{n}(i,t,q) d^q \hat{n}(j,t,\bar{q}) \nonumber\\
 %3
 &+ \frac{1}{K} \sum_{t_0}^{t_f} \sum_{i<j} \sum_{q}^{N_q-1} 2\left[ \frac{\gamma}{2} {\Sigma^t_{ij}} + \lambda(t,i)\lambda(t,j) + \rho \right] d^q \hat{n}(i,t,q) d^q \hat{n}(j,t,q) \nonumber\\
-%4
-&+ \frac{1}{K} \sum_{t_0}^{t_f} \sum_{i} \sum_{q<\bar{q}}^{N_q-1} 2\left[ \frac{\gamma}{2} {\Sigma^t_{ii}} + \lambda(t,i)\lambda(t,i) + \rho \right] d^q \hat{n}(i,t,q) d^q \hat{n}(i,t,\bar{q}) \nonumber\\
 %6
 &+ \frac{1}{K} \sum_{t_0}^{t_f-1} \sum_{i<j} \sum_{q<\bar{q}}^{N_q-1} 4\lambda(t,i)\lambda(t,j) \left[ d^q \hat{n}(i,t+1,q) d^q \hat{n}(j,t+1,\bar{q}) - 2 d^q \hat{n}(i,t+1,q) d^q \hat{n}(j,t,\bar{q}) \right] \nonumber\\    
 %7
 &+ \frac{1}{K} \sum_{t_0}^{t_f-1} \sum_{i<j} \sum_{q=0}^{N_q-1} 2\lambda(t,i)\lambda(t,j) \left[ d^q \hat{n}(i,t+1,q) d^q \hat{n}(j,t+1,{q}) - 2 d^q \hat{n}(i,t+1,q) d^q \hat{n}(j,t,{q}) \right] \nonumber\\    
-%8
-&+ \frac{1}{K} \sum_{t_0}^{t_f-1} \sum_{i} \sum_{q<\bar{q}}^{N_q-1}4\lambda(t,i)\lambda(t,i) \left[ d^q \hat{n}(i,t+1,q) d^q \hat{n}(i,t+1,\bar{q}) - 2 d^q \hat{n}(i,t+1,q) d^q \hat{n}(i,t,\bar{q}) \right] \nonumber\\    
 %9b
 &+ \frac{1}{K} \sum_{t_0}^{t_f-1} \sum_{i} \sum_{q=0}^{N_q-1} 2\lambda(t,i)\lambda(t,i) \left[ - 2 d^q \hat{n}(i,t+1,q) d^q \hat{n}(i,t,{q}) \right] \nonumber\\ 
 %10
