@@ -56,3 +56,5 @@ Please refer to the [CDL Quantum Hackathon 2021 README file](../README.md) for m
   - Link to Presentation
 
 ## Contributors
+
+[Alice Barthe](https://github.com/alice4space), [Henry Makhanov](https://github.com/edenian), [Oleg Fonarev](https://github.com/olegxtend), [Ray Ushnish](https://github.com/ushnishray), [Rodrigo Vargas](https://github.com/RodrigoAVargasHdz)
