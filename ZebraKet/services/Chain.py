@@ -9,7 +9,6 @@ class Chain(list):
     def process_best(self):
         """Processes the chain but only passes the best solutions forward
         """
-        print(self)
 
         previous_qubo = None
         for qubo in self:
@@ -18,25 +17,16 @@ class Chain(list):
                 qubo.solve()
                 previous_qubo = qubo
                 continue
-            qubo.lazy_init(**previous_qubo.post_process)
+            next_iteration_data = previous_qubo.post_process[0]
+            print('Starting next iteration with data', next_iteration_data)
+            qubo.build(**next_iteration_data)
             qubo.solve()
-            
-
-        # for index, qubo_instance in enumerate(self):
-        #     if index == 0:
-        #         qubo = qubo_instance.lazy_init()
-
-
-
-
-    # def process_chain(self):
-
-
-    
+            previous_qubo = qubo
+        
 
 if __name__ == "__main__":
 
-    from models.ProfitQubo import ProfitQubo, PrototypeProfitQubo
+    from models.ProfitQubo import ProfitQubo
     from utils.data import read_profit_optimization_data
     from config import standard_mock_data
     # from neal import SimulatedAnnealingSampler
@@ -46,43 +36,18 @@ if __name__ == "__main__":
     max_number_of_products = 30
     
     profit, cost = read_profit_optimization_data(standard_mock_data['small'])
-    qubo1 = PrototypeProfitQubo(LeapHybridDQMSampler().sample_dqm, budget, max_number_of_products)
-    qubo1.lazy_init(profit, cost)
-    qubo1.post_process = lambda solution, energy: dict(
-        profits = solution, 
-        costs = energy
-    )
+    sampler1 = LeapHybridDQMSampler().sample_dqm
+    sampler2 = LeapHybridDQMSampler().sample_dqm
+    
+    qubo0 = ProfitQubo(sampler1, profit, cost)
+    qubo0.define_post_process_function(lambda solution, energy: dict(profits=profit, costs=cost))
+    # qubo0.solve()
+    # print(qubo0.post_process)
+    
+    qubo1 = ProfitQubo(sampler2)
 
-    print(qubo1.post_process([1, 2, 3], 100))
+    chain = Chain()
+    chain.append(qubo0)
+    chain.append(qubo1)
 
-    # # qubo1.solve()
-    # # print(qubo1.solution_set)
-
-    # qubo2 = PrototypeProfitQubo(LeapHybridDQMSampler().sample_dqm, budget, max_number_of_products)
-    # # qubo1.lazy_init(profit, cost)
-    # # qubo1.post_process = lambda solution_set, energy_set: [0, 0, 0], [0, 0, 0]
-
-
-
-
-    # # qubo2 = PrototyProfitQubo(budget, max_number_of_products)
-
-
-
-
-    # # qubo1 = ProfitQubo(profits=profit, costs=cost, budget=budget, max_number_of_products=max_number_of_products)
-    # # sampler = LeapHybridDQMSampler().sample_dqm
-    # # qubo.solve(sampler, **{"num_reads":100, "num_sweeps": 100000})
-    # # print(qubo.solution_set)
-
-    # # qubo1.solution_set.samples()[0]
-
-
-
-
-
-    # chain = Chain()
-    # chain.append(qubo1)
-    # chain.append(qubo2)
-
-    # chain.process_best()
+    chain.process_best()
