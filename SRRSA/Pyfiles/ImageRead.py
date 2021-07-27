@@ -1,6 +1,5 @@
 import numpy as np
-import matplotlib
-import matplotlib.pyplot as plt
+
 #Image processing
 from PIL import Image
 
@@ -29,6 +28,14 @@ def imageResize(data,pixel):
 def imagePartition(data,M,N):
     tiles = [data[x:x+M,y:y+N] for x in range(0,data.shape[0],M) for y in range(0,data.shape[1],N)]
     return tiles
+
+def imageBinarize(data):
+    # specify a threshold 0-255
+    threshold = 75
+    # make all pixels < threshold black
+    bidata = 1.0 * (data > threshold)
+    return bidata
+    
 
 
 
