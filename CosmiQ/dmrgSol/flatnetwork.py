@@ -103,6 +103,7 @@ class FlatNetwork():
                             
                             sep = abs(qm(t,i,q) - qm(t,j,q))
                             lo.set(targetrow,sep,dmrg.N(2*self.lam(t-1,i)*self.lam(t-1,j)*pds[q]*pds[q]/self.K,d=self.d))       
+                        
                         for qp in range(q+1, self.L[2]):
                             sep = abs(qm(t,i,q) - qm(t,i,qp))
                             lo.set(targetrow,sep,dmrg.N(4*self.lam(t-1,i)**2*pds[q]*pds[qp]/self.K,d=self.d))
