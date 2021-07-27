@@ -2,7 +2,7 @@
 High-Dimensional Quantum Computing on NISQ devices
 
 ## Setup
-In order to facilitate online collaboration, the CosmiQ team used [mybinder.org](https://mybinder.readthedocs.io/en/latest/introduction.html) free online service. See [Binder_README](Binder_README.md) file for more details.
+In order to facilitate online collaboration, the CosmiQ team used [mybinder.org](https://mybinder.readthedocs.io/en/latest/introduction.html) free online service. See [binder/README](binder/README.md) file for more details.
 
 For local installations, please follow the instructions below.
 
