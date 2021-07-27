@@ -24,7 +24,6 @@ For the **Z** gates, all gates are diagonal matrices (*diag*). The Hamadard gate
 The second main component for a universal quantum computer with qutrits are two-qutrits gates. The  **CNOT** gate, commonly used in to entagle two qubits, has the following form for qutrits, 
 
 
-
 # Rerences
 1. [Front. Phys. **8**, 479 (2019)](www.frontiersin.org/articles/10.3389/fphy.2020.589504/full).
 2. [Adv. Quantum Technol. **3**,  1900074 (2020)](https://onlinelibrary.wiley.com/doi/10.1002/qute.201900074)
