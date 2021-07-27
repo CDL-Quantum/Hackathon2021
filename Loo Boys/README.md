@@ -19,6 +19,14 @@ The Lord's Vig is an immersive Fantasy Sports and Betting platform, the first of
 
 We also partner with industry experts like PFF (Pro Football Focus) and SIS (Sports Info Solutions) to ensure you have the best metrics to guage player value and ensure YOU maintain the bragging rights. We do all the hard work- so you can rely on inferring value from key statistics. 
 
+## What are people saying about the Platform?
+
+- "Love it, I've won my league for 3 years in a row now. My friends are begging me for advice" - John A.
+- "I haven't had to buy a drink in years and my friends are asking me for debt forgiveness" - Alex 
+- "I love the platform; it makes fantasy easy and fun! My boyfriend's friends can't belive I'm so good!" - Stacy
+
+See [here](Business_app.md) for our business application. 
+
 ## Setup
 
 1. Make sure you have X installed and configured.
@@ -30,14 +38,6 @@ We also partner with industry experts like PFF (Pro Football Focus) and SIS (Spo
 ## How to Use
 
 From command line: Use python solvers/script.py -h
-
-## Project Details: 
-  - Further walkthrough of what you did 
-  - Links to any Jupyter notebooks/scripts
-  - Business applications
-  - Link to Presentation
-
-See [here](Business_app.md) for our business application. 
 
 ## Contributors 
 
