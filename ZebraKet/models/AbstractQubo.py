@@ -15,6 +15,7 @@ class AbstractQubo(ABC):
     def solve(self, sampler, **kwargs):
         """Solves the qubo using the passed in sampler and arguments
         """
+        print('Solving Qubo')
         if self.qubo is None:
             raise ValueError('Qubo has not been built. Please call .build()')
         self.response = sampler(self.qubo, **kwargs)
