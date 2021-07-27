@@ -32,3 +32,5 @@ pip-compile
 ```
 3. Commit and push the generated ```requirements.txt``` file to the GIT repo.
 4. Re-launch the project in [mybinder.org](https://mybinder.org/v2/gh/{ repository.name }}/{{ current.branch }})
+
+[Back to README](../README.md)
