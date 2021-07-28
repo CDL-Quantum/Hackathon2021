@@ -55,7 +55,7 @@ MIQUBO scores can take into account value and growth investing strategies. Hence
 
 
 #### Link to Presentation
-The presentation can be found [here](https://docs.google.com/presentation/d/1Q_40hvjKnNAW-a5CSStJhZfSFQr4VRwbZC-wVU2isro/edit#slide=id.ge66e857eae_0_1640).
+The presentation can be found [here](https://github.com/einack/Hackathon2021/blob/main/yiyaniQ/Quantum%20Baked%20ETFs%20(QBE).pdf).
 
 
 
