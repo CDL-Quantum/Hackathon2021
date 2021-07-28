@@ -69,6 +69,7 @@ class ParamCircuitInterface(metaclass=ABCMeta):
             else:
                 print("set qpu backend first.")
                 raise RuntimeError
+            self._qvm_executable = self._qpu.compile(self.circuit)
         for p_name in self._param_name:
             for i, v in enumerate(x[p_name]):
                 self._qvm_executable.write_memory(region_name=p_name, value=v, offset=i)
