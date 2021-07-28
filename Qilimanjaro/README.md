@@ -1,5 +1,3 @@
-Fill in this README.md. Example Structure:
-
 ## Project Description 
 Most quantum applications use qubits to process the information, that means we work on a 2<sup>n</sup>-dimensional Hilbert space since each qubit has 2 accessible states, |0〉 and |1〉. The state of these qubits can be easily modified using gates acting con that Hilbert space. However, we could also use higher energy states, for example we could use qutrits that can be in the states |0〉, |1〉 and |2〉 (or a superposition of those), but now the dimension of the Hilbert space becomes 2<sup>n</sup>3<sup>m</sup> where n is the number of qubits and m is the number of qutrits we have in our system.
 
@@ -14,8 +12,20 @@ Additionally, it is important to mention that it is a good idea to minimize the 
 The size of the circuit grows linearly with the number of layers, and the number of gates of those layers also grows linearly with the size of the data. The classifier will perform better as we add more layers.
 
 
-Applying unitary gates to qutrits is a bit more complex than in qubits, for qubits we have the U3 matrix given by 
+## Gates composition
+Applying unitary gates to qutrits is a bit more complex than in qubits, for qubits we have the general U3 matrix given by 
+
 <a href="https://www.codecogs.com/eqnedit.php?latex=U(\theta,&space;\phi,&space;\lambda)=\begin{pmatrix}&space;cos(\theta/2)&space;&&space;-i&space;e^{i&space;\lambda}&space;\sin{(\theta/2)}&space;\\&space;-i&space;e^{i&space;\lambda}&space;\sin{(\theta/2)}&space;&&space;e^{i(\lambda&plus;\phi)}&space;\cos{(\theta/2)}&space;\end{pmatrix}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?U(\theta,&space;\phi,&space;\lambda)=\begin{pmatrix}&space;cos(\theta/2)&space;&&space;-i&space;e^{i&space;\lambda}&space;\sin{(\theta/2)}&space;\\&space;-i&space;e^{i&space;\lambda}&space;\sin{(\theta/2)}&space;&&space;e^{i(\lambda&plus;\phi)}&space;\cos{(\theta/2)}&space;\end{pmatrix}" title="U(\theta, \phi, \lambda)=\begin{pmatrix} cos(\theta/2) & -i e^{i \lambda} \sin{(\theta/2)} \\ -i e^{i \lambda} \sin{(\theta/2)} & e^{i(\lambda+\phi)} \cos{(\theta/2)} \end{pmatrix}" /></a>
+
+That can be decomposed as
+
+<a href="https://www.codecogs.com/eqnedit.php?latex=U(\theta,&space;\phi,&space;\lambda)=Z_{\phi-\pi&space;/&space;2}&space;X_{\pi&space;/&space;2}&space;Z_{\pi-\theta}&space;X_{\pi&space;/&space;2}&space;Z_{\lambda-\pi&space;/&space;2}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?U(\theta,&space;\phi,&space;\lambda)=Z_{\phi-\pi&space;/&space;2}&space;X_{\pi&space;/&space;2}&space;Z_{\pi-\theta}&space;X_{\pi&space;/&space;2}&space;Z_{\lambda-\pi&space;/&space;2}" title="U(\theta, \phi, \lambda)=Z_{\phi-\pi / 2} X_{\pi / 2} Z_{\pi-\theta} X_{\pi / 2} Z_{\lambda-\pi / 2}" /></a>
+
+We can obtain unitary gates for qutrits by applying 2-dimensional gates to the subspaces {|0〉,|1〉} and {|1〉,|2〉}. By doing so, we can decompose unitary qutrit gates as
+
+<a href="https://www.codecogs.com/eqnedit.php?latex=U=Z_{\varphi_{1}}^{(01)}&space;Z_{\varphi_{2}}^{(12)}&space;Y_{\theta_{1}}^{(12)}&space;Y_{\theta_{2}}^{(01)}&space;Z_{\varphi_{3}}^{(01)}&space;Z_{\varphi_{4}}^{(12)}&space;Y_{\theta_{3}}^{(12)}&space;Z_{\varphi_{5}}^{(01)}&space;Z_{2&space;\varphi_{5}}^{(12)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?U=Z_{\varphi_{1}}^{(01)}&space;Z_{\varphi_{2}}^{(12)}&space;Y_{\theta_{1}}^{(12)}&space;Y_{\theta_{2}}^{(01)}&space;Z_{\varphi_{3}}^{(01)}&space;Z_{\varphi_{4}}^{(12)}&space;Y_{\theta_{3}}^{(12)}&space;Z_{\varphi_{5}}^{(01)}&space;Z_{2&space;\varphi_{5}}^{(12)}" title="U=Z_{\varphi_{1}}^{(01)} Z_{\varphi_{2}}^{(12)} Y_{\theta_{1}}^{(12)} Y_{\theta_{2}}^{(01)} Z_{\varphi_{3}}^{(01)} Z_{\varphi_{4}}^{(12)} Y_{\theta_{3}}^{(12)} Z_{\varphi_{5}}^{(01)} Z_{2 \varphi_{5}}^{(12)}" /></a>
+
+The reason for doing that is because it is not trivial to find the pulses needed for applying a unitary gate to a qutrit, but it is easier to find the pulses corresponding to 2-dimensional X, Y, Z gates.
 
 ## Setup
 Example:
