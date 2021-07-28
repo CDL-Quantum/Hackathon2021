@@ -19,7 +19,7 @@ Fill in this README.md. Example Structure:
 ### 1. Rigetti Challenge
 1. Run Jupyter Notebook Server
 2. Open two terminals and run `qvm -S` and `quilc -S` for each terminal.
-3. **(Data Preprocessing)** Run the [notebook file](./covid19_data/dim_reduc.ipynb) for the preprocessing.
+3. **(Data Preprocessing)** Run the [notebook file](./dim_reduc.ipynb) for the preprocessing.
 4. **(Training)** Run the [python script file](./training.ipynb) for the training by `python ./traiing_pyquil.py`.
 
    - You can monitor the training process running `tensorboard --logdir=./runs/zzzpfm_c12v3_zzzpfm_c12v3_pyquil`.
