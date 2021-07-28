@@ -12,7 +12,8 @@ The Lord's Vig is an immersive Fantasy Sports and Betting platform, the first of
 - optimize you're fantasy lineup (or pick a good team while playing an Ultimate Team mode) [notebook](PythonNotebooks/Optimal_team_kit.ipynb)
 - get strength of schedule (SOS) rating to help improve your decisions while betting [notebook](PythonNotebooks/SOS.ipynb)
 - Monte carlo simulations (both classical & quantum) to project team/player performance moving forward [notebook1](PythonNotebooks/Monte.ipynb) and [notebook2](PythonNotebooks/Monte_players.ipynb)
-- Machine Learning models to predict betting lines & tournament winners [notebook](PythonNotebooks/SOS.ipynb)
+- Machine Learning models to predict betting lines & tournament winners [notebook1](PythonNotebooks/Euro_Simulation.ipynb) and [notebook2](PythonNotebooks/betting.ipynb)
+- Portfolio optimization of your player assets; telling you which players are due a regression [notebook](PythonNotebooks/Euro_Simulation.ipynb)
 - Trade simulator to ensure you are never on the side of a sub-optimal transaction!
 
 We also partner with industry experts like PFF (Pro Football Focus) and SIS (Sports Info Solutions) to ensure you have the best metrics to guage player value and ensure YOU maintain the bragging rights. We do all the hard work- so you can rely on inferring value from key statistics. 
