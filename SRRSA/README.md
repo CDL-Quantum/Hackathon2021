@@ -28,9 +28,7 @@ Our grover search algorithm can be found in note books.
 
 Overall Hackathon challenge, except for DWAVE
 
-PennyLane
-
-Pennylane 
+PennyLane,Rigetti,IMBQ
 
 ## Project Details: 
   - Business applications: the problem we address is lack of computational capabilities. We research Quantum Machine Learning techniques in the framework of Quantum Image Processing and its potential applications to industries/markets such as weather forecasting, emotion recognition and prediction, nanotechnology etc. Our extensive business proposal can be found here.
