@@ -69,18 +69,22 @@ The overall goal of our project was to show that multiple objectives can be hand
 
 We tested objective 1 and 2 on D-Wave's Hybrid Solver, a simulated annealer as well as a brute force classical method. These solvers are compared on all datasets. The results are summarized below:
 
-#### Results for objective 1: Suppliers (QTY & List of Suppliers)
+### Results for objective 1: Suppliers (QTY & List of Suppliers)
 
-<p align="center">
-  <img  height="200" src="./resources/datatable1.png">
-</p>
+| | | Small | Medium | Large | Real World|
+| - | - | - | - | - | - |
+| Classical (Set Cover) | Energy<br/>Suppliers (#) | N/A<br/>2 | N/A<br/>2 | N/A<br/>2 | Not run yet |
+| QUBO (Simulated Annealer) | Energy<br/>Suppliers (#) | 14<br/>7 | 1111<br/>36 | 3694<br/>78 | Not run yet |
+| QUBO (Hybrid Solver) | Energy<br/>Suppliers (#) | -23<br/>3 | 888<br/>36 | 5354<br/>76 | Not run yet |
 
+### Results for objective 2: Inventory Profit (Total Profit Potential, Inventory)
 
-Results for objective 2: Inventory Profit (Total Profit Potential, Inventory)
-
-<p align="center">
-  <img  height="220" src="./resources/datatable2.png">
-</p>
+| | | Small | Medium | Large | Real World|
+| - | - | - | - | - | - |
+| Classical (Knapsack) | Profit (CAD)<br/>Cost (CAD)<br/>Run Time (sec) | Run forever<br/>Run forever<br/>Run forever | Run forever<br/>Run forever<br/>Run forever | Run forever<br/>Run forever<br/>Run forever |  Run forever<br/>Run forever<br/>Run forever | 
+| QUBO (Simulated Annealer) | Profit (CAD)<br/>Cost (CAD)<br/>Run Time (sec) | N/A<br/>N/A<br/>N/A | N/A<br/>N/A<br/>N/A | N/A<br/>N/A<br/>N/A | N/A<br/>N/A<br/>N/A | 
+| QUBO (Hybrid Solver + Fixed Bound) | Profit (CAD)<br/>Cost (CAD)<br/>Run Time (sec) | 403.06<br/>201.53<br/>13.43 | 579.73<br/>289.96<br/>68.69 | Run forever<br/>Run forever<br/>Run forever | 83.2<br/>41.6<br/>16.92 | 
+| QUBO (Hybrid Solver + Variable Bound) | Profit (CAD)<br/>Cost (CAD)<br/>Run Time (sec) | 529.92<br/>264.96<br/>11.65 | 584.49<br/>292.24<br/>29.23 | Run forever<br/>Run forever<br/>Run forever | 62.14<br/>31.07<br/>12.62 | 
 
 Results for objective 3: QUBO Chaining
 
