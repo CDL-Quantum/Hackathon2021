@@ -1,5 +1,5 @@
 ## Project Description 
-In this project we select and optimize a portfolio consists of a subset of S&P 500 Index constituents. We use Mutual Information QUBO (MIQUBO; https://cloud.dwavesys.com/leap/example-details/222058260) method for stock fundamentals' feature selection. We devise a stock scoring method for the selected features to construct the portfolio. For portfolio optimization, inspired by https://arxiv.org/abs/2007.00017, we compare the results from D-wave's simulated annealing and Leap Hybrid Solver, for static and dynamic portfolio optimization.
+In this project we select and optimize a portfolio consists of a subset of S&P 500 Index constituents. We use Mutual Information QUBO ([MIQUBO](https://cloud.dwavesys.com/leap/example-details/222058260) method for stock fundamentals' feature selection. We devise a stock scoring method for the selected features to construct the portfolio. For portfolio optimization, inspired by this [paper](https://arxiv.org/abs/2007.00017), we compare the results from D-wave's simulated annealing and Leap Hybrid Solver, for static and dynamic portfolio optimization.
 
 Our contributions include:  
 
@@ -19,7 +19,7 @@ pip install -r requirements.txt
 
 #### Quantum Features selection
 
-We use the Mutual Information QUBO method to extract relevant features from a real-world financial data set. The techniques used where borrowed from this repository (https://github.com/dwave-examples/mutual-information-feature-selection). To calculate asset scores, first, a subset of the fundamental metrics, most relevant to price or logarithmic price return are selected using Mutual Information QUBO (MIQUBO) algorithm. Then, the score is calculated based on the selected features and their quarter over quarter trend.
+We use the Mutual Information QUBO method to extract relevant features from a real-world financial data set. The techniques used where borrowed from this [repository](https://github.com/dwave-examples/mutual-information-feature-selection). To calculate asset scores, first, a subset of the fundamental metrics, most relevant to price or logarithmic price return are selected using Mutual Information QUBO (MIQUBO) algorithm. Then, the score is calculated based on the selected features and their quarter over quarter trend.
 
 Below is a comparison between the mutual information of the log-returns and other financial features. Other comparisons are found in the folder [figures](./figures/).
 
@@ -55,7 +55,7 @@ MIQUBO scores can take into account value and growth investing strategies. Hence
 
 
 #### Link to Presentation
-The presentation can be found here (add link).
+The presentation can be found [here](https://docs.google.com/presentation/d/1Q_40hvjKnNAW-a5CSStJhZfSFQr4VRwbZC-wVU2isro/edit#slide=id.ge66e857eae_0_1640).
 
 
 
