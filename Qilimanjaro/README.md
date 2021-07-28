@@ -80,3 +80,4 @@ Run the command `jupyter notebook` in the `Qilimanjaro` directory, inside the `s
 
 ## Contributors 
 
+Qilimanjaro team
