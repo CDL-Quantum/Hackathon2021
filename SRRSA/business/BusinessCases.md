@@ -37,8 +37,8 @@ We offer our forecast products in a SaaS subscription model.
 
 <table align="center">
      <tr>
-        <td><img src="SRRSA./business/business.jpg" width="400"></td>
-        <td><img src="SRRSA./business/aviationweather.jpg" width="450"></td>
+        <td><img src="./business.jpg" width="400"></td>
+        <td><img src="./aviationweather.jpg" width="450"></td>
     </tr>
 </table>
 
