@@ -6,6 +6,7 @@ import pennylane as qml
 import sklearn.datasets
 import sklearn.decomposition
 import torch
+import os
 from matplotlib.lines import Line2D
 from matplotlib.patches import Patch
 
@@ -131,11 +132,11 @@ if __name__ == '__main__':
     n_samples = 380
     n_wires = 3
 
-    path = 'Desktop/Quantum Computing/Hackathon2021/Loo Boys/data/prem_table_2020.csv'
-    p2 = 'Desktop/Quantum Computing/Hackathon2021/Loo Boys/data/epl-2019-GMTStandardTime.csv'
+    path = os.path.abspath(os.path.join( "../data/", 'prem_table_2020.csv'))
+    p2 = os.path.abspath(os.path.join( "../data/", 'epl-2019-GMTStandardTime.csv'))
     df = getTeamWeights(path)
     x,y = getData(p2,df)
-    split = int(n_samples*90)
+    split = int(n_samples*0.90)
     x_train = x[:split]
     x_test = x[split:]
     y_train = y[:split]
@@ -144,12 +145,14 @@ if __name__ == '__main__':
     params = np.array(qml.init.strong_ent_layers_normal(n_layers=3, n_wires=3))
     dev = qml.device("qiskit.aer", wires=n_wires)
 
-    df_Euro = pd.read_csv('Desktop/Quantum Computing/Hackathon2021/Loo Boys/data/euroGroupStage.csv')
+    europ = os.path.abspath(os.path.join( "../data/", 'euroGroupStage.csv'))
+    df_Euro = d.read_csv(europ)
     df_Euro.columns = ['Team','Won','Draw','Lost','GF','A']
     df_Euro['Weight'] =df_Euro.apply (lambda row: weightFunc(row),axis=1)
     df_Euro =  df_Euro[['Team','Weight']]
 
-    df_ro16 = pd.read_csv('Desktop/Quantum Computing/Hackathon2021/Loo Boys/data/roundOf16.csv')   
+    ro16p = os.path.abspath(os.path.join( "../data/", 'euroGroupStage.csv'))
+    df_ro16 = pd.read_csv(ro16p)   
     x_ro16 = df_ro16['x'].values.tolist()
     x_ro16 = [list(map(float ,x.split(','))) for x in x_ro16]
 
