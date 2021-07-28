@@ -23,7 +23,7 @@ Sports betting is a 203 BILLION dollar industry in the U.S. Couple that with the
 
 ## Business Model
 
-If we were to try to scale our package into a business we would plan on a SaS (Software as a service) model. We would offer users some resources for free to gain popularity; and then charge a flat monthly subscription rate (and offer a discounted yearly rate) to use our platform. For professional users (Sports teams, professional gamblers, ect) we would charge a higher rate, but maintain support and have custom analytics & reports prepared for these clients. For further information see below or at this [link](img/cdl.jpg).
+If we were to try to scale our package into a business we would plan on a SaS (Software as a service) model. We would offer users some resources for free to gain popularity; and then charge a flat monthly subscription rate (and offer a discounted yearly rate) to use our platform. For professional users (Sports teams, professional gamblers, ect) we would charge a higher rate, but maintain support and have custom analytics & reports prepared for these clients. For further information see below or at this [link](https://drive.google.com/file/d/1uL1ANnDee9dNKTsRR3arMqxqiVhFbkCI/view?usp=sharing).
 
 ![bus](img/bus.jpg)
 
