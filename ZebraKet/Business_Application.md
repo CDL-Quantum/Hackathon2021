@@ -5,6 +5,7 @@
 
 <p align="center">
   <img width="900" height="400" src="./resources/PIC1.png">
+  <a href="https://www.mckinsey.com/business-functions/risk/our-insights/covid-19-implications-for-business">Source</a>
 </p>
 
 ## Building a Resilient Supply Chain for a Better World
@@ -117,21 +118,22 @@ However, over the next five years, Amazon will nearly double its online food and
 
 ## REFERENCES
 
-1. [Mckinsey-Resilient_rebalancing](https://www.mckinsey.com/business-functions/operations/our-insights/risk-resilience-and-rebalancing-in-global-value-chains)
-2. [Accenture-Supply-chain-distruption](https://www.accenture.com/be-en/insights/consulting/coronavirus-supply-chain-disruption)
+1. [Mckinsey-Disruption-implications-for-business](https://www.mckinsey.com/business-functions/risk/our-insights/covid-19-implications-for-business)
+2. [Mckinsey-Resilient_rebalancing](https://www.mckinsey.com/business-functions/operations/our-insights/risk-resilience-and-rebalancing-in-global-value-chains)
 3. [Accenture-Supply-chain-distruption](https://www.accenture.com/be-en/insights/consulting/coronavirus-supply-chain-disruption)
-4. [ McKinsey-US food supply chain: Disruptions and implications from COVID-19](https://www.mckinsey.com/industries/consumer-packaged-goods/our-insights/us-food-supply-chain-disruptions-and-implications-from-covid-19)
-5. [Online-grocery-shop](https://www.supermarketnews.com/online-retail/online-grocery-shopping-grows-amid-pandemic-induced-channel-stickiness)
-6. [Online-grocery-shopping-grows](https://www.supermarketnews.com/online-retail/online-grocery-shopping-grows-amid-pandemic-induced-channel-stickiness)
-7. [US-online-grocery-market](https://www.businessinsider.com/online-grocery-report-2020)
-8. [US-egrocery-growth](https://www.businessinsider.com/online-grocery-report-2020)
-9. [US-egrocery-market](https://www.businessinsider.com/online-grocery-report-2020)
-10. [Growth-rate](https://www.emarketer.com/content/2021-online-grocery-sales-will-surpass-100-billion)
-11. [US-grocery-ecommerce-sales](https://www.emarketer.com/content/2021-online-grocery-sales-will-surpass-100-billion)
-12. [US-egrocery-growth-rate-factors](https://www.emarketer.com/content/2021-online-grocery-sales-will-surpass-100-billion)
-13. [Benchmarking-springer](https://link.springer.com/article/10.1007/s40092-019-00334-y)
-14. [E-grocery-share](https://coresight.com/research/us-online-grocery-survey-2020-many-more-shoppers-buying-more-categories-from-more-retailers/)
-15. [Market-share](https://coresight.com/research/us-online-grocery-survey-2020-many-more-shoppers-buying-more-categories-from-more-retailers)
-16. [Online-grocery-share](https://www.supermarketnews.com/online-retail/study-walmart-surpasses-amazon-online-grocery-share)
-17. [Amazon-overtakes-walmart-market-share](https://www.supermarketnews.com/online-retail/amazon-nearly-double-online-edible-grocery-sales-2026)
+4. [Accenture-Supply-chain-distruption](https://www.accenture.com/be-en/insights/consulting/coronavirus-supply-chain-disruption)
+5. [ McKinsey-US food supply chain: Disruptions and implications from COVID-19](https://www.mckinsey.com/industries/consumer-packaged-goods/our-insights/us-food-supply-chain-disruptions-and-implications-from-covid-19)
+6. [Online-grocery-shop](https://www.supermarketnews.com/online-retail/online-grocery-shopping-grows-amid-pandemic-induced-channel-stickiness)
+7. [Online-grocery-shopping-grows](https://www.supermarketnews.com/online-retail/online-grocery-shopping-grows-amid-pandemic-induced-channel-stickiness)
+8. [US-online-grocery-market](https://www.businessinsider.com/online-grocery-report-2020)
+9. [US-egrocery-growth](https://www.businessinsider.com/online-grocery-report-2020)
+10. [US-egrocery-market](https://www.businessinsider.com/online-grocery-report-2020)
+11. [Growth-rate](https://www.emarketer.com/content/2021-online-grocery-sales-will-surpass-100-billion)
+12. [US-grocery-ecommerce-sales](https://www.emarketer.com/content/2021-online-grocery-sales-will-surpass-100-billion)
+13. [US-egrocery-growth-rate-factors](https://www.emarketer.com/content/2021-online-grocery-sales-will-surpass-100-billion)
+14. [Benchmarking-springer](https://link.springer.com/article/10.1007/s40092-019-00334-y)
+15. [E-grocery-share](https://coresight.com/research/us-online-grocery-survey-2020-many-more-shoppers-buying-more-categories-from-more-retailers/)
+16. [Market-share](https://coresight.com/research/us-online-grocery-survey-2020-many-more-shoppers-buying-more-categories-from-more-retailers)
+17. [Online-grocery-share](https://www.supermarketnews.com/online-retail/study-walmart-surpasses-amazon-online-grocery-share)
+18. [Amazon-overtakes-walmart-market-share](https://www.supermarketnews.com/online-retail/amazon-nearly-double-online-edible-grocery-sales-2026)
 
