@@ -2,12 +2,31 @@
 
 ## Project Description 
 
-[comment]: <> (&#40;3-4 lines about what it is and how you did it&#41;)
+IBM Quantum invited teams to take their beautiful qubits and use OpenPulse to purposely occupy higher-energy excited states.
 
-In our project, we demonstrated how to characterise a three-level quantum system using very limited set of quantum operations.
-We calibrated a small set of rotation gates for the single-qubit (now single-qutrit) device, `ibmq_armonk`.
+We set out to achieve the following goals:
+- Implement a characterisation method for qutrits that:
+    - is efficient (because quantum systems are big and we just made them bigger!), and
+    - has broader significance in the community (academic *and* commercial).
+- Demonstrate the controls needed to perform this characterisation on a transmon qutrit.
+- Challenge ourselves to explore a characterisation method that hasn't been implemented in Qiskit's Ignis library already.
+
+In answer to these goals, we decided we would try to implement shadow state tomography, a relatively new variant of quantum tomography that is capable of extracting device properties from a very limited set of measurements.
+Furthermore, we wanted to find out how to do this **on qutrits**.
+We split the tasks into hardware and software components.
+
+**Hardware**
+
+At a minimum, we wanted to implement the necessary constituent controls for shadow tomography.
+We demonstrated how to characterise a three-level quantum system using very limited set of quantum operations.
+We calibrated a small set of rotation gates for the single-qubit (now single-qutrit) device, `ibmq_armonk`, which is all we would need
+to perform the shadow tomography measurements.
+
+**Software**
+
 Through the use of simulations, we showed that it was possible to use this set of gates to characterise the quantum state of the device.
-A core aspect of our method is shadow state tomography, a relatively new variant of quantum tomography that is capable of extracting device properties from a very limited set of measurements.
+We explored the utility of shadow tomography for qutrit states and predicting properties of multi-qutrit states. 
+In particular, measuring an entanglement witness for a 3-qutrit GHZ state.
 
 ## Setup
 
@@ -28,9 +47,9 @@ The following notebooks represent the most important parts of our project:
 
 1. Calibration of a pulse gates: [ibmq_armonk_calibration.ipynb](./notebooks/ibmq_armonk_calibration.ipynb).
 
-2. Simulating single-qutrit shadow state tomography with pulse gates: [qutrit_simulation.ipynb](./notebooks/Qutrit%20Simulation.ipynb).
+2. Implementing and testing pulse gates: [ibmq_armonk_experiments.ipynb](./notebooks/ibmq_armonk_experiment.ipynb).
 
-3. Implementing and testing pulse gates: [ibmq_armonk_experiments.ipynb](./notebooks/ibmq_armonk_experiment.ipynb).
+3. Simulating single- and multi-qutrit shadow state tomography with pulse gates: [qutrit_simulation.ipynb](./notebooks/qutrit_simulation.ipynb).
 
 ## Challenge(s) You Solved
 
@@ -44,14 +63,7 @@ The following notebooks represent the most important parts of our project:
       We found it was much easier designing a frequency sweep for the 1 -> 2 transition by using the calibrated qubit frequency, and the device's default value of anharmonicity.
       It let us avoid doing a broad frequency sweep which often revealed several candidate peaks for the 1 -> 2 transition frequency.
 
-
-## Project Details: 
-
-- Further walkthrough of what you did
-
-- Business applications
-
-- [Link to Presentation]()
+## [Link to Presentation]()
 
 ## Contributors 
 
