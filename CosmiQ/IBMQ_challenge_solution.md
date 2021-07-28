@@ -171,7 +171,9 @@ The measurement results from running the ![H12](https://latex.codecogs.com/gif.l
 
 ![H12_gate_plot](ibmq/images/h12_gate_plot.png)
 
-6. **Equal superposition**  ![H12](https://latex.codecogs.com/svg.image?%5Cfrac%7B1%7D%7B%5Csqrt%7B3%7D%7D%5Cleft%20(%20%7C0%3E%20&plus;%20%7C1%3E%20&plus;%20%7C2%3E%20%5Cright%20)
+6. **Equal superposition** 
+
+>|i> = c<sub>i</sub>|0> + c<sub>i</sub>|1> +  c<sub>i</sub>|2>
 
 Finally, we constructed and tested a custom gate that takes qutrit from ![0_state](https://latex.codecogs.com/gif.latex?%7C0%5Crangle) state to a superposition of all three states, ![0_state](https://latex.codecogs.com/gif.latex?%7C0%5Crangle), ![1_state](https://latex.codecogs.com/gif.latex?%7C1%5Crangle) and ![2_state](https://latex.codecogs.com/gif.latex?%7C2%5Crangle).
 The gate is constructed by sending two Gaussian pulses with different frequencies and different ![theta](https://latex.codecogs.com/gif.latex?%5Ctheta) to the qubit's Drive Channel:
