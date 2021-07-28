@@ -1,62 +1,67 @@
-# CDL_Quantum_Hackathon_2021
-Collaboration repository for CDL bootcamp Quantum Hackathon 2021.
-
-This branch contains [Xanadu specific environment](https://the-walrus.readthedocs.io/en/latest/).
-
-This project uses [mybinder.org](https://mybinder.readthedocs.io/en/latest/introduction.html) online service.
-
-To run it, open the following [link](https://mybinder.org/v2/gh/olegxtend/Hackathon2021/xanadu) in your browser. It may take a couple minutes to launch.
-
-## Note 1
-When you launch mybinder, it creates a snapshot of the repo from the latest versions of the code and it doesn't automatically merge the code from GIT. If you need to refresh the code, just close your session and open a new one by launching the above link.
-
-## Note 2
-Mybinder session expires after 20 minutes of inactivity. Make sure you save your work (download your files to a local disk) if you are not using it.  
-
-You can find a quick tutorial [here](https://the-turing-way.netlify.app/reproducible-research/renv/renv-binder.html)
-
-## Dependencies
-
-The environment configuration files can be found under the [/binder](./binder) folder.
-
-The ```requirements.txt``` file is auto-generated using ```pip-compile``` which reads the ```requirements.in``` file in the same folder. You can either update it manually or regenerate by adding/modifying dependencies in the ```requirements.in``` file. The latter is preferred as it validates versions compatibility. Here are the steps:
-
-1. Install pip-tools in your local environment:
-```
-python -m pip install pip-tools
-```
-2. Cd to a folder on your local drive where you have the ```requirements.in``` file and run the command:
-```
-pip-compile
-```
-3. Commit and push the generated ```requirements.txt``` file to the GIT repo.
-4. Re-launch the project in [mybinder.org](https://mybinder.org/v2/gh/olegxtend/Hackathon2021/xanadu)
-
-# Original README
-
-Fill in this README.md. Example Structure:
-
 ## Project Description
-(3-4 lines about what it is and how you did it)
+High-Dimensional Quantum Computing on NISQ devices.
+
+We explore similarities between different quantum hardware and quantum software implementations and leverage multi-level quantum states (qudits) for solving a financial portfolio optimization problem.
 
 ## Setup
-Example:
-1. Make sure you have X installed and configured.
+In order to facilitate online collaboration, the CosmiQ team used [mybinder.org](https://mybinder.readthedocs.io/en/latest/introduction.html) free online service. See [binder/README](binder/README.md) file for more details.
 
-2. Set up your preferred virtual environment.
+For local installations, please follow the instructions below.
 
-3. pip install -r requirements.txt
+1. Make sure you have python 3.8+, pip and JupyterLab installed and configured.
+2. Set up your preferred virtual environment, e.g.:
+```
+python3 -m venv cdl
+source cdl/bin/activate
+```
+3. Configure two conda environments to install vendor specific dependencies, e.g.:
+```
+conda create -n CDLQ_IBMQ python=3
+conda create -n CDLQ_XANADU python=3
+```
+4. Activate corresponding environment and load vendor specific dependencies before starting `jupyter notebook` in each of the subfolders:
 
-## How to Use
-Example:
-From command line: Use python solvers/script.py -h
+   - *__IBMQ__*
 
-## Challenge(s) You Solved
+   To run the Jupyter notebooks in the [ibmq](ibmq) folder, activate CDLQ_IBMQ environment and the corresponding jupyter kernel, then install dependencies:
+   ```
+   conda activate CDLQ_IBMQ
+   ipython kernel install --name CDLQ_IBMQ --user
+   pip install -r ibmq/requirements.txt
+   ```
+
+   - *__XANADU__*
+
+   To run the Jupyter notebooks in the [xanadu](xanadu) folder, activate CDLQ_XANADU environment and the corresponding jupyter kernel, then install dependencies:
+   ```
+   conda activate CDLQ_XANADU
+   ipython kernel install --name CDLQ_XANADU --user
+   pip install -r xanadu/requirements.txt
+   ```
+
+## Challenges We Solved
+
+We addressed two challenges in this project:
+
+1. IBM Q’s Challenge
+2. Xanadu’s Challenge
+
+Please refer to the [CDL Quantum Hackathon 2021 README file](../README.md) for more details.
 
 ## Project Details:
-  - Further walkthrough of what you did
-  - Links to any Jupyter notebooks/scripts
-  - Business applications
-  - Link to Presentation
 
-## Contributors 
+  - To address **IBM Q's Challenge**, we used Qiskit Pulse to calibrate a three-level quantum device on ibmq_armonk and to construct a full set of single-qutrits logical gates.
+
+  The IBM Q's Challenge solution overview including references to related Python code and Jupyter notebooks can be found in the [IBMQ Challenge Solution Overview](IBMQ_challenge_solution.md) file.
+
+  - To **address Xanadu's Challenge**, we .....
+
+  The Xanadu's Challenge solution overview including references to related Python code and Jupyter notebooks can be found in the [Xanadu Challenge Solution Overview](Xanadu_challenge_solution.md) file.
+
+  - Business applications - **TODO**
+  - Link to Presentation - **TODO**
+
+
+## Contributors
+
+[Alice Barthe](https://github.com/alice4space), [Henry Makhanov](https://github.com/edenian), [Oleg Fonarev](https://github.com/olegxtend), [Ray Ushnish](https://github.com/ushnishray), [Rodrigo Vargas](https://github.com/RodrigoAVargasHdz)
