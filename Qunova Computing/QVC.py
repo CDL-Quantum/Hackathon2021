@@ -7,6 +7,8 @@ from qiskit.algorithms.optimizers import SPSA
 from torch.utils.tensorboard import SummaryWriter
 import re
 
+from utils import sig
+
 DEFAULT_SHOTS = 10000
 
 
@@ -25,10 +27,6 @@ class VariationalClassifier:
         if self.use_bias:
             self.num_params += 1
 
-    @staticmethod
-    def sig(x):
-        return 1 / (1 + np.exp(-1 * x))
-
     def cost(self, train_data, train_labels, num_shots=DEFAULT_SHOTS, train_params=None, backend=None, **kwargs):
         tot_cost = 0
         if self.use_bias:
@@ -41,12 +39,21 @@ class VariationalClassifier:
             py = self._get_py(data_point, label, train_params, backend, num_shots, **kwargs)
 
             # Calculate Error Probability
-            ep = self.sig(np.sqrt(num_shots) * (0.5 - py + label * bias / 2) / np.sqrt(2 * (1 - py) * py))
+            ep = sig(np.sqrt(num_shots) * (0.5 - py + label * bias / 2) / np.sqrt(2 * (1 - py) * py))
             tot_cost += ep
 
         return tot_cost / len(train_data)
 
-    def train(self, train_data, train_labels, exp_name, num_shots=DEFAULT_SHOTS, backend=None, **kwargs):
+    def train(self,
+              train_data,
+              train_labels,
+              exp_name,
+              num_shots=DEFAULT_SHOTS,
+              backend=None,
+              test_data=None,
+              test_label=None,
+              spsa_maxiter=250,
+              **kwargs):
 
         # Basic initializations
         train_params = np.ones(self.num_params, dtype=float)
@@ -54,13 +61,26 @@ class VariationalClassifier:
         writer = SummaryWriter('runs/' + exp_name)
 
         def callback(_nfev, _params, _fval, _step_size, _accept):
-            writer.add_scalar('training loss', _fval, int(_nfev / 3))
+            if test_data is not None:
+                test_acc = self.test(test_data,
+                                     test_label,
+                                     num_shots,
+                                     backend,
+                                     verbose=False,
+                                     train_params=_params,
+                                     **kwargs)
+                writer.add_scalars('loss', {
+                    'test_loss': 1 - test_acc,
+                    'training_loss': _fval
+                }, int(_nfev / 3))
+            else:
+                writer.add_scalar('training loss', _fval, int(_nfev / 3))
 
         def train_cost(_train_params):
             return self.cost(train_data, train_labels, num_shots, _train_params, backend, **kwargs)
 
         # Training Loop
-        optimizer = SPSA(maxiter=250, callback=callback, **kwargs)
+        optimizer = SPSA(maxiter=spsa_maxiter, callback=callback, **kwargs)
         if self.use_bias:
             vbds = [(0, 2 * np.pi)] * (self.num_params - 1) + [(-1, 1)]
         else:
@@ -71,16 +91,30 @@ class VariationalClassifier:
 
         return point, value, nfev
 
-    def test(self, test_data, test_label, num_shots=DEFAULT_SHOTS, backend=None, verbose=False, **kwargs):
+    def test(self,
+             test_data,
+             test_label,
+             num_shots=DEFAULT_SHOTS,
+             backend=None,
+             verbose=False,
+             train_params=None,
+             **kwargs):
 
         # Basic Initializations
         accuracy = 0
-        if self.use_bias:
-            bias = self.optimal_params[-1]
-            train_params = self.optimal_params[:-1]
+        if train_params is None:
+            if self.use_bias:
+                bias = self.optimal_params[-1]
+                train_params = self.optimal_params[:-1]
+            else:
+                bias = 0
+                train_params = self.optimal_params
         else:
-            bias = 0
-            train_params = self.optimal_params
+            if self.use_bias:
+                bias = train_params[-1]
+                train_params = train_params[:-1]
+            else:
+                bias = 0
 
         # Calculate for each test data_point / label
         py_list = list()

@@ -7,6 +7,17 @@ from sklearn.decomposition import PCA
 from sklearn.model_selection import train_test_split
 
 
+def bf(bs):
+    if len([i for i in bs if i == '0']) > len([i for i in bs if i == '1']):
+        return 1
+    else:
+        return -1
+
+
+def sig(x):
+    return 1 / (1 + np.exp(-1 * x))
+
+
 def samples(lst, k):
     n = len(lst)
     indices = []
@@ -17,7 +28,7 @@ def samples(lst, k):
     return [lst[i] for i in indices]
 
 
-def LoadData(TestSize, NumPCs, seed=None):
+def load_data(test_size, num_PCs, seed=None):
     cov_related_genes = ['ACE2', 'AGTR1', 'NFKB1', 'RELA', 'IL12A', 'CCL2', 'ISG15', 'IFIH1', 'TBK1', 'C2', 'C3', 'C5',
                          'C1R', 'C1S', 'FGA', 'FGB', 'FGG', 'RPS2', 'RPS3',
                          'RPS3A', 'RPS4X', 'RPS4Y1', 'RPS5', 'RPS6', 'RPS7', 'RPS8', 'RPS9', 'RPS11', 'RPS12', 'RPS13',
@@ -69,9 +80,10 @@ def LoadData(TestSize, NumPCs, seed=None):
     x_div = dataset[:, 0:6]
     y_div = dataset[:, 6]
 
-    x_div_train, x_div_test, y_div_train, y_div_test = train_test_split(x_div, y_div, test_size=TestSize, random_state=seed)
+    x_div_train, x_div_test, y_div_train, y_div_test = train_test_split(x_div, y_div, test_size=test_size,
+                                                                        random_state=seed)
 
-    pca = PCA(n_components=NumPCs, random_state=seed)
+    pca = PCA(n_components=num_PCs, random_state=seed)
     pca.fit(x_div_train)
     TrainData = pca.transform(x_div_train)
     TestData = pca.transform(x_div_test)
