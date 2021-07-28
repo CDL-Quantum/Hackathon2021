@@ -1,6 +1,5 @@
 from collections import Counter
 
-import qiskit
 import numpy as np
 from qcs_api_client.util.errors import QCSHTTPStatusError
 from qiskit.algorithms.optimizers import SPSA
@@ -12,7 +11,7 @@ from utils import sig
 DEFAULT_SHOTS = 10000
 
 
-class VariationalClassifier:
+class PyquilVariationalClassifier:
 
     def __init__(self, qfm, vc, bool_ftn, use_bias):
         self.qfm = qfm
@@ -140,30 +139,6 @@ class VariationalClassifier:
         else:
             return accuracy / len(test_data)
 
-    def _get_py(self, data_point, label, train_params, backend=None, num_shots=DEFAULT_SHOTS, **kwargs):
-        if backend is None:
-            backend = qiskit.Aer.get_backend('aer_simulator')
-
-        # Make the classifier circuit
-        tot_circ = self.qfm.assign_parameters(data_point)
-        tot_circ = tot_circ.compose(self.vc.assign_parameters(train_params))
-        tot_circ.measure_all()
-
-        # Run the circuit
-        tot_circ = qiskit.transpile(tot_circ, backend)
-        result = backend.run(tot_circ, shots=num_shots).result()
-        counts = result.get_counts(tot_circ)
-
-        # Calculate p_y(x)
-        py = 0
-        for bitstring in counts:
-            if self.bool_ftn(bitstring) == label:
-                py += counts[bitstring]
-        py = py / num_shots
-        return py
-
-
-class PyquilVariationalClassifier(VariationalClassifier):
     def _get_py(self, data_point, label, train_params, backend=None, num_shots=DEFAULT_SHOTS, **kwargs):
         qfm_param_name = self.qfm.param_name[0]
         vc_param_name = self.vc.param_name[0]
