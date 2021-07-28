@@ -2,23 +2,23 @@
 
 ## Qutrits
 
-Most of the existing quantum algorithms are based on qubits, 2-level systems with the ![0_state](https://latex.codecogs.com/gif.latex?%7C%200%20%5Crangle%20%3D%20%5B0%2C1%5D) and ![1_state](https://latex.codecogs.com/gif.latex?%7C%201%20%5Crangle%20%3D%20%5B1%2C0%5D).
-Corresponding gate operations can be composed from single-qubit gates, and two-qubits gates; for example, the *Pauli-X* rotates the state ![1_state](https://latex.codecogs.com/gif.latex?%7C%201%20%5Crangle) to ![0_state](https://latex.codecogs.com/gif.latex?%7C%200%20%5Crangle); ![Pauli_eq](https://latex.codecogs.com/gif.latex?X%20%7C%201%20%5Crangle%20%3D%20%7C%200%20%5Crangle).
+Most of the existing quantum algorithms are based on qubits, 2-level systems with two states the ![0_state](https://latex.codecogs.com/gif.latex?%7C%200%20%5Crangle%20%3D%20%5B0%2C1%5D) being the ground state and ![1_state](https://latex.codecogs.com/gif.latex?%7C%201%20%5Crangle%20%3D%20%5B1%2C0%5D) the first excited state.
+Corresponding gate operations can be composed from single-qubit gates, and two-qubits gates; for example, the *Pauli-X* rotates the state ![1_state](https://latex.codecogs.com/gif.latex?%7C%201%20%5Crangle) to ![0_state](https://latex.codecogs.com/gif.latex?%7C%200%20%5Crangle) and vice versa; ![Pauli_eq](https://latex.codecogs.com/gif.latex?X%20%7C%201%20%5Crangle%20%3D%20%7C%200%20%5Crangle).
 
-As it was pointed out in Ref. [1], quantum computing could also be done using multi-level quantum systems (**qudits**) as the building block in quantum information.
+As it was pointed out in numerous references, including Ref. [1], quantum computing could also be done using multi-level quantum systems (**qudits**) as the building block in quantum information.
 Why bother using qudits? It has been theoretically illustrated (Ref. [2]) that qudits-based quantum systems can store and processes information more efficiently than those using only qubits.
-A natural question arises, how to engineer qudits?. For example, cold molecules in ultra cold temperatures have non-degenerate states  under the presence of an external electric field (Stark shift), Ref. [3].
+A natural question arises, how to engineer qudits? For example, cold molecules in ultra cold temperatures have non-degenerate states  under the presence of an external electric field (Stark shift), Ref. [3].
 Nonetheless, it would be ideal to design qudits taking advantage of the current architectures, for example, superconducting quantum processors.
 
-Qutrits are qudits that are constructed from quantum states like spin-1 systems, where the basis is ![](https://latex.codecogs.com/gif.latex?%7C0%5Crangle%2C%7C1%5Crangle) and ![](https://latex.codecogs.com/gif.latex?%7C2%5Crangle).
-In order to have a universal quantum computer based on qutris, we need to have a well defined set of gates.
-For example, the ***X*** gates are,
+Qutrits are qudits based on three states: ground |0>, first excited |1>, and second excited |2>. They are constructed from quantum states like spin-1 systems, where the basis is ![](https://latex.codecogs.com/gif.latex?%7C0%5Crangle%2C%7C1%5Crangle) and ![](https://latex.codecogs.com/gif.latex?%7C2%5Crangle).
+In order to have a universal quantum computer based on qutrits, we need to have a well defined set of gates. We illustrate below ideal qutrits gates
+ ***X*** gates :
 
 >
 >![X qtrits gates](https://latex.codecogs.com/gif.latex?X%5E%7B%2801%29%7D%20%3D%20%5Cbegin%7Bpmatrix%7D%200%20%26%201%20%26%200%20%5C%5C%201%20%26%200%20%26%200%5C%5C%200%20%26%200%20%26%201%20%5Cend%7Bpmatrix%7D%20%5C%3B%5C%3B%5C%3B%20X%5E%7B%2802%29%7D%20%3D%20%5Cbegin%7Bpmatrix%7D%200%20%26%200%20%26%201%20%5C%5C%200%20%26%201%20%26%200%5C%5C%201%20%26%200%20%26%200%20%5Cend%7Bpmatrix%7D%5C%3B%5C%3B%5C%3B%20X%5E%7B%2812%29%7D%20%3D%20%5Cbegin%7Bpmatrix%7D%201%20%26%200%20%26%200%20%5C%5C%200%20%26%200%20%26%201%20%5C%5C%200%20%26%201%20%26%200%20%5Cend%7Bpmatrix%7D)
 >
 
-and the Hadamard gates are given by,
+***H**** Hadamard gates:
 
 >
 >![](https://latex.codecogs.com/gif.latex?%5Csmall%20H%5E%7B%2801%29%7D%20%3D%20%5Cfrac%7B1%7D%7B%5Csqrt%7B2%7D%7D%5Cbegin%7Bpmatrix%7D%201%20%26%201%20%26%200%20%5C%5C%20-1%20%26%201%20%26%200%5C%5C%200%20%26%200%20%26%20%5Csqrt%7B2%7D%20%5Cend%7Bpmatrix%7D%20%5C%3B%5C%3B%5C%3BH%5E%7B%2802%29%7D%20%3D%20%5Cfrac%7B1%7D%7B%5Csqrt%7B2%7D%7D%5Cbegin%7Bpmatrix%7D%201%20%26%200%20%26%201%20%5C%5C%201%20%26%20%5Csqrt%7B2%7D%20%26%200%5C%5C%20a%20%26%200%20%26%20-1%20%5Cend%7Bpmatrix%7D%20%5C%3B%5C%3B%5C%3B%20X%5E%7B%2812%29%7D%20%3D%20%5Cfrac%7B1%7D%7B%5Csqrt%7B2%7D%7D%5Cbegin%7Bpmatrix%7D%20%5Csqrt%7B2%7D%20%26%200%20%26%200%20%5C%5C%200%20%26%201%20%26%201%20%5C%5C%200%20%26%20-1%20%26%201%20%5Cend%7Bpmatrix%7D)   
@@ -28,9 +28,9 @@ and the Hadamard gates are given by,
 
 In this project, we make use of Qiskit Pulse to calibrate individual IBM Q's transmon qubits for the first and the second excited states.
 
-The approach is based on a few observations.
+### the transom
 
-1. A transmon qubit can be modelled using a Hamiltonian that describes the Duffing oscillator,
+A transmon qubit can be modelled using a Hamiltonian that describes the Duffing oscillator,
 
 >
 >![Duffing Oscillator Hamiltonian](https://latex.codecogs.com/gif.latex?H%20%3D%20%5Comega%20a%5E%5Cdagger%20a%20&plus;%20%5Cfrac%7B%5Calpha%7D%7B2%7D%20a%5E%5Cdagger%20a%5E%5Cdagger%20a%20a)
@@ -40,41 +40,59 @@ The approach is based on a few observations.
 
 ![Duffing oscillator](ibmq/images/Anharmonic_oscillator.gif)
 
-Figure used with permission from Wikipedia
+Figure used with permission from (c) Wikipedia
 
 Typical single-qubit calibration and classification experiments are used to extract information about the quantum device, such as oscillator frequencies and amplitudes. This information can be used to construct high-fidelity logical gates, perform error corrections, etc.
 
-2. In the calibration experiment, a series of microwave pulses (frequency sweep) is applied to a qubit in order to determine the qubit frequency, i.e. the difference between the first excited state and the ground state.
+### calibration types
+In the calibration experiment, for the pulse two values have to be calibrated : the frequency (should be the resonance frequency of the qbit) and the amplitude (shall correspond to a rotation of \pi). 
 
-The calibration experiment can be carried out by creating a Gaussian pulse schedule with fixed duration, sigma and amplitude, and then applying it to a given qubit by varying the frequency within a certain range.
-The (![zero-to-one](https://latex.codecogs.com/gif.latex?0%5Crightarrow1) excitation) frequency of the qubit is determined by measuring the qubit response (absorption rate) after each pulse using a Network Analyzer.
+#### frequency calibration
+For the frequency a series of microwave pulses with a fixed enveloppe but with varying frequency. This frequency sweep is specific to a state transition frequency, i.e. the difference between the first excited state and the ground state.
+The calibration experiment can be carried out by creating a Gaussian pulse schedule with fixed duration, sigma and amplitude, and then applying it to a given qubit by varying the frequency within a certain range. The response is analysed and the amplitude peak corresponds to the target frequency.
 
-This is demonstrated in the figure below.
+**TODO** add relevant graph
 
-![Frequency sweep pulse](ibmq/images/img_freq_sweep.png)
+NB. We chose Gaussian pulse but other pulses can be used, such as the the Drag pulse
 
-3. Once the frequency of the qubit is calibrated, the next step is to determine the strength of a ![pi](https://latex.codecogs.com/gif.latex?%5Cpi) pulse. The latter chages the qubit state from ![](https://latex.codecogs.com/gif.latex?%7C%200%20%5Crangle) to ![](https://latex.codecogs.com/gif.latex?%7C%201%20%5Crangle), and vice versa. This is also called the ![X](https://latex.codecogs.com/gif.latex?X) or ![X180](https://latex.codecogs.com/gif.latex?X180) gate, or bit-flip operator.
-A technique called Rabi experiment is used to calibrate the amplitude needed to achieve a ![pi](https://latex.codecogs.com/gif.latex?%5Cpi) rotation from ![](https://latex.codecogs.com/gif.latex?%7C%200%20%5Crangle) to ![](https://latex.codecogs.com/gif.latex?%7C%201%20%5Crangle). The desired rotation is shown on the Bloch sphere in the figure below - you can see that the ![pi](https://latex.codecogs.com/gif.latex?%5Cpi) pulse gets its name from the angle it sweeps over on a Bloch sphere.
+#### amplitude calibration : Rabi Procedure
+Once the frequency is calibrated, the next step is to determine the amplitude of  pulse corresponding to a rotation of ![pi](https://latex.codecogs.com/gif.latex?%5Cpi). This Pulse is effectively an X gate turning |0> into |1> and |1> into |0> as illustrated below :
 
 ![PI Rotation on Bloch sphere](https://github.com/aasfaw/qiskit-intros/blob/master/zero_to_one_X180.png?raw=true")
 
-In the Rabi experiment, a Gaussian pulse schedule is created with fixed duration, sigma and frequency (that was obtained in the previous experiment), and the amplitude is changed in small increments. The qubit response is then measured after each pulse to determine the optimal amplitude.
+In the Rabi experiment, the same Gaussian pulse as before is usef, but with fixed frequency calibrated as above and a varying amplitude. The state response is then measured after each pulse to determine the optimal amplitude which correspond to half a cycle of the response as illustrated below.
 
 ![Rabi experiment](ibmq/images/img_rabi.png)
 
-4. Similar technique can be used to calibrate and measure the second excited state.
-However, due to hardware limitations we cannot apply a strong enough pulse in order to excite the transmon from the ground state to the second excited state directly.
-We use the above technique to take the qubit to the first excited state first, and then apply a sideband frequency sweep to find and calibrate the frequency and amplitude needed to take the transmon to the second excited state.
+### state transition calibration procedure
 
-<img src="ibmq/images/img_sideband_freq.png">
+#### |0>-|1> calibration 
+The first step is to find the F01 frequency. IBMQ backend gives us a default one but it is possible to improve it. We define a gaussian pulse as described the frequency calibration procedure, and measure it yielding the following schedule :
 
-5. Once our ![pi](https://latex.codecogs.com/gif.latex?%5Cpi) pulses have been calibrated, we can now create the states ![](https://latex.codecogs.com/gif.latex?%7C%201%20%5Crangle) and ![](https://latex.codecogs.com/gif.latex?%7C2%5Crangle) with good probability.
-We can use this to find out what the states ![](https://latex.codecogs.com/gif.latex?%7C%200%20%5Crangle), ![](https://latex.codecogs.com/gif.latex?%7C%201%20%5Crangle) and ![](https://latex.codecogs.com/gif.latex?%7C2%5Crangle) look like in our measurements, by repeatedly preparing them and plotting the measured signal.
-The results of the measurements are used to build a discriminator, which is a function which takes a measured and kerneled complex value and classifies it as 0, 1 or 2.
+![Frequency sweep pulse](ibmq/images/img_freq_sweep.png)
+
+Once the frequency F01 is found, we proceed with the amplitude calibration and get the parameter A01. This gives us a calibrated pulse, corresponding the X01 gate :
+
+P01 = Gauss(A01,F01)
+
+#### |1>-|2> calibration
+
+To perform this calibration we proceed exactly as before, but first take the ground state |0> to the excited state |1>. We find the optimal pulse to transition between |2> and |1> : 
+
+P12 = Gauss(A12,F12)
+
+### Measurement calibration
+
+Once our ![pi](https://latex.codecogs.com/gif.latex?%5Cpi) pulses have been calibrated, we can now drive the system to the states ![](https://latex.codecogs.com/gif.latex?%7C%201%20%5Crangle) and ![](https://latex.codecogs.com/gif.latex?%7C2%5Crangle).
+We conduct three experiments : exp0 is just a measurement, exp1 is P01 then measurement, exp2 is P01 then P12 then measurements. Ideally these experiments would yield the resulting states |0>, |1> and |2> respectively.
+
+The results of the measurements are used to implement a discriminator, in our case we simply classify the measuremments as the closest calibrated center. In the below plot on the left the distribution of the measurements are displayed. The color corresponds to the id of the experiment (0,1 or 2). In an ideal world the colors would be totally seperable, but the noise prevents us to have a perfect system.
 
 <img src="ibmq/images/img_discriminator.png">
 
-## Executing on IBM Q Backend
+The output of this calibration is calibrated state centers and function able to assign each measurement to a state.
+
+## Executing and Testing on IBM Q Backend
 
 We implemented the above experiments using Qiskit Pulse, and executed them on the IBM Q's [ibmq_armonk](https://quantum-computing.ibm.com/services?services=systems) backend.
 
