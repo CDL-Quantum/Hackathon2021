@@ -40,7 +40,9 @@ LV is a python package that can be run locally. We make use of quantum hardware 
 
 3. pip install -r requirements.txt
 
-4. On the command line, for a python script script_you_want_to_run.py:  python module/script_you_want_to_run.py or run the Jupyter Notebooks in the PythonNotebooks folder
+4. On the command line, for a python script script_you_want_to_run.py:  python module/script_you_want_to_run.py 
+
+6. (Optional) run the Jupyter Notebooks in the PythonNotebooks folder
 
 
 ![cdl](img/cdl.jpg)
