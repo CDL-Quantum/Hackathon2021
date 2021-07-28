@@ -9,19 +9,16 @@ In order to facilitate online collaboration, the CosmiQ team used [mybinder.org]
 For local installations, please follow the instructions below.
 
 1. Make sure you have python 3.8+, pip and JupyterLab installed and configured.
-
 2. Set up your preferred virtual environment, e.g.:
 ```
 python3 -m venv cdl
 source cdl/bin/activate
 ```
-
 3. Configure two conda environments to install vendor specific dependencies, e.g.:
 ```
 conda create -n CDLQ_IBMQ python=3
 conda create -n CDLQ_XANADU python=3
 ```
-
 4. Activate corresponding environment and load vendor specific dependencies before starting `jupyter notebook` in each of the subfolders:
 
    - IBMQ

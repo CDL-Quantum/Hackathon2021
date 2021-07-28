@@ -6,7 +6,7 @@ This project uses [mybinder.org](https://mybinder.readthedocs.io/en/latest/intro
 
 Each branch contains provider specific settings that are defined in the [/binder](/binder) subfolder under the repository root.
 
-To run it, open the following [link](https://mybinder.org/v2/gh/olegxtend/Hackathon2021/HEAD) in your browser. It may take a couple minutes to launch.
+To run it, open the following [link](https://mybinder.org/v2/gh/olegxtend/Hackathon2021/{branch_name}) in your browser. It may take a couple minutes to launch.
 
 ## Note 1
 When you launch mybinder, it creates a snapshot of the repo from the latest versions of the code and it doesn't automatically merge the code from GIT. If you need to refresh the code, just close your session and open a new one by launching the above link.
@@ -31,6 +31,6 @@ python -m pip install pip-tools
 pip-compile
 ```
 3. Commit and push the generated ```requirements.txt``` file to the GIT repo.
-4. Re-launch the project in [mybinder.org](https://mybinder.org/v2/gh/olegxtend/Hackathon2021/HEAD)
+4. Re-launch the project in [mybinder.org](https://mybinder.org/v2/gh/olegxtend/Hackathon2021/{branch_name}})
 
 [Back to README](../README.md)
