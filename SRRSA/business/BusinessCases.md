@@ -1,18 +1,11 @@
 ![CDL Hackaton](img/CDL_logo.png)
 
 # Business Pitch
-<p align="left"><img src="/logo.jpg"/width=200></p>
 
-<table  align="center">
-    <tr>
-        <td>
-            <img src="/Aviation.jpg" width=400>
-        </td>
-        <td>
-            <img src="/WeatherForecast.jpg" width=400>
-        </td>
-    </tr>
-</table>
+![Logo](./logo.jpg)
+
+![Aviation](./Aviation.jpg)
+![WeatherForecast](/WeatherForecast.jpg)
 
 The chaotic nature of our atmosphere seriously limits our ability to model it — and therefore to predict what it will do next. A single weather model run more than once with even the most subtle differences in starting conditions can produce very different predictions. Since no measurement is perfect - every observation has an associated uncertainty - these small imperfections can cause big changes in what a model predicts. These changes get bigger and bigger the further ahead you try to predict. Because of this, the potential predictability limit of weather is about two weeks. For hurricanes and winter storms, which are much bigger and therefore easier to spot in advance, the theoretical limit is two to three weeks. 
 
