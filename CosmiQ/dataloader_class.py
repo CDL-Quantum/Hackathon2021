@@ -23,8 +23,8 @@ class data_loader():
         if method == 'random':
             inds = np.random.choice(self.num_assets, num_assets, replace=False)
         elif method =='relevant':
-            inds = np.where(np.sum(self.return_mut()>0,axis=0)>0)
-            inds=inds[0]
+            inds = np.where(np.sum(self.return_mut()>0,axis=0)>0)            
+            inds=inds[0][:min(num_assets,len(inds[0]))]
         
         self.asset_values = self.asset_values[:,inds]
         self.mus = self.mus[:,:,inds]

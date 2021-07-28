@@ -60,6 +60,7 @@ class FlatNetwork():
         return maxe
 
         return 
+    
     def make_mpos(self):
         if(not self.mpoc is None):
             return self.mpoc
@@ -206,7 +207,7 @@ class FlatNetwork():
         dmrgp.d = self.d
         
         #Get MPOS and MPS
-        #mpos = self.make_mpos()
+        mpos = self.make_mpos()
         mps = dmrg.MPS(dmrgp, allocate=False)
         
         dm = dmrg.DMRG(dmrgp,mps,mpos)
@@ -217,7 +218,7 @@ class FlatNetwork():
         #sweepn = [1.0e-3,1.0e-4, 1.0e-4, 1.0e-4, 1.0e-5, 1.0e-5]
         
         sweepd = kwargs['sweepd'] if ('sweepd' in kwargs) else [1,2,2,2,3]
-        sweepi = kwargs['sweepi'] if ('sweepi' in kwargs) else [10,10,5,5,5]
+        sweepi = kwargs['sweepi'] if ('sweepi' in kwargs) else [10,10,10,10,10]
         sweepn = kwargs['sweepn'] if ('sweepn' in kwargs) else [1.0e-2,1.0e-3,1.0e-4,1.0e-5,1.0e-6]
         sweepmin = kwargs['sweepmin'] if ('sweepmin' in kwargs) else [5,5,2,2,2]
         
@@ -291,6 +292,113 @@ class FlatNetwork():
                 vec[tl,il] = np.sum([x[t+i+q]*self.d**q for q in range(self.L[2])])/K
         
         return vec
+    
+    #Compute relevant expectation values to understand answer:
+    def computeWeights(self, mps):
+
+        N = dmrg.N(1.0,d=self.d)
+        I = dmrg.I(1.0,d=self.d)
+
+        nopl = dmrg.MPO(1,2,d=self.d)
+        nopl.set(0,0,N)  
+        nopl.set(0,1,I)
+
+        nopr = dmrg.MPO(2,1,d=self.d)
+        nopr.set(0,0,I)
+        nopr.set(1,0,N)
+
+        nopm = dmrg.MPO(2,2,d=self.d)
+        nopm.set(0,0,I)
+        nopm.set(1,1,I)
+        nopm.set(1,0,N)
+                    
+        mpsnorm = mps.norm()        
+        bitv = [self.d**x/self.K/mpsnorm for x in range(self.L[2])]
+
+        #Cal    culate right intermediates
+        rintms = []
+
+        psi = mps.psi
+        def asa(x):
+            return np.asarray(x)
+        
+        nopr.set(1,0,I)
+        intm = np.einsum('txr,lrtb->xlb',psi[mps.dmrgp.L-1],nopr.op)
+        intm = np.einsum('byz,xlb->xly',asa(psi[mps.dmrgp.L-1]).conj(),intm)
+        rintms.append(np.copy(intm))
+        nopr.set(1,0,N)        
+
+        nopm.set(1,0,I)
+        for i in range(mps.dmrgp.L-2,-1,-1):
+            intm = np.einsum('dij,jok->diok',psi[i],intm)
+            intm = np.einsum('tirk,lrtb->ikbl',intm,nopm.op)
+            intm = np.einsum('ikbl,bmk->ilm',intm,asa(psi[i]).conj())
+            rintms.append(np.copy(intm))
+        nopm.set(1,0,N)    
+        rintms.reverse()
+
+        #Now do operator calculations
+        lintms = []
+        idx = 0
+
+
+        fvs = {}
+        for t in range(self.L[0]):
+            for i in range(self.L[1]):                
+                for q in range(self.L[2]):
+                    if(idx==0):
+                        intm = np.einsum('txy,lrtb->yrb',psi[0],nopl.op)
+                        intm = np.einsum('yrb,bxz->yrz',intm,asa(psi[0]).conj())
+        
+                        val = np.einsum('yrz,yrz',intm,rintms[idx+1]) - (mps.dmrgp.L-1)        
+                        assert(val<self.d)
+                        #print(idx,val) 
+                        fvs[(t,i)] = fvs[(t,i)] + val*bitv[q] if (t,i) in fvs else val*bitv[q]
+
+                        #Also compute left intermediate
+                        nopl.set(0,0,I)
+                        intm = np.einsum('txy,lrtb->yrb',psi[0],nopl.op)
+                        intm = np.einsum('yrb,bxz->yrz',intm,asa(psi[0]).conj())
+                        lintms.append(intm)
+                        nopl.set(0,0,N)
+
+                    elif(idx==mps.dmrgp.L-1):
+                        intm = np.einsum('txy,lrtb->xlb',psi[idx],nopr.op)
+                        intm = np.einsum('xlb,byz->xly',intm,asa(psi[idx]).conj())
+                        val = np.einsum('xly,xly',intm,lintms[idx-1]) - (mps.dmrgp.L-1)
+                        
+                        assert(val<self.d)
+                        #print(idx,val) 
+                        fvs[(t,i)] = fvs[(t,i)] + val*bitv[q] if (t,i) in fvs else val*bitv[q]
+
+                        #Also compute left intermediate
+                        nopr.set(1,0,I)
+                        intm = np.einsum('txy,lrtb->yrb',psi[idx],nopl.op)
+                        intm = np.einsum('yrb,bxz->yrz',intm,asa(psi[idx]).conj())
+                        intm = np.einsum('yrz,yrz',intm,lintms[idx-1])
+                        lintms.append(intm) #Just a norm really
+                        nopr.set(1,0,N)
+                    else:
+                        intm = np.einsum('lyz,blr->rbyz',lintms[idx-1],psi[idx])
+                        intm = np.einsum('rbyz,yxbu->rxuz',intm,nopm.op)
+                        intm = np.einsum('rxuz,uzy->rxy',intm,asa(psi[idx]).conj())
+
+                        val = np.einsum('rxy,rxy',intm,rintms[idx+1]) - (mps.dmrgp.L-1)      
+                        assert(val<self.d)
+                        #print(idx,val) 
+                        fvs[(t,i)] = fvs[(t,i)] + val*bitv[q] if (t,i) in fvs else val*bitv[q]
+                   
+                        #Also compute left intermediate
+                        nopm.set(1,0,I)
+                        intm = np.einsum('lyz,blr->rbyz',lintms[idx-1],psi[idx])
+                        intm = np.einsum('rbyz,yxbu->rxuz',intm,nopm.op)
+                        intm = np.einsum('rxuz,uzy->rxy',intm,asa(psi[idx]).conj())
+                        lintms.append(intm)
+                        nopm.set(1,0,N)
+ 
+                    idx+=1
+
+        return fvs 
 
 def ss(x, d = 3):
     s = ''
@@ -307,7 +415,7 @@ if __name__ == '__main__':
     d = 3
     #Nt x N x N_q
     L = [1,3,2]
-    fn = FlatNetwork(L, d)
+    fn = FlatNetwork(L, d, init = True)
     print('Resolution: ',1.0/d**L[2])   
  
     mpos = fn.mpoc
@@ -345,7 +453,10 @@ if __name__ == '__main__':
     print(config)
     print(ampv**2)  
     print(fn.returnWeights(config[0]))
-    
+   
+    soln = fn.computeWeights(mps)
+    print(soln) 
+
     #Get Hamiltonian
     S,D = fn.getHamiltonian()
     print('Singles: ',S)    

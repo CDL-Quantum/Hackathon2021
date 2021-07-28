@@ -111,7 +111,7 @@ class MPS:
             intm = np.einsum('yrz,dyj->rzdj',intm,psi1[i])
             intm = np.einsum('lztj,lrtb->zjrb',intm, mpos[i].op)
             intm = np.einsum('zjrb,bzk->jrk',intm,asa(psi2[i]).conj())
-        
+      
         intm = np.einsum('jjj->j',intm)
         return intm
                        
