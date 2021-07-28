@@ -1,13 +1,14 @@
 ![CDL Hackaton](img/CDL_logo.png)
 
 # Business Pitch
+<img src="./logo.jpg" width="100">
 
-
-<p align="center">
-<img src="./logo.jpg" width="300">
-<img src="./Aviation.jpg" width="200">
-<img src="./WeatherForecast.jpg" width="250">
-</p>
+<table align="center">
+     <tr>
+        <td><img src="./Aviation.jpg" width="400"></td>
+        <td><img src="./WeatherForecast.jpg" width="450"></td>
+    </tr>
+</table>
 
 
 
