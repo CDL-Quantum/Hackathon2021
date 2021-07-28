@@ -11,7 +11,7 @@ Install and configure d-wave
 Run [Quantum Dynamic Pricing Engine.ipynb ](https://github.com/ManinderPanesar/Hackathon2021/blob/Week3-Hackathon/Quantum%20Finance/Quantum%20Dynamic%20Pricing%20Engine.ipynb)
 
 ## Challenge(s) You Solved
-We devised a dynamic pricing tool using D-Wave stimulated annealeaing sampler. The tool is based on optimizing the prices of the products using the Ising model capturing the probabilisic behvaior. 
+We devised a dynamic pricing tool using D-Wave stimulated annealing sampler. The tool is based on optimizing the prices of the products using the Ising model capturing the probabilisic behvaior. 
 
 ![](https://github.com/ManinderPanesar/Hackathon2021/blob/Week3-Hackathon/Quantum%20Finance/Our%20approach.png)
 
