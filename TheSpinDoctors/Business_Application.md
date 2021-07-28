@@ -1,15 +1,19 @@
 ## Business application
 
+The grid of the future needs to manage the increasing complexity and needs of  electrical power and is at the same time, a key player in the fight against climate change.
 
-We want to optimize the assignment of multiple energy sources to meet electrical demand (scheduling problem) such that 
+We want to optimize the assignment of multiple energy sources  (scheduling problem) in the electrical grid such as to 
 
-i) the demand is covered 
+i) meet the demand,
 
-ii) the  costs associated with the switching on and off of the different energy sources is taken into account 
+ii) take into account the costs associated with the switching on and off of the different energy sources 
 
-iii) the optimal solution is found by minimizing the cost of the given energy (fossil, solar, hydro, wind,etc) and the cost of carbon emission simultaneously. 
-To model this problem we use a simplified version of the UT problem (we don’t take into account maximum voltage per line constraints)  and fit  it into a QUBO formulation which we then solve using the Leap Hybrid Quantum-Classical from D-Wave. We find superior results with LEap compared to the Chimera 
-Quantum Annealer and Simulated Annealear on D-Wave.
+iii) and the stochastic nature of wind as well as the variability of solar power,  
+
+iii) to find an optimal solution that minimizes the cost of the operation and the cost of carbon emission at the same time. 
+
+To model this problem we use a simplified version of the UT problem (we don’t take into account maximum voltage per line constraints)  and fit  it into a QUBO formulation which we then solve using the Leap Hybrid Quantum-Classical from D-Wave. We find superior results with Leap compared to the Chimera 
+Quantum Annealer and the Simulated Annealear on D-Wave.
 
 ## Strategy
 
