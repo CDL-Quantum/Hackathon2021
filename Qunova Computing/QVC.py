@@ -1,3 +1,4 @@
+import math
 from collections import Counter
 
 import numpy as np
@@ -5,6 +6,7 @@ from qcs_api_client.util.errors import QCSHTTPStatusError
 from qiskit.algorithms.optimizers import SPSA
 from torch.utils.tensorboard import SummaryWriter
 import re
+from pyquil_circuits import AmplitudeEncoding, flatten_betas, all_betas
 
 from utils import sig
 
@@ -142,8 +144,15 @@ class PyquilVariationalClassifier:
     def _get_py(self, data_point, label, train_params, backend=None, num_shots=DEFAULT_SHOTS, **kwargs):
         qfm_param_name = self.qfm.param_name[0]
         vc_param_name = self.vc.param_name[0]
-        input_dict = {qfm_param_name: data_point,
-                      vc_param_name: train_params}
+        if isinstance(self.qfm, AmplitudeEncoding):
+            n = math.log(len(data_point), 2)
+            assert np.isclose(n, int(n)), "Specify 2^n amplitudes for some n"
+            n = int(n)
+            input_dict = {qfm_param_name: flatten_betas(all_betas(data_point), n),
+                          vc_param_name: train_params}
+        else:
+            input_dict = {qfm_param_name: data_point,
+                          vc_param_name: train_params}
         tot_circ = self.qfm + self.vc
         if backend is None or re.match(r"(\d+)q-qvm", backend) is not None:
             # Simulator
