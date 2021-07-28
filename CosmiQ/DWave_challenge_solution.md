@@ -17,6 +17,7 @@ For example,  A=[1,2,10] B=[3,10] O=[3].
 
 ## Robust Quadratic Unconstrained Binary Optimization (RQUBO)
 We define a 3N binary variables such that:
+
 ![](https://latex.codecogs.com/gif.latex?x_%7Bi%2CO%7D%20%3D%20i%20%5Cin%20O)
 
 ![](https://latex.codecogs.com/gif.latex?x_%7Bi%2C-1%7D%20%3D%20i%20%5Cin%20A)
