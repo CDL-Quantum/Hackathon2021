@@ -1,4 +1,7 @@
-Fill in this README.md. Example Structure:
+# Quantum computing for Green optimization 
+### A cost-efficient optimization of energy networks to reduce carbon emissions
+
+![sunset](../The Spin Doctors/data/sunset.jpg)
 
 ## Project Description 
 (3-4 lines about what it is and how you did it)
