@@ -70,7 +70,7 @@ There are two main approaches to tackle supplier selection problem. single-crite
 In this market, there are several competitors that provide software or application to maximize the inventory profit. Microsoft dynamic 356 helps managers to configure and manage procurement and vendors. Bright source allows you to manage vendor profiles and automatically suggest the best vendor for the job based on price, inventory level and fulfillment times. SAP Ariba enables companies to digitalized their processes end-to-end on a single and integrated platform in the cloud.
 Apart from them, there are several other optimization models for inventory management. Inventory tracker which functions as a comprehensive inventory tracking system for iPad. SOS inventory which integrates with QuickBooks and offers expanded features such as sales orders. Lettuce is not just an inventory app and it integrates such system as order capture, payment processing, shipping, tracking , customer relationship management and more. Oracle supply chain management and manufacturing connects supply network with an integrated suites of cloud business application designed. 
 
-## CUSTOMERS
+## Customers
 
 There are several retailers that online grocery shoppers can buy their groceries. Here we look at the first three retailers. Based on Coresight Research, Amazon and Walmart remain the top venue for online grocery shoppers. 
 
