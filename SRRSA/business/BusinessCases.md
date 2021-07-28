@@ -1,8 +1,6 @@
 ![CDL Hackaton](img/CDL_logo.png)
 
-# Business Pitch
-<img src="./logo.jpg" width="100">
-
+# Business Pitch - 1QPoint Your Partner for Accurate Weather
 <table align="center">
      <tr>
         <td><img src="./Aviation.jpg" width="400"></td>
@@ -52,7 +50,7 @@ Market growth in North America is driven majorly by the increased demand for hig
 
 ## Product roadmap and platform strategy
 
-**Products:**  Our first product, CloudQ targets the attractive aviation weather forecast market. It also provides a storm detection feature. It surves as a basis for our SolarPowerQ product which predicts solar electricity generation less than a few hours in advance. To get solar forecasts SolarPowerQ precisely locates where each cloud will be relative to a solar array, and how the size and shape of the clouds influence how much sunlight gets through to the solar panels. By maximizing the solar panel output, fossil fuel power stations are run less, and by doing so we reduce CO2 emissions and their impact on climate change [9]. Eventhough this product does not directly relate to weather forecast due to its relationship to cimate change energy utility and insurance clients love it. Our next product PrecipitationQ is more challenging to forecast than temperature due to the discontinuous nature of the phenmena [10]. Our goal is to bundle the diffrent data points we collect from clouds, wildfires etc. and extend the medium-term weather forecast feature from (4–9 days) to 5-10 forecast period with WeatherQ product. 
+**Products:**  Our first product, CloudQ targets the attractive aviation weather forecast market. It also provides a storm detection feature. It surves as a basis for our SolarPowerQ product which predicts solar electricity generation less than a few hours in advance. To get solar forecasts SolarPowerQ precisely locates where each cloud will be relative to a solar array, and how the size and shape of the clouds influence how much sunlight gets through to the solar panels. By maximizing the solar panel output, fossil fuel power stations are run less, and by doing so we reduce CO2 emissions and their impact on climate change [9]. Eventhough this product does not directly relate to weather forecast due to its relationship to climate change energy utility and insurance clients love it. Our next product PrecipitationQ is more challenging to forecast than temperature due to the discontinuous nature of the phenomena [10]. Our goal is to bundle the diffrent data points we collect from clouds, wildfires etc. and extend the medium-term weather forecast feature from (4–9 days) to 5-10 forecast period with WeatherQ+ product. 
 
 ## Competitors and competitive advantage
 **Key players:** The Weather Company (US), Vaisala (Finland), Sutron Corporation (US), Campbell Scientific (US), Airmar Technology Corporation (US), All Weather, Inc. (US), Morcom International (US), Columbia Weather Systems (US), G. Lufft Mess-und Regeltechnik (Germany), and Skye Instruments (UK), among others.
