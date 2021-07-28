@@ -66,8 +66,8 @@ There are two main approaches to tackle supplier selection problem. single-crite
 
 In Zebraket, we are attempting to overcome supplier selection problem with the aim of maximizing inventory profit in an unpredictable and **_chaotic_** business environment. Our ultimate integrated multi-variables model will include both qualitative and quantitative criteria to provide best solution for your multi-criteria supplier selection problem. In order to select the best suppliers, it is necessary to make a tradeoff between tangible and intangible criteria, some of which may conflict. Zebraket exploits cutting-edge technology and new methods to bring **_resilience_** and agility into your inventory management system. Unlike conventional methods our breakthrough technique reduces your dependency on **_single supplier_** while the inventory profit and reliability of the inventory management system will be maximized. The table below compares the merits of conventional methods and our own integaretd technique. 
 
-|Advantages | Zebraket Technique | Conventional Methods |
-|-----------|--------------------|----------------------|
+| Merits | Zebraket Technique | Conventional Methods |
+|-----------|-----------------|----------------------|
 |	Adapt the inventory management system with multiple-supplier strategy|:white_check_mark:||
 | Reduce order transaction cost|:white_check_mark:|:white_check_mark:|
 | Increase accuracy and reliability of decision making in the shortest possible time|:white_check_mark:||
