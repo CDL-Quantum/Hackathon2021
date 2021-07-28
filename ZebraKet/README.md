@@ -72,7 +72,11 @@ The equation below represent the combined objectives
 </p>
 
 ### Objective 4: QUBO Chaining
-The overall goal of our project was to show that multiple objectives can be handled together through a process of chaining and that gives comparable results to solving both objectives together. You can see a prototype of this framework in this [notebook](./notebooks/QuboChain.ipynb). This chaining allows one to attach an arbitrary number of QUBOs together and optimize them all together. In particular, we chain the objective 1 to objective 2, and optimize them together.
+The overall goal of our project was to show that multiple objectives can be handled together through a process of chaining and that gives comparable results to solving both objectives together. You can see a prototype of this framework in this [notebook](./notebooks/QuboChain.ipynb). This chaining allows one to attach an arbitrary number of QUBOs together and optimize them all together. In particular, we chain the objective 1 to objective 2, and optimize them together. Here is a crude representation of how we envision a QUBO chain:
+
+<p align="center">
+  <img  height="100" src="./resources/qubo-chain.png">
+</p>
 
 ## Summary of Results
 
