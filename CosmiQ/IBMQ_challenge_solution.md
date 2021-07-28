@@ -84,7 +84,9 @@ We then used the results from the experiments to construct and test single-qutri
 
 1. **![X01](https://latex.codecogs.com/gif.latex?X%5E%7B%2801%29%7D) gate**
 
-The ![X01](https://latex.codecogs.com/gif.latex?X%5E%7B%2801%29%7D) gate takes qutrit from ![0_state](https://latex.codecogs.com/gif.latex?%7C0%5Crangle) state to ![1_state](https://latex.codecogs.com/gif.latex?%7C1%5Crangle) state and vice versa: ![X01_oper](https://latex.codecogs.com/gif.latex?X%5E%7B01%7D%20%7C0%3E%20%3D%20%7C1%3E)
+The ![X01](https://latex.codecogs.com/gif.latex?X%5E%7B%2801%29%7D) gate takes qutrit from ![0_state](https://latex.codecogs.com/gif.latex?%7C0%5Crangle) state to ![1_state](https://latex.codecogs.com/gif.latex?%7C1%5Crangle) state and vice versa:
+
+> ![X01_oper](https://latex.codecogs.com/gif.latex?X%5E%7B01%7D%20%7C0%3E%20%3D%20%7C1%3E)
 
 The gate is constructed by sending a Gaussian pulse with the (![zero-to-one](https://latex.codecogs.com/gif.latex?0%5Crightarrow1) excitation) qubit frequency to the qubit's Drive Channel:
 ```
@@ -93,7 +95,9 @@ pulse.play(cal.pulse_rx01(), pulse.DriveChannel(qbit)) #x
 
 2. **![X12](https://latex.codecogs.com/gif.latex?X%5E%7B%2812%29%7D) gate**
 
-The ![X12](https://latex.codecogs.com/gif.latex?X%5E%7B%2812%29%7D) gate takes qutrit from ![1_state](https://latex.codecogs.com/gif.latex?%7C1%5Crangle) state to ![2_state](https://latex.codecogs.com/gif.latex?%7C2%5Crangle) state and vice versa: ![X12_oper](https://latex.codecogs.com/gif.latex?X%5E%7B12%7D%20%7C1%3E%20%3D%20%7C2%3E)
+The ![X12](https://latex.codecogs.com/gif.latex?X%5E%7B%2812%29%7D) gate takes qutrit from ![1_state](https://latex.codecogs.com/gif.latex?%7C1%5Crangle) state to ![2_state](https://latex.codecogs.com/gif.latex?%7C2%5Crangle) state and vice versa:
+
+> ![X12_oper](https://latex.codecogs.com/gif.latex?X%5E%7B12%7D%20%7C1%3E%20%3D%20%7C2%3E)
 
 The gate is constructed by sending a Gaussian pulse with the (![one-to-two](https://latex.codecogs.com/gif.latex?1%5Crightarrow2) excitation) qubit frequency to the qubit's Drive Channel:
 ```
@@ -122,7 +126,7 @@ The measurement results from running the ![Y01](https://latex.codecogs.com/gif.l
 
 The ![H02](https://latex.codecogs.com/gif.latex?H%5E%7B%2802%29%7D) gate takes qutrit from ![0_state](https://latex.codecogs.com/gif.latex?%7C0%5Crangle) state to a superposition of ![0_state](https://latex.codecogs.com/gif.latex?%7C0%5Crangle) and ![2_state](https://latex.codecogs.com/gif.latex?%7C2%5Crangle):
 
-![H02_oper](https://latex.codecogs.com/gif.latex?H%5E%7B01%7D%20%7C0%3E%20%3D%20%5Csqrt%7B1/2%7D%20%28%7C0%3E%20&plus;%20%7C2%3E%29)
+> ![H02_oper](https://latex.codecogs.com/gif.latex?H%5E%7B01%7D%20%7C0%3E%20%3D%20%5Csqrt%7B1/2%7D%20%28%7C0%3E%20&plus;%20%7C2%3E%29)
 
 The gate is constructed by sending two Gaussian pulses with different frequencies to the qubit's Drive Channel, the first one with ![pi/2](https://latex.codecogs.com/gif.latex?%5Ctheta%20%3D%20%5Cpi/2) and the second one with ![pi](https://latex.codecogs.com/gif.latex?%5Ctheta%20%3D%20%5Cpi):
 ```
@@ -139,7 +143,7 @@ The measurement results from running the ![H01](https://latex.codecogs.com/gif.l
 
 The ![H12](https://latex.codecogs.com/gif.latex?H%5E%7B%2812%29%7D) gate takes qutrit from ![0_state](https://latex.codecogs.com/gif.latex?%7C0%5Crangle) state to a superposition of ![1_state](https://latex.codecogs.com/gif.latex?%7C1%5Crangle) and ![2_state](https://latex.codecogs.com/gif.latex?%7C2%5Crangle):
 
-![1_2_super](https://latex.codecogs.com/gif.latex?H%5E%7B12%7D%20%7C0%3E%20%3D%20%5Csqrt%7B1/2%7D%20%28%7C1%3E%20&plus;%20%7C2%3E%29)
+> ![1_2_super](https://latex.codecogs.com/gif.latex?H%5E%7B12%7D%20%7C0%3E%20%3D%20%5Csqrt%7B1/2%7D%20%28%7C1%3E%20&plus;%20%7C2%3E%29)
 
 The gate pulse schedule is similar to that of the ![H02](https://latex.codecogs.com/gif.latex?H%5E%7B%2802%29%7D) gate, except the first pulse is sent with ![pi](https://latex.codecogs.com/gif.latex?%5Ctheta%20%3D%20%5Cpi) and the second one with ![pi/2](https://latex.codecogs.com/gif.latex?%5Ctheta%20%3D%20%5Cpi/2):
 ```
