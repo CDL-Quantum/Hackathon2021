@@ -22,7 +22,7 @@ In order to achieve this we first have to write out Eq. (1) in a more compact no
 </center>
 where we utilize N<sub>q</sub> physical bits of local dimension (d = 3), signifying quitrits. We also use N<sub>t</sub> number of time samples and N number of assets (indexed by i). Typically K is used to control the precision or resolution. Here μ(t,i) represents the profit over the incremental time interval. The terms λ(t,i) control the transaction cost and is written in this form to allow time-dependence and asset class dependence. Σ<sup>t</sup><sub>ij</sub> are the terms of the covariance matrix with the diagonal representing the volatility associated with the asset. ϒ controls teh penalty for allowing volatile assets and ρ is the Lagrange multiplier useful to control the constraint to keep the sum of the weighs from exceeding 1.
 
-For purposes of testing our model against real data we use the Density Matrix Renormalization Group (DMRG) and Matrix Product States (MPS) to solve the problem in two steps. The simplest form of Eqn. (1) can be obtained by ignoring transaction costs and volatility. So that the objective reduces to just maximizing the profit while ensuring that the constraint is maintained. To this end we solve a simple problem involving the followign Hamiltonian:
+For purposes of testing our model against real data we use the Density Matrix Renormalization Group (DMRG) and Matrix Product States (MPS) to solve the problem in two steps. The simplest form of Eqn. (1) can be obtained by ignoring transaction costs and volatility. So that the objective reduces to just maximizing the profit while ensuring that the constraint is maintained. To this end we solve a simple problem involving the following Hamiltonian:
 
 <center>
 <img src="images/simpleDMRG.png">
@@ -64,7 +64,7 @@ This has been implemented as Matrix Product Operators (MPOs) in [flatnetwork.py]
 
 Unfortunately, even modest sizes like these cannot be simulated on the simulators and current hardware. Additionally, since the simulation tools available are restricted to qubits we further loose out on expressibility, which in our case manifests as loss of precision in characterizing the weights and therefore yield suboptimal solutions. Nonetheless for completeness and demonstration purposes we port over to Xanadu's Pennylane simulation package where we solve simpler versions of this problem using QAOA, which is a native algorithm intended for quantum hardware. These computations are done using only two quarters and two assets with representation on two qubits. For the purposes of comparsion we also undertake DMRG simulations.
 
-Once again using our datasorting techniques we obtain a variety of clustered data we pick the two most viable options and proceed to run computations (shown below).
+Once again using our data sorting techniques we obtain a variety of clustered data. We pick the two most viable options and proceed to run computations (shown below).
 
 <table align="center">
     <tr>
@@ -89,7 +89,7 @@ The DMRG solutions are optimally constrained in this case as shown below.
     </tr>
 </table>
 
-For the purposes of QAOA we have to once again conver the Hamiltonian from the operator representation to the Pauli representation. The file [PennylaneQAOA.ipynb](./PennylaneQAOA.ipynb) contains all the conversions needed to be able to do this. As per the edict of QAOA, we setup the cost Hamiltonian as well as the mixer Hamiltonian and assign 2 layers of them with 2 parameters per layer, which are then optimized. In the end of 400 steps the probabiloty associated with the different basis states are shown below.
+For the purposes of QAOA we have to once again convert the Hamiltonian from the operator representation to the Pauli representation. The file [PennylaneQAOA.ipynb](./PennylaneQAOA.ipynb) contains all the conversions needed to be able to do this. As per the edict of QAOA, we setup the cost Hamiltonian as well as the mixer Hamiltonian and assign 2 layers of them with 2 parameters per layer, which are then optimized. In the end of 400 steps the probabiloty associated with the different basis states are shown below.
 <center>
     <img src="./images/QAOA1.png" width=400>
 </center>
