@@ -9,7 +9,7 @@
             <img src="SRRSA/business/Aviation.jpg" width=400>
         </td>
         <td>
-            <img src="" width=400>
+            <img src="SRRSA/business/WeatherForecast.jpg" width=400>
         </td>
     </tr>
 </table>
