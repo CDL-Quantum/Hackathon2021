@@ -32,7 +32,7 @@ If we were to try to scale our package into a business we would plan on a SaS (S
 LV is a python package that can be run locally. We make use of quantum hardware from DWave and IBM. We also make use of a photonics computer simulator from Xanadu. 
 
 
-## Setup
+## Setup & How to Run
 
 1. Make sure you have python 3 installed
 
@@ -40,11 +40,9 @@ LV is a python package that can be run locally. We make use of quantum hardware 
 
 3. pip install -r requirements.txt
 
-## How to Use
+4. On the command line, for a python script script_you_want_to_run.py:  python module/script_you_want_to_run.py 
 
-On the command line:
-
-- For ML model:  python solvers/script.py -h
+6. (Optional) run the Jupyter Notebooks in the PythonNotebooks folder
 
 
 ![cdl](img/cdl.jpg)
