@@ -64,6 +64,27 @@ The growth of grocery ecommerce sales can largely be attributed to first-time bu
 In 2020, the global cost of overstocking goods was $530 billion, while the cost of under-stocking was more than $680 billion. There are several approaches to reduce the costs and maximize inventory profit. In Zebraket, we focus on optimum set of suppliers in order to meet the customers’ requirements and minimize the inventory cost at the same time. First, we look at the classical methods to solve supplier selection problem and inventory profit maximization.
 There are two main approaches to tackle supplier selection problem. single-criterion synthesis approach and multi-objective optimization models using mathematical optimization involving more than one objective function to be simultaneously optimized. Studies show that the number of pre-selection methods is limited despite this step is very important in the supplier selection process. This screening process makes identifying a suitable subset of suppliers and reduces the large set of initial suppliers to a smaller manageable set of acceptable suppliers by ranking them under a pre-defined set of criteria. Among the benefits of this pre-qualification step is that the possibility of rejecting good suppliers at an early stage is reduced [Source](https://link.springer.com/article/10.1007/s40092-019-00334-y).
 
+In Zebraket, we are attempting to overcome supplier selection problem with the aim of maximizing inventory profit in an unpredictable and chaotic business environment. Our ultimate integrated multi-variables model will include both qualitative and quantitative criteria to provide best solution for your multi-criteria supplier selection problem. In order to select the best suppliers, it is necessary to make a tradeoff between tangible and intangible criteria, some of which may conflict. Zebraket exploits cutting-edge technology and new methods to bring resilience and agility into your inventory management system. Unlike conventional methods our breakthrough technique reduces your dependency on a single supplier while the inventory profit and reliability of the inventory management system will be maximized. The table below compares the merits of conventional methods and our own integaretd technique. 
+
+|Advantages | Zebraket Technique | Conventional Methods |
+|-----------|--------------------|----------------------|
+|	Adapt the inventory management system with multiple-supplier strategy|:white_check_mark:||
+| Reduce order transaction cost|:white_check_mark:|:white_check_mark:|
+| Increase accuracy and reliability of decision making in the shortest possible time|:white_check_mark:||
+| Enhance the level of safety stock|:white_check_mark:|:white_check_mark:|
+| Pre-selection step in the supplier selection process (Identifying the most suitable subset of suppliers)|:white_check_mark:||
+| Reduce vulnerability of supply|:white_check_mark:||
+|Partnership between buyer and suppliers|:white_check_mark:|:white_check_mark:|
+|Reduction of risk of opportunistic behaviour||:white_check_mark:|
+|Mitigate risk of supply interruption|:white_check_mark:||
+|Reduce probability of bottlenecks due to insufficient production capacity to meet peak demand|:white_check_mark:||
+| Lower inventory holding cost|:white_check_mark:|:white_check_mark:|
+|Increased competition among suppliers leads to better quality, price, delivery, product innovation|:white_check_mark:||
+|Enhance the bargaining power of buyers|:white_check_mark:||
+|More flexibility to react to unexpected events that could endanger supplier’s capacity|:white_check_mark:||
+
+
+
 
 ## Competitors
 
