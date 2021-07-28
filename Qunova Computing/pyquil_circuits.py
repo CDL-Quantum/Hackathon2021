@@ -1,3 +1,5 @@
+import itertools
+import math
 from abc import abstractmethod, ABCMeta, ABC
 from typing import Union, List, Optional, Dict
 
@@ -147,3 +149,106 @@ class VariationalCircuit(ParamCircuitInterface):
             for i in range(self._num_qubits):
                 p.inst(MEASURE(i, ro[i]))
         return p
+
+
+class AmplitudeEncoding(ParamCircuitInterface):
+    def __init__(self, num_amps: int, param_name="beta"):
+        super().__init__()
+        n = math.log(num_amps, 2)
+        assert np.isclose(n, int(n))
+        self._num_qubits = int(n)
+        self._param_name = [param_name]
+        self.num_params = (2 ** num_amps) - 1
+
+    def _circuit_construction(self, add_measure=True) -> Program:
+        p = Program()
+        betas_flatten = p.declare(self._param_name[0], "REAL", self.num_params)
+        n = self._num_qubits
+        for s in range(n, 0, -1):
+            tot_js = 2 ** (n - s)
+            num_combs = math.log(tot_js, 2)
+            assert np.isclose(num_combs, int(num_combs)), "Something went wrong"
+            num_combs = int(num_combs)
+            all_combs = np.array(list(itertools.product([0, 1], repeat=num_combs)))
+            for j in range(1, tot_js + 1)[::-1]:
+                idx = index_flatten(s, j, n)
+                if len(all_combs) == 1:
+                    p.inst(RY(betas_flatten[idx], s - 1))
+                    # += Program(f"RY({d_betas[s, j]}) {s - 1}")
+                else:
+                    # pick the relevant combination, e.g. [0,0] or [0, 1] or [1, 0] or [1, 1] for two control qubits
+                    comb = all_combs[j - 1]
+                    rot_oper_prog_str = f"RY({self._param_name[0]}[{idx}]) "
+                    rot_qub_prog_str = f"{s - 1}"
+                    flip_prog_strs = []
+                    # this loops through the controlled operation, e.g. [0, 1] in the opposite direction
+                    for x, cbit in enumerate(comb[::-1]):
+                        if cbit == 0:
+                            flip_prog_strs += [f"X {s + x}"]
+                        else:
+                            pass
+                        rot_oper_prog_str = "CONTROLLED " + rot_oper_prog_str
+                        rot_qub_prog_str = f"{s + x} " + rot_qub_prog_str
+                    rot_prog_str = rot_oper_prog_str + rot_qub_prog_str
+                    p += Program(flip_prog_strs) + Program(rot_prog_str) + Program(flip_prog_strs[::-1])
+
+        # Measure
+        if add_measure:
+            ro = p.declare(self._result_name, "BIT", self._num_qubits)
+            for i in range(self._num_qubits):
+                p.inst(MEASURE(i, ro[i]))
+        return p
+
+
+def flatten_betas(amps, n):
+    dct_beta = all_betas(amps)
+    flatten_beta = np.zeros(2 ** n - 1)
+    for s, j in dct_beta:
+        idx = index_flatten(s, j, n)
+        flatten_beta[idx] = dct_beta[s, j]
+    return flatten_beta
+
+
+def index_flatten(s, j, n):
+    return 2 ** n - 2 ** (n - s + 1) + j - 1
+
+
+def all_betas(amps):
+    """
+    Given some real amplitudes, compute the RY angles needed to prepare this state
+
+    :return dict: key: (s, j), value: beta angle
+    """
+    n = math.log(len(amps), 2)
+    assert np.isclose(n, int(n)), "Specify 2^n amplitudes for some n"
+    n = int(n)
+    d_betas = {}
+    for s in range(1, n + 1):
+        for j in range(1, 2 ** (n - s) + 1):
+            # calculate numerator
+            numer_sqr = 0.0
+            for l in range(2 ** (s - 1)):
+                idx_num = (2 * j - 1) * (2 ** (s - 1)) + l
+                numer_sqr += np.abs(amps[idx_num]) ** 2
+            numerator = np.sqrt(numer_sqr)
+            # calculate denominator
+            denom_sqr = 0.0
+            for ll in range(2 ** s):
+                idx_den = (j - 1) * (2 ** s) + ll
+                denom_sqr += np.abs(amps[idx_den]) ** 2
+            denominator = np.sqrt(denom_sqr)
+            # avoid any pathological cases, e.g. if denominator = 0.0
+            if np.isclose(numerator, 0.0):
+                ratio = 0.0
+            else:
+                ratio = numerator / denominator
+            # ensure argument to arccos lies within domain [-1, 1]
+            if ratio > 1.0:
+                ratio = 1.0
+            elif ratio < -1.0:
+                ratio = -1.0
+            else:
+                pass
+            # finally, compute the beta angles
+            d_betas[s, j] = -2 * np.arcsin(ratio)
+    return d_betas
