@@ -23,7 +23,7 @@ We use the Mutual Information QUBO method to extract relevant features from a re
 
 Below is a comparison between the mutual information of the log-returns and other financial features. Other comparisons are found in the folder [figures](./figures/).
 
-<img src="./figures/plots_MI_log_ret.png" alt="image info" style="zoom:50%;" /> | <img src="./figures/plots_slecetedFeatures_log_ret.png" alt="image info" style="zoom:70%;" />
+<img src="./figures/plots_MI_log_ret.png" alt="image info" style="zoom:50%;" /> | <img src="./figures/plots_slecetedFeatures_log_ret.png" alt="image info" style="zoom: 50%;" />
 
 
 #### Static/Dynamic Portfolio Optimization problem
