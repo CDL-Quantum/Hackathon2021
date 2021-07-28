@@ -24,7 +24,7 @@ Fill in this README.md. Example Structure:
 
    - You can monitor the training process running `tensorboard --logdir=./runs/zzzpfm_c12v3_zzzpfm_c12v3_pyquil`.
 5. **(Testing)** Run the [notebook file](test.ipynb) to test the trained model.
-6. **(QPU Testing)** Run the [notebook file](./zzzpfm_c12_pyquil_test_only_qpu.ipynb) to test the trained model on Aspen-9.
+6. **(QPU Testing)** Run the [notebook file](test_qpu.ipynb) to test the trained model on Aspen-9.
 
 ## Challenge(s) You Solved
 ### 1. Rigetti Challenge
