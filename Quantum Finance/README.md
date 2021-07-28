@@ -1,5 +1,3 @@
-Fill in this README.md. Example Structure:
-
 ## Product Description 
 The Dynamic Quantum Pricing Engine is an algorithm for the dynamic pricing and promotion of online goods that helps accelerate sales turnover. The target niche is small to medium-sized online retailers, with market revenue of $1 mln/month and up.
 
@@ -7,7 +5,9 @@ Pattern extraction and data mining for leveraging sales is the most challenging 
 
 ## Setup
 Set up virtual environment using pyenv. 
+
 Install and configure d-wave 
+
 Run [Quantum Dynamic Pricing Engine.ipynb ](https://github.com/ManinderPanesar/Hackathon2021/blob/Week3-Hackathon/Quantum%20Finance/Quantum%20Dynamic%20Pricing%20Engine.ipynb)
 
 ## Challenge(s) You Solved
@@ -35,5 +35,7 @@ The product will be sold on a subscription basis (monthly or yearly). It will be
 
 ## Contributors 
 David Orrell
+
 Uchenna Chukwu
+
 Maninder Kaur
