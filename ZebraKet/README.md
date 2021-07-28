@@ -23,7 +23,7 @@ pip install dwave-ocean-sdk
 Example:
 python -m  services.classical_optimizers
 
-## Challenge(s) You Solved
+## Challenges Solved
 
 - Objective 1: We want to limit the number of suppliers based on the set of items they provide. This pre-selection was formulated into the "set cover" problem.
 
