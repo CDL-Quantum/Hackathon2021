@@ -22,7 +22,7 @@ Similar forms of data analysis can be used to assist with medical diagnosis, by 
 Finance: 
 Market data can be analysed to infer correlations between financial events. For example, transaction data can be classed into different categories which reflect market conditions.
 
-# The quantum pricing advantage
+## The quantum pricing advantage
 
 While this type of market data analysis can be performed using classical methods, our model is based on the Ising model in physics, which has a number of advantages. One is that the method is inherently probabilistic, so rather than getting a fixed answer each time the algorithm is run, we can build up a statistical picture of likely behavior. Another is that the quantum approach offers the potential advantage of much faster computation times. The main advantage of the quantum method which our program exploits, however, is that it can be used to infer how behaviour varies as conditions change. In particular, because the Ising model exhibits nonlinear switching-type behaviour, the algorithm can capture sudden changes, such as herd behaviour in markets; or the way that a customer’s preferences will adapt when goods go on sale. 
 
