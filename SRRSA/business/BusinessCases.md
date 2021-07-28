@@ -1,7 +1,7 @@
 ![CDL Hackaton](img/CDL_logo.png)
 
 # Business Pitch
-<p align="left"><img src="figs/Logo.png"/width=500></p>
+<p align="left"><img src="SRRSA/business/logo.jpg"/width=200></p>
 
 <table  align="center">
     <tr>
