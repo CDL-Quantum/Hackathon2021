@@ -36,7 +36,7 @@ Here are results for a static portfolio optimization
 
 
 
-And here are results for a dynamic portfolio optimization. Althought the returns are negative, the DWave hybrid solver performs better than SA.
+And here are results for a dynamic portfolio optimization for 100 assets traded for 100 days. Althought the returns are negative, the DWave hybrid solver performs better than SA.
 
 <img src="./figures/portfolio_dynamic_resutls.png" alt="image info" style="zoom: 150%;" /> 
 
