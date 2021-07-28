@@ -78,6 +78,12 @@ with:
 Finally, an extension with more realistic scenarios and a larger
 energy network is provided in [this](./Green_optimization_QuantumAnnealing_XL.ipynb) notebook. 
 
+## Business application and presentation
+
+Please find:
+- [here the Business application]()
+- and [here the Presentation]()
+
 ## Contributors 
 All authors equally contributed to the project and they are listed in alphabetic order:
 
