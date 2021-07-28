@@ -68,3 +68,8 @@ For this toy problem we have:
 
 
 
+## Python Code and Jupyter Notebooks
+
+The Python code using Ocean D-Wave can be found in the [dwave](dwave) subfolder.
+
+Please review the implementation of the Robust Equal Sum Partitioning in the [dwave/RobustEqualSumPartitioning](dwave/RobustEqualSumPartitioning.ipynb) Jupyter notebook.
