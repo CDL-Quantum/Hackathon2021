@@ -171,7 +171,7 @@ The measurement results from running the ![H12](https://latex.codecogs.com/gif.l
 
 ![H12_gate_plot](ibmq/images/h12_gate_plot.png)
 
-6. **Equal superposition  ![H12](https://latex.codecogs.com/svg.image?%5Cfrac%7B1%7D%7B%5Csqrt%7B3%7D%7D%5Cleft%20(%20%7C0%3E%20&plus;%20%7C1%3E%20&plus;%20%7C2%3E%20%5Cright%20)**
+6. **Equal superposition**  ![H12](https://latex.codecogs.com/svg.image?%5Cfrac%7B1%7D%7B%5Csqrt%7B3%7D%7D%5Cleft%20(%20%7C0%3E%20&plus;%20%7C1%3E%20&plus;%20%7C2%3E%20%5Cright%20)
 
 Finally, we constructed and tested a custom gate that takes qutrit from ![0_state](https://latex.codecogs.com/gif.latex?%7C0%5Crangle) state to a superposition of all three states, ![0_state](https://latex.codecogs.com/gif.latex?%7C0%5Crangle), ![1_state](https://latex.codecogs.com/gif.latex?%7C1%5Crangle) and ![2_state](https://latex.codecogs.com/gif.latex?%7C2%5Crangle).
 The gate is constructed by sending two Gaussian pulses with different frequencies and different ![theta](https://latex.codecogs.com/gif.latex?%5Ctheta) to the qubit's Drive Channel:
@@ -197,7 +197,7 @@ Please review the implementation of the above calibration technique and single-q
 ## References and Further Reading
 
 1. [Front. Phys. **8**, 479 (2019)](www.frontiersin.org/articles/10.3389/fphy.2020.589504/full).
-2. [Adv. Quantum Technol. **3**,  1900074 (2020)(https://onlinelibrary.wiley.com/doi/10.1002/qute.201900074)
+2. [Adv. Quantum Technol. **3**,  1900074 (2020)](https://onlinelibrary.wiley.com/doi/10.1002/qute.201900074)
 3. R. V. Krems, Molecules in Electromagnetic Fields: from Ultracold Physics to Controlled Chemistry, Wiley (2018).
 4. T. Alexander, N. Kanazawa, D.J. Egger, L. Capelluto, C.J. Wood, A. Javadi-Abhari, D.C.McKay, [Qiskit pulse: programming quantum computers through the cloud with pulses](https://iopscience.iop.org/article/10.1088/2058-9565/aba404)
 5. Y. Wang, Z. Hu, B.C. Sanders, S. Kais, [Qudits and High-Dimensional Quantum Computing](https://www.frontiersin.org/articles/10.3389/fphy.2020.589504/full)
