@@ -40,7 +40,7 @@ The platform assists following industries to optimize weather risk:
 * The global aviation weather forecasting services market is projected to reach US$ 447.6 million in 2024 [7].
 * Energy and utilities: From causing outages to affecting energy consumption rates, the weather can have a significant impact on energy and utilities.
 * Ground transportations: If drivers aren’t prepared, harsh conditions such as icy roads, poor visibility and violent storms may lead to delays, accidents or serious injuries. Applying AI and analytics to weather and traffic data helps transportation companies and their drivers make better decisions about impending conditions. 
-* Insurance: Innovative insurers use data and analytics to discover innovative ways to improve policyholder satisfaction, manage risk, reduce claims and prevent fraud. 
+* Insurance: Insurers use data and analytics to discover ways to improve policyholder satisfaction, manage risk, reduce claims. 
 * Retail: The correlation between weather and consumer buying patterns is rarely utilized when predicting retail trends. But even more often overlooked is weather's impact on supply chain management, product demand and pricing. 
 
 ## Global weather forecast market
