@@ -130,10 +130,4 @@ Our advantage lies in an agile and scalable platform tuned to address weather co
 
 
 
-
-
-
-
-
-
 ![CDL Hackaton](img/cml_qml.PNG)
