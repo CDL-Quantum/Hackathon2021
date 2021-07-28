@@ -1,8 +1,9 @@
 Fill in this README.md. Example Structure:
 
 ## Project Description 
+We propose an image processing platform covering various verticals such as weather forecasting, emotion recognition to name a few. Image processing systems market is expected to reach USD 26 billion by 2027 growing at a growth rate of 21.8% [4]. The extensibility of the platform is given by the similarity of the problem as they belong to multi-class classification problems. They all can be modeled using recurrent neural networks due to their temporal interactions. In our detailed business proposal we describe the weather forecast image processing vertical.
 
-In the following project we apply various Quantum algorithms to weather related image data. Our business proposal is also aligned with developing a quantum weathert application. We have also partially implemented a quantum SVM in Pennylane, but it still needs some work.
+In the following project we apply various Quantum algorithms to weather related image data. Our business proposal is also aligned with developing a quantum weather application. We have also partially implemented a quantum SVM in Pennylane, but it still needs some work.
 
 ## Setup
 1. Make sure you're using a conda environment with pythone 3.8.
@@ -14,23 +15,26 @@ In the following project we apply various Quantum algorithms to weather related 
 ## How to Use
 For judges feel free run to run the setup and explore the technical documentation found in
 
-Technical Analysis Paper
-[Click here](SRRSA/Notebooks/Technical_Summary.pdf)
+
+[Technical Analysis Paper](./Notebooks/Technical_Summary.pdf)
+
+Our business proposal for a quantum algorithm company focused on weather is found here:
+
+[Business Analysis Paper](./business/BusinessCases.md)
 
 
-Business Analysis Paper
-[Click here](SRRSA/business/BusinessCases.md)
-
+Our grover searc
 ## Challenge(s) You Solved
 
-Overall Hackathon
+Overall Hackathon challenge
+
 
 Pennylane 
 
 ## Project Details: 
   - Further walkthrough of what you did 
   -   
-  - Links to any Jupyter notebooks/scripts
+  - 
   - Business applications: the problem we address is lack of computational capabilities. We research Quantum Machine Learning techniques in the framework of Quantum Image Processing and its potential applications to industries/markets such as weather forecasting, emotion recognition and prediction, nanotechnology etc. Our extensive business proposal can be found here.
 ## Requirments
 
