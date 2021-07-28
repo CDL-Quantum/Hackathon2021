@@ -15,9 +15,7 @@ Please refer to the [CDL Quantum Hackathon 2021 README file](../README.md) for m
 
 ## Project Details:
 
-  - To address **IBM Q's Challenge**, we used Qiskit Pulse to calibrate a three-level quantum device on ibmq_armonk and to construct a full set of single-qutrits logical gates.
-
-  The IBM Q's Challenge solution overview including references to related Python code and Jupyter notebooks can be found in the [IBMQ Challenge Solution Overview](IBMQ_challenge_solution.md) file.
+  - To address **IBM Q's Challenge**, we used Qiskit Pulse to calibrate a three-level quantum device on ibmq_armonk and to construct a full set of single-qutrits logical gates. The IBM Q's Challenge solution overview including references to related Python code and Jupyter notebooks can be found in the [IBMQ Challenge Solution Overview](IBMQ_challenge_solution.md) file.
 
   - To **address Xanadu's Challenge**, we used pennylane to solve a portfolio trajectory optimisation. The Xanadu's Challenge solution overview including references to related Python code and Jupyter notebooks can be found in the [Xanadu Challenge Solution Overview](Xanadu_challenge_solution.md) file.
 
