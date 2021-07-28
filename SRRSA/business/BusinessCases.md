@@ -4,7 +4,7 @@ A vast amount of images generated from high resolution telescopes, satelites, on
 
 * weather forecasting (analyzed extensively in our business proposal below)
 * emotion recognition and prediction - also known as affective computing - with market size US$29 billion in 2020 and expected to grow to US$140 billion by 2025 at CAGR of 37% [1]
-* molecular modelling market - expected to grow at a rate of 14.43% in the forecast period of 2021 to 2028 and reach USD7,2 billion by 2028 [2]
+* molecular modelling market - expected to grow at a rate of 14.43% in the forecast period of 2021 to 2028 and reach USD 7,2 billion by 2028 [2]
 * nanotechnology - the global nanotechnollogy market was valued at USD 1 billion in 2018, and is projected to reach USD2,2 billion by 2025, growing at a CAGR of 10.5% from 2019 to 2025 [3].
 
 We propose an image processing platform covering various verticals such as weather forecasting, emotion recognition to name a few. Image processing systems market is expected to reach USD 26 billion by 2027 growing at a growth rate of 21.8% [4]. The extensibility of the platform is given by the similarity of the problem as they belong to multi-class classification problems. They all can be modeled using recurrent neural networks due to their temporal interactions. In our detailed business proposal we describe the weather forecast image processing vertical.
@@ -108,7 +108,7 @@ Market growth in North America is driven majorly by the increased demand for hig
 
 **The market:** Increase in number of natural disasters due to undesired climatic changes drives the growth of the global market. Reliable weather forecasting can lead to reduction in operational and maintenance costs for business operations, reduce disaster recovery cost and lead to flexible insurance policies. On the supply side, increasing the accuracy of machine learning techniques and improvement in data fusion methods leads to increasing accuracy of predictions. Our vision is to become the weather forecast partner for governments and universities.
 
-**Value proposition:** more efficient representations of the underlying physics is expected due to the shared quantum nature of programmable qubits and the weather systems being simulated. 
+**Value proposition:** our platform increases image processing accuracy across attractive verticals such as weather forecasting, emotion recognition and others. 
 
 **Our advantage:** agile, scalable platform focused solely on weather forecasting using hybrid machine learning algorithms and methods across relevant verticals. Our biggest strength is our highly skilled team of PhDs, (quantum) machine learning engineers and architecture design experts with combined academia research, industry and corporate consulting experience of 35 years.
 
