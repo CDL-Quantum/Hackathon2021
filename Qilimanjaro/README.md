@@ -7,9 +7,11 @@ In order to manipulate the state of the qutrits we can program directly the micr
 
 The goal of this project is to build a quantum classifier that uses qutrits to distinguish the different classes. The reason for that is because a classifier can be made using a single qubit by checking the fidelity with a set of maximally orthogonal states, if instead we use a qutrit, these states will have a larger orthogonality and therefore we will have less errors.
 
-This classifier uses machine learning techniques, it consists on a set of unitary gates parameterized with the rotation angles that must be optimized during the training process via the minimization of a loss function. Each gate will take the previous state and the data of the element we want to classify as inputs and returns a quantum state as the output. Note that the classical data must be re-uploaded in each gate due to the no-cloning theorem of quantum mechanics. The class of the elements is determined when the final's state fidelity with one of the maximally orthogonal states surpasses a certain value.
+This classifier uses machine learning techniques, it consists on a set of unitary gates parameterized with some coefficients in the rotation angles that must be optimized during the training process via the minimization of a loss function. Each gate will take the previous state and the data of the element we want to classify as inputs and returns a quantum state as the output after weighting these values to get the angle of the unitary rotation. Note that the classical data must be re-uploaded in each gate due to the no-cloning theorem of quantum mechanics that doesn't allow us to copy the data points which are needed in every layer. The class of the elements is determined when the final's state fidelity with one of the maximally orthogonal states surpasses a certain value.
 
+Additionally, it is important to mention that it is a good idea to minimize the quantum resources when trying to solve a given problem. In our case, we built a quantum classifier using a single qutrit, and that was possible because of the re-uploading data technique. 
 
+The size of the circuit grows linearly with the number of layers, and the number of gates of those layers also grows linearly with the size of the data. The classifier will perform better as we add more layers.
 
 ## Setup
 Example:
