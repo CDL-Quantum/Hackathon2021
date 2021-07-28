@@ -25,7 +25,12 @@ We can obtain unitary gates for qutrits by applying 2-dimensional gates to the s
 
 <a href="https://www.codecogs.com/eqnedit.php?latex=U=Z_{\varphi_{1}}^{(01)}&space;Z_{\varphi_{2}}^{(12)}&space;Y_{\theta_{1}}^{(12)}&space;Y_{\theta_{2}}^{(01)}&space;Z_{\varphi_{3}}^{(01)}&space;Z_{\varphi_{4}}^{(12)}&space;Y_{\theta_{3}}^{(12)}&space;Z_{\varphi_{5}}^{(01)}&space;Z_{2&space;\varphi_{5}}^{(12)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?U=Z_{\varphi_{1}}^{(01)}&space;Z_{\varphi_{2}}^{(12)}&space;Y_{\theta_{1}}^{(12)}&space;Y_{\theta_{2}}^{(01)}&space;Z_{\varphi_{3}}^{(01)}&space;Z_{\varphi_{4}}^{(12)}&space;Y_{\theta_{3}}^{(12)}&space;Z_{\varphi_{5}}^{(01)}&space;Z_{2&space;\varphi_{5}}^{(12)}" title="U=Z_{\varphi_{1}}^{(01)} Z_{\varphi_{2}}^{(12)} Y_{\theta_{1}}^{(12)} Y_{\theta_{2}}^{(01)} Z_{\varphi_{3}}^{(01)} Z_{\varphi_{4}}^{(12)} Y_{\theta_{3}}^{(12)} Z_{\varphi_{5}}^{(01)} Z_{2 \varphi_{5}}^{(12)}" /></a>
 
-The reason for doing that is because it is not trivial to find the pulses needed for applying a unitary gate to a qutrit, but it is easier to find the pulses corresponding to 2-dimensional X, Y, Z gates.
+The reason for doing that is because it is not trivial to find the pulses needed for applying a unitary gate to a qutrit, but it is easier to find the pulses corresponding to 2-dimensional X, Y, Z gates. Each subspace has a pulse frequency and amplitude that makes a rotation in its Bloch sphere, that means that adressing to one of the subspaces is made by setting the correct frequency and amplitude that won't affect the other subspace.
+
+For our layers we have used only 4 gates:
+<a href="https://www.codecogs.com/eqnedit.php?latex=U=&space;Y_{\varphi_{1}}^{(12)}&space;X_{\varphi_{2}}^{(12)}&space;Y_{\varphi_{3}}^{(01)}&space;X_{\varphi_{4}}^{(01)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?U=&space;Y_{\varphi_{1}}^{(12)}&space;X_{\varphi_{2}}^{(12)}&space;Y_{\varphi_{3}}^{(01)}&space;X_{\varphi_{4}}^{(01)}" title="U= Y_{\varphi_{1}}^{(12)} X_{\varphi_{2}}^{(12)} Y_{\varphi_{3}}^{(01)} X_{\varphi_{4}}^{(01)}" /></a>
+
+Where the angles will be determined by the classical data and the weights obtained from the training.
 
 ## Setup
 Example:
