@@ -4,7 +4,7 @@
 
 ## Project Description 
 We show how an online grocer will optimize between two objectives: 
-1) selection on least number of suppliers providing all required inventory 
+1) selection of least number of suppliers providing all required inventory 
 2) maximizing inventory profit
 
 We also provide a novel approach to solving competing supply-chain objectives through our Chained Optimization Rules Engine&reg; CORE&reg; method. This allows one to arbitrarily chain QUBOs together and solve complex optimization problems via multiple simple QUBOs.
@@ -32,28 +32,44 @@ pip install dwave-ocean-sdk
 
 We recommend you checkout our [notebooks](./notebooks/README.md) with detailed information about our code. 
 
+## Data Used
+
+We compiled a real dataset from [external sources](https://www.dunnhumby.com/source-files/), and simulate 3 [datasets](./data/README.md) of randomly generated data of varying sizes. Each dataset is a csv file containing product costs per supplier. The sizes of these datasets are summarized below:
+
+| | # Products | # Suppliers |
+| ----- | ----- | ------ |
+| Real World | 29 | 36 |
+| Small  | 10 | 20 | 
+| Medium | 100 | 40 |
+| Large | 200 | 80 |
+
 ## Challenges Solved
 
 ### Objective 1: Supplier Optimization
-We formulate and solve a typical logistic problem for an online grocer: minimize the number of suppliers needed to fill your inventory. See this [notebook](./notebooks/SetCoverBQM.ipynb) for more details. In brief, this is done by modelling the problem as a "set cover" problem:
+We solve a typical logistic problem for an online grocer: minimize the number of suppliers needed to fill your inventory. See this [notebook](./notebooks/SetCoverBQM.ipynb) for more details of the formulation. In brief, this is done by modelling the problem as a "set cover" problem:
 
 <p align="center">
   <img  height="200" src="./resources/equation1.png">
 </p>
 
-This can be converted into a binary quadratic model (BQM) and solved. We use D-Wave's Hybrid Solver and solve it on a real dataset as well as simulated small, medium and large sized dataset. 
+Which can be converted into a binary quadratic model (BQM) and solved. 
 
 ### Objective 2: Profit Optimization
-We formulate and solve another typical logistic problem for an online grocer: maximize overall profit by selecting an optimal set of inventory. See this [notebook](./notebooks/KnapsackDQM.ipynb) for more details. In brief, we formulate the problem as a discrete knapsack formulation:
+We solve another typical logistic problem: maximize overall profit by selecting an optimal set of inventory. See this [notebook](./notebooks/KnapsackDQM.ipynb) for more details on the formulation. In brief, we model the problem as a discrete knapsack problem:
 <p align="center">
   <img  height="200" src="./resources/equation2.png">
 </p>
 
-We develop a discrete quadratic model (DQM) formulation of this using Andrew Lucas's formula[1]. However, we use our own Lagrange terms. We use D-Wave's Hybrid Solver and solve it on a real dataset as well as simulated small, medium and large sized dataset. 
+Which can be converted into a discrete quadratic model (DQM) using Andrew Lucas's formula[1]. However, we use our own Lagrange terms.
 
-- Summary of Results
+### Objective 3: QUBO Chaining
+The overall goal of our project was to show that multiple objectives can be handled together through a process of chaining and that gives comparable results to solving both objectives together. You can see a prototype of this framework in this [notebook](./notebooks/QuboChain.ipynb). This chaining allows one to attach an arbitrary number of QUBOs together and optimize them all together. In particular, we chain the objective 1 to objective 2, and optimize them together.
 
-Results for objective 1: Suppliers (QTY & List of Suppliers)
+## Summary of Results
+
+We tested objective 1 and 2 on D-Wave's Hybrid Solver, a simulated annealer as well as a brute force classical method. These solvers are compared on all datasets. The results are summarized below:
+
+#### Results for objective 1: Suppliers (QTY & List of Suppliers)
 
 <p align="center">
   <img  height="200" src="./resources/datatable1.png">
@@ -66,23 +82,27 @@ Results for objective 2: Inventory Profit (Total Profit Potential, Inventory)
   <img  height="220" src="./resources/datatable2.png">
 </p>
 
-## Project Details: 
-  - Further walkthrough of what you did 
+Results for objective 3: QUBO Chaining
 
-  The overall scope of our project was to show that multiple objectives can be handled together through a process of chaining and that gives comparable results to solving both objectives together.
+<p align="center">
+  <img  height="220" src="./resources/datatable2.png">
+</p>
 
-  The diagram below shows the overall objectives and process. Detailed account of the formulae, QUBO and execution along with results are in the jupyter notebooks.  
+## Project Details
+
+The diagram below shows the overall objectives and process of the first two objectives. Recall the third objective and the motivation of the project is to be able to chain QUBOs together to solve an arbitrary number of problems.
   
 <p align="center">
   <img  height="700" src="./resources/equation3.png">
 </p>
 
-The detailed explanation of the business motivation, importance of this use case and applicability to other industries and similar competing objectives is described in the business applications document.
+The detailed explanation of the business motivation, importance of this use case and applicability to other industries and similar competing objectives is described in the [Business Application](./Business_Application.md) document.
 
-For more details refer to the [Business Application](./Business_Application.md)
+### Project resources:
 
-  - Links to any Jupyter notebooks/scripts
-  - Link to Presentation
+- [Jupyter Notebooks](./notebooks/README.md)
+- [Business Application](./Business_Application.md)
+- [Link to Presentation](./ZebraKet.pptx)
 
 ## Contributors 
 Alex Khan, Theo Cleland, Ehsan Torabizadeh, Ziwei Qiu
