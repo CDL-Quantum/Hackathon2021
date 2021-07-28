@@ -61,16 +61,12 @@ Finally, as a comparison we plotted the results from a 5 layer model to see the 
 
 
 ## Setup
-Example:
-1. Make sure you have X installed and configured.
-
+3. Make sure to have an IBMid account (which can be created [here](https://www.ibm.com/account/reg/us-en/signup)) that allows you to access the [IBM Quantum Dashboard](https://quantum-computing.ibm.com) in order to find your personal token, which is required to access the IBM Quantum resources used in this project (qpus and simulators).
 2. Set up your preferred virtual environment.
-
-3. pip install -r requirements.txt
+3. Run the command `pip install -r requirements.txt` in the `Qilimanjaro` directory to install all the required dependencies.
 
 ## How to Use
-Example:
-From command line: Use python solvers/script.py -h
+Run the command `jupyter notebook` in the `Qilimanjaro` directory and open the notebook `<PENDING NAME>`.
 
 ## Challenge(s) You Solved
 
