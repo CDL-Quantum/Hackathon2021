@@ -18,7 +18,7 @@ We devised a dynamic pricing tool using D-Wave stimulated annealing sampler. The
 Following this approch, it was concluded that 
 - Uniform discount incentivizes people to buy all products.
 - Selective discount incentives people to buy the selected product discounted
-- 
+
 ![](https://github.com/ManinderPanesar/Hackathon2021/blob/Week3-Hackathon/Quantum%20Finance/Uniform%20sale.png)
 
 - Low discount for a less frequently bought product doesn't influence the sell of the product
