@@ -63,7 +63,7 @@ The following notebooks represent the most important parts of our project:
       We found it was much easier designing a frequency sweep for the 1 -> 2 transition by using the calibrated qubit frequency, and the device's default value of anharmonicity.
       It let us avoid doing a broad frequency sweep which often revealed several candidate peaks for the 1 -> 2 transition frequency.
 
-## [Link to Presentation]()
+## [Link to Presentation](./presentation/presentation_slides.pdf)
 
 ## Contributors 
 
