@@ -71,4 +71,3 @@ in all the notebooks in a given folder, you can run it on a folder, e.g. the
 command `nbstripout Qube/*` clears the output from all the notebooks in `Qube`
 folder.
 
-Make sure to activate our environment: `source ./qenv_project/bin/activate`
