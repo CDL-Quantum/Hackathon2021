@@ -19,6 +19,7 @@ Sports betting is a 203 BILLION dollar industry in the U.S. Couple that with the
 
 ## Technologies Used
 
+LV is a python package that can be run locally. We make use of quantum hardware from DWave and IBM. We also make use of a photonics computer simulator from Xanadu. 
 
 
 ## Business Model
