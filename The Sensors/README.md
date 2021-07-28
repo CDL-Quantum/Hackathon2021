@@ -12,7 +12,7 @@ Make sure you have strawberry fields installed and configured as instructed at [
 Run the Jupyter notebook with utility.py in the same repository.
 
 ## Project Details: 
-  - Details can be found in this[Jupyter notebook](./hack-twomodesqueezing-v4.ipynb)
+  - Details can be found in this [Jupyter notebook](./hack-twomodesqueezing-v4.ipynb)
   - [Business applications](./Quantum%20Microwave%20Medical%20Imaging%20-%20Jul-27-2021%20-%20V2.docx)
   - [Link to Presentation](./Quantum%20Sensing%20-%20Jul-28-2021%20-JB.pptx)
 
