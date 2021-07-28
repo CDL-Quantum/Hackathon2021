@@ -17,15 +17,25 @@ Sports betting is a 203 BILLION dollar global industry. Couple that with the new
 
 ## Competitors
 
-- FanDuel: valued slightly less than 1 billion, FanDuel offers sportsbook, daily fantasy sports, online casino and online horse race betting products. They do not offer immersive analytics to help you with these products. They have a 40% share in online betting markets in the U.S
-- DraftKings: 19 billion dollar market cap;
-- Bet 365: 
+- FanDuel: valued slightly less than 1 billion, FanDuel offers sportsbook, daily fantasy sports, online casino and online horse race betting products. They do not offer immersive analytics to help you with these products. They have a 40% share in online betting markets in the U.S. They have 416 million in funding and are nearing an IPO. Do to American betting constraints, FanDuel only operates in some states like: New Jersey, Pennsylvania, Indiana and West Virginia. In 2010, they awarded 25,000$ as a first place prize for the winner of the Fantasy Football championshit.
+
+- DraftKings: Direct competitor with Fanduel. 19 billion dollar market cap; they offer many more different types of sports compared to FanDuel. Similar to Fanduel they offer a sportsbook, but offer little in the way of analytics (more of a pure entertainment offering). Total funding 719 million dollars. 
+
+- Sharp Analytics: Offers advanced strategies in betting and advanced analytics. No capability to make bets on their platform. Their betting is only for football games (NFL) and they offer nothing in the way of advice for Fantasy Sports. They do give you a service to compare betting lines against different books. 1 private investor.
+
+- Pro Football Focus (PFF): Offers advice for both prop betting and fantasy sports. Only available sport is football. Private company which also collects it's own data. 18 billion dollar market cap. 
+
+- Fantasy Pros: Advanced analytics only for Fantasy sports. Offers draft simulator and analytics. 
+
+The following slide is a market segmentation of our competitors. Our company lies in between them all as a company which offers advanced analytics from both fantasy and betting (but does not offer online betting capabilities or an online casino). 
+
+![comp](img/bus.jpg)
 
 ## Business Model
 
 If we were to try to scale our package into a business we would plan on a SaS (Software as a service) model. We would offer users some resources for free to gain popularity; and then charge a flat monthly subscription rate (and offer a discounted yearly rate) to use our platform. For professional users (Sports teams, professional gamblers, ect) we would charge a higher rate, but maintain support and have custom analytics & reports prepared for these clients. For further information see below or at this [link](https://drive.google.com/file/d/1uL1ANnDee9dNKTsRR3arMqxqiVhFbkCI/view?usp=sharing).
 
-![bus](img/bus.jpg)
+![bus](img/comp.jpg)
 
 ## Technologies Used
 
