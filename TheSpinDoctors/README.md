@@ -81,8 +81,8 @@ energy network is provided in [this](./Green_optimization_QuantumAnnealing_XL.ip
 ## Business application and presentation
 
 Please find:
-- [here the Business application]()
-- and [here the Presentation]()
+- [here the Business Presentation](./presentation.pdf)
+- and here [additional information on the Business application](./Business_Application.md)
 
 ## Contributors 
 All authors equally contributed to the project and they are listed in alphabetic order:
