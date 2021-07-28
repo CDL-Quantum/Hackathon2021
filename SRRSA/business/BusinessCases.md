@@ -129,5 +129,4 @@ Our advantage lies in an agile and scalable platform tuned to address weather co
 [10] [How Weather Forecasts Are Made](https://www.discovermagazine.com/planet-earth/how-weather-forecasts-are-made). Accessed July 26, 2021
 
 
-
 ![CDL Hackaton](img/cml_qml.PNG)
