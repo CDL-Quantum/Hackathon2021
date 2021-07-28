@@ -31,7 +31,7 @@ It is generally
 formulated as a large-scale mixed integer nonlinear problem and solving it is very difficult due to
 the nonlinear cost function and the combinatorial nature of set of feasible solutions.
 Many methods have been proposed in the last decades,  among them heuristic solutions, neural networks, dynamic programming, simulated annealing, to name a few. Some of them might achieve suboptimal solutions,  others may have a slow convergence or a large processing time. UC has been targeted using a quantum annealer and randomly generated instances in 
-[ref](https://www.sciencedirect.com/science/article/abs/pii/S0360544219308254) but current limitations of the quantum hardware result in a poor solution for large grids compared to the classical Gurobi solver. A hybrid quantum approach however like the one proposed here, has been proved to give good results for other large-scale mixed-integer programming problems like UC [ref](https://www.sciencedirect.com/science/article/pii/S0098135419307665?casa_token=L41zk8TU[…]hqIHnk9PV3caOSi9TVwQEeONodfuEP4C60SAGp76jm5XPl_cYgIGiRBPh8).
+[ref](https://www.sciencedirect.com/science/article/abs/pii/S0360544219308254), but current limitations of the quantum hardware result in a poor solution for large grids compared to the classical Gurobi solver. A hybrid quantum approach however like the one proposed here, has been proved to give good results for other large-scale mixed-integer programming problems like UC [ref](https://www.sciencedirect.com/science/article/pii/S0098135419307665?casa_token=L41zk8TU[…]hqIHnk9PV3caOSi9TVwQEeONodfuEP4C60SAGp76jm5XPl_cYgIGiRBPh8).
 
 
 
