@@ -1,6 +1,7 @@
 Fill in this README.md. Example Structure:
 
 ## Project Description 
+
 In the following project we apply various Quantum algorithms to weather related image data. Our business proposal is also aligned with developing a quantum weathert application. We have also partially implemented a quantum SVM in Pennylane, but it still needs some work.
 
 ## Setup
@@ -15,7 +16,13 @@ Example:
 Example:
 From command line: Use python solvers/script.py -h
 
+For judges feel free
+
 ## Challenge(s) You Solved
+
+Overall Hackathon
+
+Pennylane 
 
 ## Project Details: 
   - Further walkthrough of what you did 
