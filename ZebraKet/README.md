@@ -62,7 +62,10 @@ We solve another typical logistic problem: maximize overall profit by selecting 
 
 Which can be converted into a discrete quadratic model (DQM) using Andrew Lucas's formula[1]. However, we use our own Lagrange terms.
 
-### Objective 3: QUBO Chaining
+### Objective 3: QUBO Merging
+We developped a formulation to combine objectives 1 and 2 into a single QUBO. Please see this [notebook](./notebooks/KnapsackDQM.ipynb) for more details. This work is still in development.
+
+### Objective 4: QUBO Chaining
 The overall goal of our project was to show that multiple objectives can be handled together through a process of chaining and that gives comparable results to solving both objectives together. You can see a prototype of this framework in this [notebook](./notebooks/QuboChain.ipynb). This chaining allows one to attach an arbitrary number of QUBOs together and optimize them all together. In particular, we chain the objective 1 to objective 2, and optimize them together.
 
 ## Summary of Results
@@ -86,7 +89,11 @@ We tested objective 1 and 2 on D-Wave's Hybrid Solver, a simulated annealer as w
 | QUBO (Hybrid Solver + Fixed Bound) | Profit (CAD)<br/>Cost (CAD)<br/>Run Time (sec) | 403.06<br/>201.53<br/>13.43 | 579.73<br/>289.96<br/>68.69 | Run forever | 83.2<br/>41.6<br/>16.92 | 
 | QUBO (Hybrid Solver + Variable Bound) | Profit (CAD)<br/>Cost (CAD)<br/>Run Time (sec) | 529.92<br/>264.96<br/>11.65 | 584.49<br/>292.24<br/>29.23 | Run forever | 62.14<br/>31.07<br/>12.62 | 
 
-### Results for objective 3: QUBO Chaining
+### Results for objective 3: QUBO Merging
+
+No data has been generated yet.
+
+### Results for objective 4: QUBO Chaining
 
 First objective: 
 
