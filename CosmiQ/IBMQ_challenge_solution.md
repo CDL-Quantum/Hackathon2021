@@ -1,6 +1,6 @@
 # IBM Q's Challenge Solution Overview
 
-## QuTrits
+## Qutrits
 
 The majority of existing quantum algorithms are based on qubits, 2-level systems with the ![0_state](https://latex.codecogs.com/gif.latex?%7C%200%20%5Crangle%20%3D%20%5B0%2C1%5D) and ![1_state](https://latex.codecogs.com/gif.latex?%7C%201%20%5Crangle%20%3D%20%5B1%2C0%5D).
 Corresponding gate operations can be composed from single-qubit gates, and two-qubits gates; for example, the *Pauli-X* rotates the state ![1_state](https://latex.codecogs.com/gif.latex?%7C%201%20%5Crangle) to ![0_state](https://latex.codecogs.com/gif.latex?%7C%200%20%5Crangle); ![Pauli_eq](https://latex.codecogs.com/gif.latex?X%20%7C%201%20%5Crangle%20%3D%20%7C%200%20%5Crangle).
@@ -74,50 +74,100 @@ The results of the measurements are used to build a discriminator, which is a fu
 
 <img src="ibmq/images/img_discriminator.png">
 
+## Executing on IBM Q Backend
 
-## Implementing Single-qutrit Gates
+We implemented the above experiments using Qiskit Pulse, and executed them on the IBM Q's [ibmq_armonk](https://quantum-computing.ibm.com/services?services=systems) backend. 
 
-We then used the results form the experiments to construct and test single-qutrit gates on IBM Q's ibmq_armonk backend:
+## Implementing Single-Qutrit Gates
 
-1. ![X01](https://latex.codecogs.com/gif.latex?X%5E%7B%2801%29%7D) gate
+We then used the results from the experiments to construct and test single-qutrit gates on IBM Q's *ibmq_armonk* backend. Below are some examples.
 
-> The ![X01](https://latex.codecogs.com/gif.latex?X%5E%7B%2801%29%7D) gate flips qutrit from ![0_state](https://latex.codecogs.com/gif.latex?%7C0%5Crangle) state to ![1_state](https://latex.codecogs.com/gif.latex?%7C1%5Crangle) state and vice versa.
+1. **![X01](https://latex.codecogs.com/gif.latex?X%5E%7B%2801%29%7D) gate**
+
+> The ![X01](https://latex.codecogs.com/gif.latex?X%5E%7B%2801%29%7D) gate takes qutrit from ![0_state](https://latex.codecogs.com/gif.latex?%7C0%5Crangle) state to ![1_state](https://latex.codecogs.com/gif.latex?%7C1%5Crangle) state and vice versa: ![X01_oper](https://latex.codecogs.com/gif.latex?X%5E%7B01%7D%20%7C0%3E%20%3D%20%7C1%3E)
 >
+The gate is constructed by sending a Gaussian pulse with the (![zero-to-one](https://latex.codecogs.com/gif.latex?0%5Crightarrow1) excitation) qubit frequency to the qubit's Drive Channel:
+```
+pulse.play(cal.pulse_rx01(), pulse.DriveChannel(qbit)) #x
+```
 
-2. ![X12](https://latex.codecogs.com/gif.latex?X%5E%7B%2812%29%7D) gate
+2. **![X12](https://latex.codecogs.com/gif.latex?X%5E%7B%2812%29%7D) gate**
 
-> The ![X12](https://latex.codecogs.com/gif.latex?X%5E%7B%2812%29%7D) gate flips qutrit from ![1_state](https://latex.codecogs.com/gif.latex?%7C1%5Crangle) state to ![2_state](https://latex.codecogs.com/gif.latex?%7C2%5Crangle) state and vice versa.
+> The ![X12](https://latex.codecogs.com/gif.latex?X%5E%7B%2812%29%7D) gate takes qutrit from ![1_state](https://latex.codecogs.com/gif.latex?%7C1%5Crangle) state to ![2_state](https://latex.codecogs.com/gif.latex?%7C2%5Crangle) state and vice versa: ![X12_oper](https://latex.codecogs.com/gif.latex?X%5E%7B12%7D%20%7C1%3E%20%3D%20%7C2%3E)
 >
+The gate is constructed by sending a Gaussian pulse with the (![one-to-two](https://latex.codecogs.com/gif.latex?1%5Crightarrow2) excitation) qubit frequency to the qubit's Drive Channel:
+```
+pulse.play(cal.pulse_rx12(), pulse.DriveChannel(qbit)) #x
+```
 
-3. ![X02](https://latex.codecogs.com/gif.latex?X%5E%7B%2802%29%7D)  gate
+3. **![Y01](https://latex.codecogs.com/gif.latex?Y%5E%7B%2801%29%7D) gate**
 
-> The ![X02](https://latex.codecogs.com/gif.latex?X%5E%7B%2802%29%7D) gate flips qutrit from ![0_state](https://latex.codecogs.com/gif.latex?%7C0%5Crangle) state to ![2_state](https://latex.codecogs.com/gif.latex?%7C2%5Crangle) state and vice versa.
+> The ![Y01](https://latex.codecogs.com/gif.latex?Y%5E%7B%2801%29%7D) is similar to the ![X01](https://latex.codecogs.com/gif.latex?X%5E%7B%2801%29%7D) gate, except it adds a phase shift.
 >
+The gate is constructed by sending three Gaussian pulses with the ((![zero-to-one](https://latex.codecogs.com/gif.latex?0%5Crightarrow1) excitation)) qubit frequency to the qubit's Drive Channel, first with half-amplitude, then the optimal amplitude, then half-amplitude again:
+```
+yrot_pulse =cal.gaussian_pulse(drive_power=drive_power/2)
+pulse.shift_frequency(cal.df01_calib, pulse.DriveChannel(qbit)) #0=>1 freq
+pulse.play(yrot_pulse, pulse.DriveChannel(qbit)) #sqrt(y)
+pulse.play(cal.pulse_rx01(), pulse.DriveChannel(qbit)) #x
+pulse.play(yrot_pulse, pulse.DriveChannel(qbit)) #sqrt(y)
+```
 
-4. Hadamard ![H01](https://latex.codecogs.com/gif.latex?H%5E%7B%2801%29%7D) gate
+The measurement results from running the ![Y01](https://latex.codecogs.com/gif.latex?Y%5E%7B%2801%29%7D) pulse schedule on the *ibmq_armonk* qubit are plotted below. They demonstrate a high fidelity of the gate.
 
-> The ![H01](https://latex.codecogs.com/gif.latex?H%5E%7B%2801%29%7D) gate takes qutrit from ![0_state](https://latex.codecogs.com/gif.latex?%7C0%5Crangle) state to a superposition of ![0_state](https://latex.codecogs.com/gif.latex?%7C0%5Crangle) and ![1_state](https://latex.codecogs.com/gif.latex?%7C1%5Crangle):
+![Y01_gate_plot](ibmq/images/y01_gate_plot.png)
+
+
+4. **Hadamard ![H02](https://latex.codecogs.com/gif.latex?H%5E%7B%2802%29%7D) gate**
+
+> The ![H02](https://latex.codecogs.com/gif.latex?H%5E%7B%2802%29%7D) gate takes qutrit from ![0_state](https://latex.codecogs.com/gif.latex?%7C0%5Crangle) state to a superposition of ![0_state](https://latex.codecogs.com/gif.latex?%7C0%5Crangle) and ![2_state](https://latex.codecogs.com/gif.latex?%7C2%5Crangle):
 >
-> ![0_1_super](https://latex.codecogs.com/gif.latex?%5Csqrt%7B%5Cfrac%7B1%7D%7B2%7D%7D*%28%7C0%5Crangle%20&plus;%20%7C1%5Crangle%29)
+> ![H02_oper](https://latex.codecogs.com/gif.latex?H%5E%7B01%7D%20%7C0%3E%20%3D%20%5Csqrt%7B1/2%7D%20%28%7C0%3E%20&plus;%20%7C2%3E%29)
 >
+The gate is constructed by sending two Gaussian pulses with different frequencies to the qubit's Drive Channel, the first one with ![pi/2](https://latex.codecogs.com/gif.latex?%5Ctheta%20%3D%20%5Cpi/2) and the second one with ![pi](https://latex.codecogs.com/gif.latex?%5Ctheta%20%3D%20%5Cpi):
+```
+pulse.shift_frequency(cal.df01_calib, pulse.DriveChannel(qbit))
+pulse.play(cal.pulse_rx01(theta = np.pi/2), pulse.DriveChannel(qbit)) # PI/2
+pulse.shift_frequency(cal.df12_calib, pulse.DriveChannel(qbit))
+pulse.play(cal.pulse_rx12(), pulse.DriveChannel(qbit)) # PI
+```
+The measurement results from running the ![H01](https://latex.codecogs.com/gif.latex?H%5E%7B%2801%29%7D) pulse schedule on the *ibmq_armonk* qubit are plotted below.
 
-5. Hadamard ![H02](https://latex.codecogs.com/gif.latex?H%5E%7B%2802%29%7D) gate
+![H01_gate_plot](ibmq/images/h01_gate_plot.png)
 
-> The ![H02](https://latex.codecogs.com/gif.latex?H%5E%7B%2802%29%7D) gate takes qutrit from ![0_state](https://latex.codecogs.com/gif.latex?%7C0%5Crangle) state to a superposition of ![0_state](https://latex.codecogs.com/gif.latex?%7C0%5Crangle) and ![1_state](https://latex.codecogs.com/gif.latex?%7C1%5Crangle):
->
-> ![0_2_super](https://latex.codecogs.com/gif.latex?%5Csqrt%7B%5Cfrac%7B1%7D%7B2%7D%7D*%28%7C0%5Crangle%20&plus;%20%7C2%5Crangle%29)
->
-
-6. Hadamard ![H12](https://latex.codecogs.com/gif.latex?H%5E%7B%2812%29%7D) gate
+5. **Hadamard ![H12](https://latex.codecogs.com/gif.latex?H%5E%7B%2812%29%7D) gate**
 
 > The ![H12](https://latex.codecogs.com/gif.latex?H%5E%7B%2812%29%7D) gate takes qutrit from ![0_state](https://latex.codecogs.com/gif.latex?%7C0%5Crangle) state to a superposition of ![1_state](https://latex.codecogs.com/gif.latex?%7C1%5Crangle) and ![2_state](https://latex.codecogs.com/gif.latex?%7C2%5Crangle):
 >
-> ![1_2_super](https://latex.codecogs.com/gif.latex?%5Csqrt%7B%5Cfrac%7B1%7D%7B2%7D%7D*%28%7C1%5Crangle%20&plus;%20%7C2%5Crangle%29)
+> ![1_2_super](https://latex.codecogs.com/gif.latex?H%5E%7B12%7D%20%7C0%3E%20%3D%20%5Csqrt%7B1/2%7D%20%28%7C1%3E%20&plus;%20%7C2%3E%29)
 >
+The gate pulse schedule is similar to that of the ![H02](https://latex.codecogs.com/gif.latex?H%5E%7B%2802%29%7D) gate, except the first pulse is sent with ![pi](https://latex.codecogs.com/gif.latex?%5Ctheta%20%3D%20%5Cpi) and the second one with ![pi/2](https://latex.codecogs.com/gif.latex?%5Ctheta%20%3D%20%5Cpi/2):
+```
+pulse.shift_frequency(cal.df01_calib, pulse.DriveChannel(qbit))
+pulse.play(cal.pulse_rx01(), pulse.DriveChannel(qbit)) # PI
+pulse.shift_frequency(cal.df12_calib, pulse.DriveChannel(qbit))
+pulse.play(cal.pulse_rx12(theta = np.pi/2), pulse.DriveChannel(qbit)) # PI/2
+```
+The measurement results from running the ![H12](https://latex.codecogs.com/gif.latex?H%5E%7B%2812%29%7D) pulse schedule on the *ibmq_armonk* qubit are plotted below.
 
-## Executing on IBM Q Backend
+![H12_gate_plot](ibmq/images/h12_gate_plot.png)
 
-We implemented the above experiments and constructed calibrated single-qutrit gates using Qiskit Pulse, and executed them on the IBM Q's [ibmq_armonk](https://quantum-computing.ibm.com/services?services=systems) backend.
+6. **Equal superposition**
+
+Finally, we constructed and tested a custom gate that takes qutrit from ![0_state](https://latex.codecogs.com/gif.latex?%7C0%5Crangle) state to a superposition of all three states, ![0_state](https://latex.codecogs.com/gif.latex?%7C0%5Crangle), ![1_state](https://latex.codecogs.com/gif.latex?%7C1%5Crangle) and ![2_state](https://latex.codecogs.com/gif.latex?%7C2%5Crangle).
+The gate is constructed by sending two Gaussian pulses with different frequencies and different ![theta](https://latex.codecogs.com/gif.latex?%5Ctheta) to the qubit's Drive Channel:
+```
+theta1 = 2*np.cos(1/np.sqrt(3))
+theta2 = np.pi/2
+pulse.shift_frequency(cal.df01_calib, pulse.DriveChannel(qbit))
+pulse.play(cal.pulse_rx01(theta = theta1), pulse.DriveChannel(qbit))
+pulse.shift_frequency(cal.df12_calib, pulse.DriveChannel(qbit))
+pulse.play(cal.pulse_rx12(theta = theta2), pulse.DriveChannel(qbit))
+```
+The measurement results from running the above pulse schedule on the *ibmq_armonk* qubit are plotted below.
+
+![H12_gate_plot](ibmq/images/h123_gate_plot.png)
+
 
 ## Python Code and Jupyter Notebooks
 
