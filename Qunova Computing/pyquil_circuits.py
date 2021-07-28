@@ -1,10 +1,9 @@
 import itertools
 import math
-from abc import abstractmethod, ABCMeta, ABC
+from abc import abstractmethod, ABCMeta
 from typing import Union, List, Optional, Dict
 
 import numpy as np
-
 from pyquil import Program, get_qc
 from pyquil.api import QuantumComputer
 from pyquil.gates import RZ, H, CNOT, MEASURE, RY, CZ
@@ -220,7 +219,7 @@ def all_betas(amps):
     :return dict: key: (s, j), value: beta angle
     """
     n = math.log(len(amps), 2)
-    assert np.isclose(n, int(n)), "Specify 2^n amplitudes for some n"
+    assert np.isclose(n, int(n)), f"Specify 2^n amplitudes for some n={n}, amp={amps}"
     n = int(n)
     d_betas = {}
     for s in range(1, n + 1):
