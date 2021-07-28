@@ -33,9 +33,6 @@ PennyLane
 Pennylane 
 
 ## Project Details: 
-  - Further walkthrough of what you did 
-  -   
-  - 
   - Business applications: the problem we address is lack of computational capabilities. We research Quantum Machine Learning techniques in the framework of Quantum Image Processing and its potential applications to industries/markets such as weather forecasting, emotion recognition and prediction, nanotechnology etc. Our extensive business proposal can be found here.
 ## Requirments
 
