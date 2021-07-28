@@ -8,12 +8,14 @@ The leading quantum sports betting application. We are an all encompassing suite
 
 The Lord's Vig is an immersive Fantasy Sports and Betting platform, the first of it's kind in the world to make use of Quantum technology. Here at LV we make use of state of the art algorithims (both classical and quantum) to give YOU an advantage over your friends and colleagues. Some of the features include:
 
-- state of the are optimization model to select/suggest players during an auction draft
-- optimize you're fantasy lineup (or pick a good team while playing an Ultimate Team mode)
-- get strength of schedule (SOS) rating to help improve your decisions while betting
-- Monte carlo simulations (both classical & quantum) to project team performance moving forward
-- Machine Learning models to predict betting lines & tournament winners
+- state of the are optimization model to select/suggest players during an auction draft [notebook](PythonNotebooks/Fantasy_Draft.ipynb)
+- optimize you're fantasy lineup (or pick a good team while playing an Ultimate Team mode) [notebook](PythonNotebooks/Optimal_team_kit.ipynb)
+- get strength of schedule (SOS) rating to help improve your decisions while betting [notebook](PythonNotebooks/SOS.ipynb)
+- Monte carlo simulations (both classical & quantum) to project team/player performance moving forward [notebook1](PythonNotebooks/Monte.ipynb) and [notebook2](PythonNotebooks/Monte_players.ipynb)
+- Machine Learning models to predict betting lines & tournament winners [notebook1](PythonNotebooks/Euro_Simulation.ipynb) and [notebook2](PythonNotebooks/betting.ipynb)
+- Portfolio optimization of your player assets; telling you which players are due a regression [notebook](PythonNotebooks/SoccerOptimizer.ipynb)
 - Trade simulator to ensure you are never on the side of a sub-optimal transaction!
+- Risk management model to reduce betting loss
 
 We also partner with industry experts like PFF (Pro Football Focus) and SIS (Sports Info Solutions) to ensure you have the best metrics to guage player value and ensure YOU maintain the bragging rights. We do all the hard work- so you can rely on inferring value from key statistics. 
 
