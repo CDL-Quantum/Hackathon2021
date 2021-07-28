@@ -29,13 +29,13 @@ Sports betting is a 203 BILLION dollar global industry. Couple that with the new
 
 The following slide is a market segmentation of our competitors. Our company lies in between them all as a company which offers advanced analytics from both fantasy and betting (but does not offer online betting capabilities or an online casino). 
 
-![comp](img/bus.jpg)
+![comp](img/comp.jpg)
 
 ## Business Model
 
 If we were to try to scale our package into a business we would plan on a SaS (Software as a service) model. We would offer users some resources for free to gain popularity; and then charge a flat monthly subscription rate (and offer a discounted yearly rate) to use our platform. For professional users (Sports teams, professional gamblers, ect) we would charge a higher rate, but maintain support and have custom analytics & reports prepared for these clients. For further information see below or at this [link](https://drive.google.com/file/d/1uL1ANnDee9dNKTsRR3arMqxqiVhFbkCI/view?usp=sharing).
 
-![bus](img/comp.jpg)
+![bus](img/bus.jpg)
 
 ## Technologies Used
 
