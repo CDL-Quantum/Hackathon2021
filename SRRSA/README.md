@@ -23,11 +23,12 @@ Our business proposal for a quantum algorithm company focused on weather is foun
 [Business Analysis Paper](./business/BusinessCases.md)
 
 
-Our grover searc
+Our grover search algorithm can be found in note books.
 ## Challenge(s) You Solved
 
-Overall Hackathon challenge
+Overall Hackathon challenge, except for DWAVE
 
+PennyLane
 
 Pennylane 
 
