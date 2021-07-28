@@ -11,16 +11,20 @@ Install and configure d-wave
 Run [Quantum Dynamic Pricing Engine.ipynb ](https://github.com/ManinderPanesar/Hackathon2021/blob/Week3-Hackathon/Quantum%20Finance/Quantum%20Dynamic%20Pricing%20Engine.ipynb)
 
 ## Challenge(s) You Solved
-We devised a dynamic pricing tool using D-Wave stimulated annealeaing sampler. Our pricing tool is a quantum version of market data analysis. Data analysis is playing an increasingly important role in a range of industries, including the following:
+We devised a dynamic pricing tool using D-Wave stimulated annealeaing sampler. The tool is based on optimizing the prices of the products using the Ising model capturing the probabilisic behvaior. 
 
-Retail: 
-A typical data analysis application in retail is market basket analysis (MBA) or recommendation engines, where customers are assigned to particular groups depending on their purchases. Perhaps the best known users are Amazon, with its “customers who purchased this product also viewed this product” notices, and Netflix, with its movie recommendations. One study by Walmart famously used MBA to identify a connection between buying diapers and buying beer (the connection was dads). MBA is an unsupervised machine learning technique to analyze the purchasing patterns of the customers through transaction data. This information can be used for a variety of purposes, including store design, recommendations, sales promotions, and cross-selling. Another application is identifying key products, such as expensive or luxury items, which may not necessarily have high appeal themselves, but are linked with purchases of other goods.
+![](https://github.com/ManinderPanesar/Hackathon2021/blob/Week3-Hackathon/Quantum%20Finance/Our%20approach.png)
 
-Healthcare: 
-Similar forms of data analysis can be used to assist with medical diagnosis, by spotting clusters of symptoms or other attributes that are associated with a disease. They can also help to explore how drug treatments may be useful for classes of patients.
+Following this approch, it was concluded that 
+- Uniform discount incentivizes people to buy all products.
+- Selective discount incentives people to buy the selected product discounted
+- 
+![](https://github.com/ManinderPanesar/Hackathon2021/blob/Week3-Hackathon/Quantum%20Finance/Uniform%20sale.png)
 
-Finance: 
-Market data can be analysed to infer correlations between financial events. For example, transaction data can be classed into different categories which reflect market conditions.
+- Low discount for a less frequently bought product doesn't influence the sell of the product
+- High discount for a less frequently bought product does influence the sell of the product (at the expense of other purchases)
+![](https://github.com/ManinderPanesar/Hackathon2021/blob/Week3-Hackathon/Quantum%20Finance/Discount%20on%20product.png)
+
 
 ## The quantum pricing advantage
 
