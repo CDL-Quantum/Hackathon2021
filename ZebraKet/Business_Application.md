@@ -23,7 +23,7 @@ There are some key issues why retail industry could not react well to disruption
 Until early 2020, consumer spending on food in the United States had been remarkable stable, growing by around 4 percent over the previous five years. As it is shown in below illustration, total sales were roughly split evenly between retail outlets (such as grocery stores and supermarkets) and food-service companies (such as restaurant, hospitals and schools). The revenue has increased steadily until February. However, after the pandemic the trend of consumer spending on foods has changed and grocery sales has increased dramatically by 29 percent over the prior year.
 
 <p align="center">
-  <img width="700" height="300" src="./resources/PIC6.png">
+  <img width="650" height="200" src="./resources/PIC6.png">
   <a href="https://www.mckinsey.com/industries/consumer-packaged-goods/our-insights/us-food-supply-chain-disruptions-and-implications-from-covid-19">Source</a>
 </p>
 
@@ -38,7 +38,7 @@ The shift in consumer habits propelled platform adoption and provided a boon to 
 In US, consumer have turned to online grocery shopping services for the first time during pandemic. In 2020 online grocery adoption has rapidly accelerated in the US. Figure below shows that online grocery penetration in the US will reach up to 66% percent in severe case where people are fully vaccinated by 2022.  
 
 <p align="center">
-  <img width="600" height="400" src="./resources/PIC3.png">
+  <img width="500" height="400" src="./resources/PIC3.png">
   <a href="https://www.businessinsider.com/online-grocery-report-2020">Source</a>
 </p>
 
@@ -51,7 +51,7 @@ Online grocery sales grew 54.0% in 2020 to reach $95.82 billion. That propelled 
 
 
 <p align="center">
-  <img width="600" height="400" src="./resources/PIC4.jpg">
+  <img width="500" height="400" src="./resources/PIC4.jpg">
   <a href="https://www.emarketer.com/content/2021-online-grocery-sales-will-surpass-100-billion">Source</a>
 </p>
 
