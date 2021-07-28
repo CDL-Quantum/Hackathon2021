@@ -39,7 +39,7 @@ We convert this formulation into a binary quadratic model (BQM) and solve using 
   <img  height="200" src="./resources/equation2.png">
 </p>
 
-We develop a QUBO formulation of this using Andrew Lucas's formula.  However, we use our own Lagrange terms. We solve this also on a small, medium and large dataset.  We also then solve our "real" dataset.
+We develop a QUBO formulation of this using Andrew Lucas's formula[1].  However, we use our own Lagrange terms. We solve this also on a small, medium and large dataset.  We also then solve our "real" dataset.
 
 
 - Summary of Results
@@ -77,3 +77,6 @@ The detailed explanation of the business motivation, importance of this use case
 
 ## Contributors 
 Alex Khan, Theo Cleland, Ehsan Torabizadeh, Ziwei Qiu
+
+## References
+[1] Lucas, A., 2014. Ising formulations of many NP problems. Frontiers in physics, 2, p.5.
