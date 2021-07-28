@@ -8,8 +8,8 @@ i) the demand is covered
 ii) the  costs associated with the switching on and off of the different energy sources is taken into account 
 
 iii) the optimal solution is found by minimizing the cost of the given energy (fossil, solar, hydro, wind,etc) and the cost of carbon emission simultaneously. 
-To model this problem we use a simplified version of the UT problem (we don’t take into account maximum voltage per line constraints)  and fit  it into a QUBO formulation which we then solve using the Leap Hybrid Quantum-Classical from D-Wave. We compare our results to the Chimera 
-Quantum Annealer in D-Wave.
+To model this problem we use a simplified version of the UT problem (we don’t take into account maximum voltage per line constraints)  and fit  it into a QUBO formulation which we then solve using the Leap Hybrid Quantum-Classical from D-Wave. We find superior results with LEap compared to the Chimera 
+Quantum Annealer and Simulated Annealear on D-Wave.
 
 ## Strategy
 
@@ -23,11 +23,11 @@ This is a NP-hard problem that is a challenge for today’s classical optimizati
 ## The Unit Commitment problem
 
 The UT problem pertains to the most challenging class known as NP hard, i.e. we know for sure they can not be solved in polynomial time. 
-The UC problem is generally
+It is generally
 formulated as a large-scale mixed integer nonlinear problem and solving it is very difficult due to
 the nonlinear cost function and the combinatorial nature of set of feasible solutions.
-Many methods have been proposed in the last decades,  among them heuristic solutions, neural networks, dynamic programming, simulated annealing, to name a few. Some of them might achieve suboptimal solutions,  others may have a slow convergence or a large processing time. UT has been targeted using a quantum annealer and randomly generated instances in ref 
-[ref] https://www.sciencedirect.com/science/article/abs/pii/S0360544219308254 but current limitations of the quantum hardware result in a poor solution for large grids compared to the classical Gurobi solver. A hybrid quantum approach however like the one proposed here, has been proved to give good results for other large-scale mixed-integer programming problems like UT [ref] https://www.sciencedirect.com/science/article/pii/S0098135419307665?casa_token=L41zk8TU[…]hqIHnk9PV3caOSi9TVwQEeONodfuEP4C60SAGp76jm5XPl_cYgIGiRBPh8.
+Many methods have been proposed in the last decades,  among them heuristic solutions, neural networks, dynamic programming, simulated annealing, to name a few. Some of them might achieve suboptimal solutions,  others may have a slow convergence or a large processing time. UT has been targeted using a quantum annealer and randomly generated instances in 
+[ref](https://www.sciencedirect.com/science/article/abs/pii/S0360544219308254) but current limitations of the quantum hardware result in a poor solution for large grids compared to the classical Gurobi solver. A hybrid quantum approach however like the one proposed here, has been proved to give good results for other large-scale mixed-integer programming problems like UT [ref](https://www.sciencedirect.com/science/article/pii/S0098135419307665?casa_token=L41zk8TU[…]hqIHnk9PV3caOSi9TVwQEeONodfuEP4C60SAGp76jm5XPl_cYgIGiRBPh8).
 
 
 
