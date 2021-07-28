@@ -2,12 +2,12 @@
 
 ## QuTrits
 
-The majority of the existing quantum algorithms are based on qubits, 2-level systems with the ![0_state](https://latex.codecogs.com/gif.latex?%7C%200%20%5Crangle%20%3D%20%5B0%2C1%5D) and ![1_state](https://latex.codecogs.com/gif.latex?%7C%201%20%5Crangle%20%3D%20%5B1%2C0%5D).
+The majority of existing quantum algorithms are based on qubits, 2-level systems with the ![0_state](https://latex.codecogs.com/gif.latex?%7C%200%20%5Crangle%20%3D%20%5B0%2C1%5D) and ![1_state](https://latex.codecogs.com/gif.latex?%7C%201%20%5Crangle%20%3D%20%5B1%2C0%5D).
 Corresponding gate operations can be composed from single-qubit gates, and two-qubits gates; for example, the *Pauli-X* rotates the state ![1_state](https://latex.codecogs.com/gif.latex?%7C%201%20%5Crangle) to ![0_state](https://latex.codecogs.com/gif.latex?%7C%200%20%5Crangle); ![Pauli_eq](https://latex.codecogs.com/gif.latex?X%20%7C%201%20%5Crangle%20%3D%20%7C%200%20%5Crangle).
 
-As was pointed out in Ref. [1], quantum computing could also be done using multi-level quantum systems (**qudits**) as the building block in quantum information.
+As it was pointed out in Ref. [1], quantum computing could also be done using multi-level quantum systems (**qudits**) as the building block in quantum information.
 Why bother using qudits? It has been theoretically illustrated (Ref. [2]) that qudits-based quantum systems can store and processes information more efficiently than those using only qubits.
-A natural question arises, how to engineer qudits?. For example, cold molecules in ultra cold temperatures have non-degenerate states  under the presence of an external electric field (Stark shift) Ref. [3].
+A natural question arises, how to engineer qudits?. For example, cold molecules in ultra cold temperatures have non-degenerate states  under the presence of an external electric field (Stark shift), Ref. [3].
 Nonetheless, it would be ideal to design qudits taking advantage of the current architectures, for example, superconducting quantum processors.
 
 Qutrits are qudits that are constructed from quantum states like spin-1 systems, where the basis is ![](https://latex.codecogs.com/gif.latex?%7C0%5Crangle%2C%7C1%5Crangle) and ![](https://latex.codecogs.com/gif.latex?%7C2%5Crangle).
@@ -18,7 +18,7 @@ For example, the ***X*** gates are,
 >![X qtrits gates](https://latex.codecogs.com/gif.latex?X%5E%7B%2801%29%7D%20%3D%20%5Cbegin%7Bpmatrix%7D%200%20%26%201%20%26%200%20%5C%5C%201%20%26%200%20%26%200%5C%5C%200%20%26%200%20%26%201%20%5Cend%7Bpmatrix%7D%20%5C%3B%5C%3B%5C%3B%20X%5E%7B%2802%29%7D%20%3D%20%5Cbegin%7Bpmatrix%7D%200%20%26%200%20%26%201%20%5C%5C%200%20%26%201%20%26%200%5C%5C%201%20%26%200%20%26%200%20%5Cend%7Bpmatrix%7D%5C%3B%5C%3B%5C%3B%20X%5E%7B%2812%29%7D%20%3D%20%5Cbegin%7Bpmatrix%7D%201%20%26%200%20%26%200%20%5C%5C%200%20%26%200%20%26%201%20%5C%5C%200%20%26%201%20%26%200%20%5Cend%7Bpmatrix%7D)
 >
 
-and the Hamadard gates are given by,
+and the Hadamard gates are given by,
 
 >
 >![](https://latex.codecogs.com/gif.latex?%5Csmall%20H%5E%7B%2801%29%7D%20%3D%20%5Cfrac%7B1%7D%7B%5Csqrt%7B2%7D%7D%5Cbegin%7Bpmatrix%7D%201%20%26%201%20%26%200%20%5C%5C%20-1%20%26%201%20%26%200%5C%5C%200%20%26%200%20%26%20%5Csqrt%7B2%7D%20%5Cend%7Bpmatrix%7D%20%5C%3B%5C%3B%5C%3BH%5E%7B%2802%29%7D%20%3D%20%5Cfrac%7B1%7D%7B%5Csqrt%7B2%7D%7D%5Cbegin%7Bpmatrix%7D%201%20%26%200%20%26%201%20%5C%5C%201%20%26%20%5Csqrt%7B2%7D%20%26%200%5C%5C%20a%20%26%200%20%26%20-1%20%5Cend%7Bpmatrix%7D%20%5C%3B%5C%3B%5C%3B%20X%5E%7B%2812%29%7D%20%3D%20%5Cfrac%7B1%7D%7B%5Csqrt%7B2%7D%7D%5Cbegin%7Bpmatrix%7D%20%5Csqrt%7B2%7D%20%26%200%20%26%200%20%5C%5C%200%20%26%201%20%26%201%20%5C%5C%200%20%26%20-1%20%26%201%20%5Cend%7Bpmatrix%7D)   
