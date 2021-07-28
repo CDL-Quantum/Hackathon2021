@@ -68,6 +68,17 @@ For this toy problem we have:
 |         Cost        |   1  |   1  |
 
 
+# DWave Solution to Financial Optimization Problem
+
+Here we present a solution of the financial optimization model we have discussed elsewhere. Please see [Xanadu_challenge_solution.md](Xanadu_challenge_solution.md) for further discussion about the problem setup. On Dwave we setup a BQM using the hamiltonian parameters created using S&P 500 data.
+
+<table>
+    <tr>
+        <td>
+            <img src="./dwave/images/DWaveSolution.png">
+        </td>
+    </tr>
+</table
 
 ## Python Code and Jupyter Notebooks
 
