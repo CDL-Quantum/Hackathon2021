@@ -20,7 +20,7 @@ In the present model we include the penalization in the form of an extra cost fo
 
 This is a NP-hard problem that is a challenge for today’s classical optimization methods.  Increased efficiency gained in solving this problem to higher accuracy. Given the scale of these operations, any improvement, even if small, translates into large savings.
 
-## The Unitary Commitment problem
+## The Unit Commitment problem
 
 The UT problem pertains to the most challenging class known as NP hard, i.e. we know for sure they can not be solved in polynomial time. 
 The UC problem is generally
