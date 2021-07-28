@@ -112,7 +112,7 @@ Second objective:
 
 ## Project Details
 
-The diagram below shows the overall objectives and process of the first two objectives. Recall the third objective and the motivation of the project is to be able to chain QUBOs together to solve an arbitrary number of problems.
+The diagram below shows the overall objectives and process of the first two objectives. Recall the fourth objective and the motivation of the project is to be able to chain QUBOs together to solve an arbitrary number of problems.
   
 <p align="center">
   <img  height="700" src="./resources/equation3.png">
