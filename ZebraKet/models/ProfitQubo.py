@@ -129,3 +129,5 @@ if __name__ == "__main__":
     qubo = ProfitQubo(profits=profits, costs=costs, budget=100, max_number_of_products=20)
     qubo.solve(sampler)
     print(qubo.response)
+
+    print('Calulated profit: ')

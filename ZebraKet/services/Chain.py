@@ -39,9 +39,6 @@ if __name__ == "__main__":
     from dwave.system import LeapHybridDQMSampler
     import numpy as np
 
-    budget = 1000
-    max_number_of_products = 30
-
     data_file = standard_mock_data['small']
 
     inventory_requirement, supplier_inventory = read_inventory_optimization_data(data_file)
