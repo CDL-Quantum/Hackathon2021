@@ -124,14 +124,15 @@ class predictScores:
 
 
 if __name__ == '__main__':
+    print("Starting process")
     #constant
     n_features = 2
     n_classes = 2
     n_samples = 380
     n_wires = 3
 
-    path = 'data/prem_table_2020.csv'
-    p2 = 'data/epl-2019-GMTStandardTime.csv'
+    path = 'Desktop/Quantum Computing/Hackathon2021/Loo Boys/data/prem_table_2020.csv'
+    p2 = 'Desktop/Quantum Computing/Hackathon2021/Loo Boys/data/epl-2019-GMTStandardTime.csv'
     df = getTeamWeights(path)
     x,y = getData(p2,df)
     split = int(n_samples*90)
@@ -143,12 +144,12 @@ if __name__ == '__main__':
     params = np.array(qml.init.strong_ent_layers_normal(n_layers=3, n_wires=3))
     dev = qml.device("qiskit.aer", wires=n_wires)
 
-    df_Euro = pd.read_csv('data/euroGroupStage.csv')
+    df_Euro = pd.read_csv('Desktop/Quantum Computing/Hackathon2021/Loo Boys/data/euroGroupStage.csv')
     df_Euro.columns = ['Team','Won','Draw','Lost','GF','A']
     df_Euro['Weight'] =df_Euro.apply (lambda row: weightFunc(row),axis=1)
     df_Euro =  df_Euro[['Team','Weight']]
 
-    df_ro16 = pd.read_csv('data/roundOf16.csv')   
+    df_ro16 = pd.read_csv('Desktop/Quantum Computing/Hackathon2021/Loo Boys/data/roundOf16.csv')   
     x_ro16 = df_ro16['x'].values.tolist()
     x_ro16 = [list(map(float ,x.split(','))) for x in x_ro16]
 
