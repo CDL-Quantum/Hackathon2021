@@ -26,21 +26,29 @@ We also partner with industry experts like PFF (Pro Football Focus) and SIS (Spo
   - Fantasy owners may use our auction draft tool to come up with novel strategies while drafting
   - Use our montecarlo tools to project future player performance 
   - Use our trade tool to come up with potential trade offers to other teams in their league
-  
+
+![fant](img/2.jpg)
+
 2. Online Betting
   - Betters may use our predictive model while betting on tournaments 
   - Use our QNN to predict & decide early on 2nd half totals to bet on
   - May use our Strength of schedule tool to predict which teams to fade/buy
   
+![bet](img/1.jpg)
+
 3. Front Office Operations
   - Assistant General Managers and Operations staff may use our trade simulation tool to research potential trades
   - Use our portfolio optimization tool to get out of bad contracts early
   - Use our montecarlo simulations to project future team sucess 
   - Use our strength of schedule tool to project future team performance 
+
+![fo](img/4.jpg)
   
 4. E-Sports
   - E-Sports players (specifically, players of EA's 'Ultimate Team' game mode may use our lineup optimization tool
   - Use our trade simulator to research potential changes to their roster
+
+![fo](img/3.jpg)
 
 ## What are people saying about the Platform?
 
