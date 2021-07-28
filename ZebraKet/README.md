@@ -65,6 +65,12 @@ Which can be converted into a discrete quadratic model (DQM) using Andrew Lucas'
 ### Objective 3: QUBO Merging
 We developped a formulation to combine objectives 1 and 2 into a single QUBO. Please see this [notebook](./notebooks/KnapsackDQM.ipynb) for more details. This work is still in development.
 
+The equation below represent the combined objectives
+
+<p align="center">
+  <img  height="150" src="./resources/equation4.png">
+</p>
+
 ### Objective 4: QUBO Chaining
 The overall goal of our project was to show that multiple objectives can be handled together through a process of chaining and that gives comparable results to solving both objectives together. You can see a prototype of this framework in this [notebook](./notebooks/QuboChain.ipynb). This chaining allows one to attach an arbitrary number of QUBOs together and optimize them all together. In particular, we chain the objective 1 to objective 2, and optimize them together.
 
