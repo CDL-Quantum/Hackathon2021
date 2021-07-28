@@ -1,4 +1,13 @@
 ## Project Description 
+We built a quantum classifier that uses a single qutrit, it is implemented by applying unitary gates to the qutrit parameterized by the rotation angles that can be understood as the hidden layers of a neural network. Those rotation angles also include the data that must be re-uploaded in each layer of the classifier. We first tested the classifier doing some simulations training the model and after that we tried implementing it in real quantum hardware.
+
+## Code files
+<ul>
+  <li> <code>Qutrit_Classifier_Simulation.ipynb</code> is the simulated qutrit classifier trained with test data. </li>
+  <li> <code> </code> is the hardware implementation of the experiment. </li>
+ </ul>
+
+## Project Details
 Most quantum applications use qubits to process the information, that means we work on a 2<sup>n</sup>-dimensional Hilbert space since each qubit has 2 accessible states, |0〉 and |1〉. The state of these qubits can be easily modified using gates acting con that Hilbert space. However, we could also use higher energy states, for example we could use qutrits that can be in the states |0〉, |1〉 and |2〉 (or a superposition of those), but now the dimension of the Hilbert space becomes 2<sup>n</sup>3<sup>m</sup> where n is the number of qubits and m is the number of qutrits we have in our system.
 
 In order to manipulate the state of the qutrits we can program directly the microwave pulses that we must apply to the qutrits. When the frequency of the pulse is ressonant with the gap between two energy levels, the population of these states will vary. This can be done using Qiskit Pulse which lets us program the frequency, amplitude and duration of the pulses we want to apply to our qubits/qutrits.
@@ -32,6 +41,24 @@ For our layers we have used only 4 gates:
 <a href="https://www.codecogs.com/eqnedit.php?latex=U=&space;Y_{\theta_{1}}^{(12)}&space;X_{\theta_{2}}^{(12)}&space;Y_{\theta_{3}}^{(01)}&space;X_{\theta_{4}}^{(01)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?U=&space;Y_{\theta_{1}}^{(12)}&space;X_{\theta_{2}}^{(12)}&space;Y_{\theta_{3}}^{(01)}&space;X_{\theta_{4}}^{(01)}" title="U= Y_{\theta_{1}}^{(12)} X_{\theta_{2}}^{(12)} Y_{\theta_{3}}^{(01)} X_{\theta_{4}}^{(01)}" /></a>
 
 Where the angles will be determined by the classical data and the weights obtained from the training.
+
+## Results
+We started doing some simulations using the qutrit classifier, for that we first generated the training data from the three-class annulus problem. We then used these data points to train our model with 3 layers. 
+
+![image](https://user-images.githubusercontent.com/72504641/127314934-162246ae-9bac-416a-b28c-da3aedca80c0.png)
+
+We wanted to check the accuracy of the model depending on the number of layers, for that we took the percentage of the data that was correctly predicted.
+
+![image](https://user-images.githubusercontent.com/72504641/127315351-b4eb2844-cbbc-4997-85f8-eb877913853b.png)
+
+Finally, as a comparison we plotted the results from a 5 layer model to see the improvement.
+
+![image](https://user-images.githubusercontent.com/72504641/127315529-0476ae20-4564-4f82-929d-9fd344eb11e2.png)
+
+
+
+
+
 
 ## Setup
 Example:
