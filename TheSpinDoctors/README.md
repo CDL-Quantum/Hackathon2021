@@ -30,6 +30,10 @@ Make sure the modules in the requirements.txt are installed:
 
 `$ pip install -r requirements.txt` 
 
+Note: to run the codes and the notebooks, please set 
+the '[TheSpinDoctors](./TheSpinDoctors/)' folder as project folder. 
+
+
 For running the IBM implementation we suggest to import the notebook
 in the [IBM Quantum Lab](https://quantum-computing.ibm.com/).
 
