@@ -5,18 +5,21 @@ Fill in this README.md. Example Structure:
 In the following project we apply various Quantum algorithms to weather related image data. Our business proposal is also aligned with developing a quantum weathert application. We have also partially implemented a quantum SVM in Pennylane, but it still needs some work.
 
 ## Setup
-Example:
-1. Make sure you have X installed and configured.
+1. Make sure you're using a conda environment with pythone 3.8.
 
-2. Set up your preferred virtual environment.
+2. If you don't have one, run this code in your terminal: 'conda create --name myenv'
 
-3. pip install -r requirements.txt
+3. 'pip install -r requirements.txt'
 
 ## How to Use
-Example:
-From command line: Use python solvers/script.py -h
+For judges feel free run to run the setup and explore the technical documentation found in
 
-For judges feel free
+Technical Analysis Paper
+[Click here](SRRSA/Notebooks/Technical_Summary.pdf)
+
+
+Business Analysis Paper
+[Click here](SRRSA/business/BusinessCases.md)
 
 ## Challenge(s) You Solved
 
@@ -26,10 +29,9 @@ Pennylane
 
 ## Project Details: 
   - Further walkthrough of what you did 
+  -   
   - Links to any Jupyter notebooks/scripts
-  - Business applications
-  - Link to Presentation
-
+  - Business applications: the problem we address is lack of computational capabilities. We research Quantum Machine Learning techniques in the framework of Quantum Image Processing and its potential applications to industries/markets such as weather forecasting, emotion recognition and prediction, nanotechnology etc. Our extensive business proposal can be found here.
 ## Requirments
 
 After you have activate your environment, before you install anything, make sure
@@ -71,4 +73,3 @@ in all the notebooks in a given folder, you can run it on a folder, e.g. the
 command `nbstripout Qube/*` clears the output from all the notebooks in `Qube`
 folder.
 
-Make sure to activate our environment: `source ./qenv_project/bin/activate`
