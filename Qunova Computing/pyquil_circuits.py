@@ -9,6 +9,7 @@ from pyquil.api import QuantumComputer
 from pyquil.gates import RZ, H, CNOT, MEASURE, RY, CZ
 
 DEFAULT_SHOTS = 10000
+DEBUG = False
 
 
 class ParamCircuitInterface(metaclass=ABCMeta):
@@ -157,7 +158,7 @@ class AmplitudeEncoding(ParamCircuitInterface):
         assert np.isclose(n, int(n))
         self._num_qubits = int(n)
         self._param_name = [param_name]
-        self.num_params = (2 ** num_amps) - 1
+        self.num_params = num_amps - 1
 
     def _circuit_construction(self, add_measure=True) -> Program:
         p = Program()
@@ -250,4 +251,6 @@ def all_betas(amps):
                 pass
             # finally, compute the beta angles
             d_betas[s, j] = -2 * np.arcsin(ratio)
+    if DEBUG:
+        print(d_betas)
     return d_betas
