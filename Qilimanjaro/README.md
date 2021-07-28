@@ -4,7 +4,7 @@ We built a quantum classifier for three different classes that uses a single qut
 ## Code files
 <ul>
   <li> <code>Qutrit_Classifier_Simulation.ipynb</code> is the simulated qutrit classifier trained with test data. </li>
-  <li> <code> </code> is the hardware implementation of the experiment. </li>
+  <li> <code>src/qutrit_classif.ipynb </code> is the hardware implementation of the experiment. </li>
  </ul>
 
 ## Project Details
