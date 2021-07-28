@@ -21,7 +21,7 @@ pip install -r requirements.txt
 
 We use the Mutual Information QUBO method to extract relevant features from a real-world financial data set. The techniques used where borrowed from this [repository](https://github.com/dwave-examples/mutual-information-feature-selection). To calculate asset scores, first, a subset of the fundamental metrics, most relevant to price or logarithmic price return are selected using Mutual Information QUBO (MIQUBO) algorithm. Then, the score is calculated based on the selected features and their quarter over quarter trend.
 
-Below is a comparison between the mutual information of the log-returns and other financial features. Other comparisons are found in the folder [figures](./figures/).
+Below is a comparison between the mutual information of the log-returns and other financial features. Other comparisons are found in the folder [figures](./figures/), and here is the [notebook](https://github.com/einack/Hackathon2021/blob/main/yiyaniQ/fundamentals_features.ipynb).
 
 <img src="./figures/plots_MI_log_ret.png" alt="image info" style="zoom:50%;" /> | <img src="./figures/plots_slecetedFeatures_log_ret.png" alt="image info" style="zoom: 50%;" />
 
@@ -40,7 +40,7 @@ And here are results for a dynamic portfolio optimization for 100 assets traded 
 
 <img src="./figures/portfolio_dynamic_resutls.png" alt="image info" style="zoom: 150%;" /> 
 
-
+The notebook that genereated the aove resutls can be found [here](https://github.com/einack/Hackathon2021/blob/main/yiyaniQ/Portfolio_Optimization_Problem.ipynb).
 
 
 
