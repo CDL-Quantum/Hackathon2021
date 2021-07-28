@@ -94,6 +94,84 @@ def binary_supplier_optimizer(inventory: list[int or str], supplier_inventory:li
         covered |= subset
     return cover
 
+def discrete_profit_optimizer_brute_force(profit: list[float], cost: list[float], budget:float) -> tuple[list[int], float, float]:
+    """Optimizes the profit problem classically using a discrete formulation (AKA: items can be used more than once)
+    
+    Keyword arguments:
+    profit - list of floats
+    cost - list of floats
+    budget -- Float indicating your total budget
+
+    Returns 
+    Tuple of integers indicating the solution
+    Maximum cost found
+    Maximum weight found
+
+    TODO: We need to extract the solution and cost of this method
+    TODO: We need to add a bound to number of variable chosen
+    """
+
+    def knapsack(c,w,m,w_capacity):
+        Total=np.sum(m) #total buckets item_i x qty_i
+        N=len(c) #total items
+        
+        def sum(i_list, p):
+            sum_p=0
+            for item in (i_list):
+                sum_p+=p[item]
+            return(int(sum_p))
+        
+        lc=np.zeros(Total)
+        lw=np.zeros(Total)
+        lm=np.zeros(Total)
+        
+        # create the long list of single items to work on and index
+        i=0
+        index_l=[]
+        for r in range(N):
+            for s in range(m[r]):
+                lc[i]=c[r]
+                lw[i]=w[r]
+                index_l.append(r)
+                i+=1
+        
+        c_max=0
+        w_max=0
+        max_list=[]
+        
+        for n in range(1,Total+1):  # for groups of items from 1 to N
+            for i_list in combinations(np.arange(Total), n): # allcombinations of n items
+                
+                if sum(list(i_list),lw)<=w_capacity: # if the weight of the current list of items is within the weight capacity
+                    if sum(list(i_list),lc)>c_max:  # if the cost of the current list of items is more than the max cost found so far
+
+                        c_max=sum(list(i_list),lc)  #c_max updated the cost of the current list of items
+                        w_max=sum(list(i_list),lw)  #w_max upated to the weight of the current items
+                        
+                        max_list=list(i_list)
+                        #print(list(i_list), sum(list(i_list),c), sum(list(i_list),w))
+        i=0
+        bucket=np.zeros(N)
+    
+        for i in range(Total):
+            if i in (max_list):
+                bucket[index_l[i]]+=1
+        return(bucket, c_max, w_max)
+
+    # Need to do some hacky-ness to convert these to integers
+    multiplier = 100
+    cost_int = [int(c*multiplier) for c in cost]
+    profit_int = [int(p*multiplier) for p in profit]
+    budget_int = int(budget*multiplier)
+
+    hack_bounds = [100000 for _ in range(len(cost_int))]
+
+    result_int, profit_max_int, cost_max_int = knapsack(profit_int, cost_int, hack_bounds, budget_int)
+    
+    # profit_solution_int = unboundedKnapsack(budget_int, len(profit), profit_int, cost_int)
+
+    return [r/multiplier for r in result_int], cost_max_int / multiplier, profit_max_int / multiplier
+
 if __name__ == "__main__":
 
     from utils.data import read_profit_optimization_data, read_inventory_optimization_data
