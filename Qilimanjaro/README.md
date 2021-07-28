@@ -13,6 +13,10 @@ Additionally, it is important to mention that it is a good idea to minimize the 
 
 The size of the circuit grows linearly with the number of layers, and the number of gates of those layers also grows linearly with the size of the data. The classifier will perform better as we add more layers.
 
+
+Applying unitary gates to qutrits is a bit more complex than in qubits, for qubits we have the U3 matrix given by 
+<a href="https://www.codecogs.com/eqnedit.php?latex=U(\theta,&space;\phi,&space;\lambda)=\begin{pmatrix}&space;cos(\theta/2)&space;&&space;-i&space;e^{i&space;\lambda}&space;\sin{(\theta/2)}&space;\\&space;-i&space;e^{i&space;\lambda}&space;\sin{(\theta/2)}&space;&&space;e^{i(\lambda&plus;\phi)}&space;\cos{(\theta/2)}&space;\end{pmatrix}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?U(\theta,&space;\phi,&space;\lambda)=\begin{pmatrix}&space;cos(\theta/2)&space;&&space;-i&space;e^{i&space;\lambda}&space;\sin{(\theta/2)}&space;\\&space;-i&space;e^{i&space;\lambda}&space;\sin{(\theta/2)}&space;&&space;e^{i(\lambda&plus;\phi)}&space;\cos{(\theta/2)}&space;\end{pmatrix}" title="U(\theta, \phi, \lambda)=\begin{pmatrix} cos(\theta/2) & -i e^{i \lambda} \sin{(\theta/2)} \\ -i e^{i \lambda} \sin{(\theta/2)} & e^{i(\lambda+\phi)} \cos{(\theta/2)} \end{pmatrix}" /></a>
+
 ## Setup
 Example:
 1. Make sure you have X installed and configured.
