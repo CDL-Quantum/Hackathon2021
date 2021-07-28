@@ -1,28 +1,17 @@
 Fill in this README.md. Example Structure:
 
-## Project Description 
+## Product Description 
 The Dynamic Quantum Pricing Engine is an algorithm for the dynamic pricing and promotion of online goods that helps accelerate sales turnover. The target niche is small to medium-sized online retailers, with market revenue of $1 mln/month and up.
 
 Pattern extraction and data mining for leveraging sales is the most challenging task for many companies that have invested substantially in collecting and storing massive amounts of data. These patterns can be extracted from a binary data set by identifying clusters in data sets. Our product leverages the quantum properties of the Ising model to go beyond classical clustering and association algorithms, by allowing for dynamic pricing.
 
 ## Setup
-Example:
-1. Make sure you have X installed and configured.
-
-2. Set up your preferred virtual environment.
-
-3. pip install -r requirements.txt
-
-## How to Use
-Example:
-From command line: Use python solvers/script.py -h
+Set up virtual environment using pyenv. 
+Install and configure d-wave 
+Run [Quantum Dynamic Pricing Engine.ipynb ](https://github.com/ManinderPanesar/Hackathon2021/blob/Week3-Hackathon/Quantum%20Finance/Quantum%20Dynamic%20Pricing%20Engine.ipynb)
 
 ## Challenge(s) You Solved
-
-## Project Details: 
-
-# Background
-Our pricing tool is a quantum version of market data analysis. Data analysis is playing an increasingly important role in a range of industries, including the following:
+We devised a dynamic pricing tool using D-Wave stimulated annealeaing sampler. Our pricing tool is a quantum version of market data analysis. Data analysis is playing an increasingly important role in a range of industries, including the following:
 
 Retail: 
 A typical data analysis application in retail is market basket analysis (MBA) or recommendation engines, where customers are assigned to particular groups depending on their purchases. Perhaps the best known users are Amazon, with its “customers who purchased this product also viewed this product” notices, and Netflix, with its movie recommendations. One study by Walmart famously used MBA to identify a connection between buying diapers and buying beer (the connection was dads). MBA is an unsupervised machine learning technique to analyze the purchasing patterns of the customers through transaction data. This information can be used for a variety of purposes, including store design, recommendations, sales promotions, and cross-selling. Another application is identifying key products, such as expensive or luxury items, which may not necessarily have high appeal themselves, but are linked with purchases of other goods.
@@ -45,3 +34,6 @@ The product will be sold on a subscription basis (monthly or yearly). It will be
 
 
 ## Contributors 
+David Orrell
+Uchenna Chukwu
+Maninder Kaur
