@@ -84,7 +84,7 @@ Our weather forecast platform can extend to other markets such as emotion recogn
     <tr>
         <td>Sutron Corporation </td>
         <td>USA</td>        
-        <td>$26 million USD</td>
+        <td>26 million USD</td>
      </tr>    
      </tr>          
 </table>
