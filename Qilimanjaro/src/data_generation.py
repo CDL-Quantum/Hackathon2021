@@ -30,3 +30,34 @@ def generate_3circles_data(n_samples):
     settings = centers, radii             
     
     return data, settings
+
+
+def generate_annulus_data(samples):
+    """Generate the annulus pattern (tricrown) data
+
+    Args:
+        n_samples (int): Number of samples to generate
+
+    Returns:
+        data (tuple):
+            X (np-array): x, y positions
+            y (np-array): classes
+    """
+    centers = [[0,0],[0,0]]
+    radii = [np.sqrt(.8 - 2/np.pi), np.sqrt(.8)]
+    points=[]
+    classes=[]
+    dim = 2
+    for i in range(samples):
+        X = 2 * (np.random.rand(dim)) - 1
+        y=0
+        for j,(r,c) in enumerate(zip(radii, centers)):
+            if np.linalg.norm(X - c) > r:
+                y = j + 1
+        points.append(X)
+        classes.append(y)
+
+    data = np.array(points), np.array(classes)
+    settings = centers, radii  
+
+    return data, settings
