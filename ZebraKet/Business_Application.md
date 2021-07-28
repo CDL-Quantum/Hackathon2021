@@ -23,7 +23,7 @@ There are some key issues why retail industry could not react well to disruption
 Until early 2020, consumer spending on food in the United States had been remarkable stable, growing by around 4 percent over the previous five years. As it is shown in below illustration, total sales were roughly split evenly between retail outlets (such as grocery stores and supermarkets) and food-service companies (such as restaurant, hospitals and schools). The revenue has increased steadily until February. However, after the pandemic the trend of consumer spending on foods has changed and grocery sales has increased dramatically by 29 percent over the prior year.
 
 <p align="center">
-  <img width="800" height="300" src="./resources/PIC2.png">
+  <img width="700" height="300" src="./resources/PIC6.png">
   <a href="https://www.mckinsey.com/industries/consumer-packaged-goods/our-insights/us-food-supply-chain-disruptions-and-implications-from-covid-19">Source</a>
 </p>
 
