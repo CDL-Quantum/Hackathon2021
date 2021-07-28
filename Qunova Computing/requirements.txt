@@ -1,0 +1,9 @@
+pandas
+numpy
+tqdm
+sklearn
+matplotlib
+qiskit
+torch
+pyquil
+tensorboard

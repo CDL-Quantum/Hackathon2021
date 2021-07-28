@@ -1,0 +1,97 @@
+accoci,Accumulated Other Comprehensive Income,a
+assets,Total Assets,a
+assetsc,Current Assets,a
+assetsnc,Assets Non-Current,a
+bvps,Book Value per Share,a
+capex,Capital Expenditure,d
+cashneq,Cash and Equivalents,a
+cashnequsd,Cash and Equivalents (USD),a
+cor,Cost of Revenue,d
+consolinc,Consolidated Income,a
+currentratio,Current Ratio,a
+de,Debt to Equity Ratio,d
+debt,Total Debt,d
+debtc,Debt Current,d
+debtnc,Debt Non-Current,d
+debtusd,Total Debt (USD),d
+deferredrev,Deferred Revenue,d
+depamor,Depreciation Amortization & Accretion,d
+deposits,Deposit Liabilities,d
+divyield,Dividend Yield,a
+dps,Dividends per Basic Common Share,a
+ebit,Earning Before Interest & Taxes (EBIT),a
+ebitda,Earnings Before Interest Taxes & Depreciation Amortization (EBITDA),a
+ebitdamargin,EBITDA Margin,d
+ebitdausd,Earnings Before Interest Taxes & Depreciation Amortization (USD),a
+ebitusd,Earning Before Interest & Taxes (USD),a
+ebt,Earnings before Tax,a
+eps,Earnings per Basic Share,a
+epsdil,Earnings per Diluted Share,a
+epsusd,Earnings per Basic Share (USD),a
+equity,Shareholders Equity,a
+equityusd,Shareholders Equity (USD),a
+ev,Enterprise Value,a
+evebit,Enterprise Value over EBIT,a
+evebitda,Enterprise Value over EBITDA,a
+fcf,Free Cash Flow,a
+fcfps,Free Cash Flow per Share,a
+fxusd,Foreign Currency to USD Exchange Rate,a
+gp,Gross Profit,a
+grossmargin,Gross Margin,a
+intangibles,Goodwill and Intangible Assets,a
+intexp,Interest Expense,d
+invcap,Invested Capital,a
+inventory,Inventory,d
+investments,Investments,a
+investmentsc,Investments Current,a
+investmentsnc,Investments Non-Current,a
+liabilities,Total Liabilities,d
+liabilitiesc,Current Liabilities,d
+liabilitiesnc,Liabilities Non-Current,d
+marketcap,Market Capitalization,a
+ncf,Net Cash Flow / Change in Cash & Cash Equivalents,a
+ncfbus,Net Cash Flow - Business Acquisitions and Disposals,a
+ncfcommon,Issuance (Purchase) of Equity Shares,d
+ncfdebt,Issuance (Repayment) of Debt Securities,d
+ncfdiv,Payment of Dividends & Other Cash Distributions   ,d
+ncff,Net Cash Flow from Financing,d
+ncfi,Net Cash Flow from Investing,a
+ncfinv,Net Cash Flow - Investment Acquisitions and Disposals,a
+ncfo,Net Cash Flow from Operations,a
+ncfx,Effect of Exchange Rate Changes on Cash ,d
+netinc,Net Income,a
+netinccmn,Net Income Common Stock,a
+netinccmnusd,Net Income Common Stock (USD),a
+netincdis,Net Loss Income from Discontinued Operations,d
+netincnci,Net Income to Non-Controlling Interests,a
+netmargin,Profit Margin,a
+opex,Operating Expenses,d
+opinc,Operating Income,a
+payables,Trade and Non-Trade Payables,d
+payoutratio,Payout Ratio,d
+pb,Price to Book Value,a
+pe,Price Earnings (Damodaran Method),d
+pe1,Price to Earnings Ratio,d
+ppnenet,Property Plant & Equipment Net,a
+prefdivis,Preferred Dividends Income Statement Impact,d
+price,Share Price (Adjusted Close),a
+ps,Price Sales (Damodaran Method),a
+ps1,Price to Sales Ratio,a
+receivables,Trade and Non-Trade Receivables,d
+retearn,Accumulated Retained Earnings (Deficit),a
+revenue,Revenues,a
+revenueusd,Revenues (USD),a
+rnd,Research and Development Expense,a
+sbcomp,Share Based Compensation,a
+sgna,Selling General and Administrative Expense,d
+sharefactor,Share Factor,a
+sharesbas,Shares (Basic),a
+shareswa,Weighted Average Shares,d
+shareswadil,Weighted Average Shares Diluted,d
+sps,Sales per Share,a
+tangibles,Tangible Asset Value,a
+taxassets,Tax Assets,a
+taxexp,Income Tax Expense,d
+taxliabilities,Tax Liabilities,d
+tbvps,Tangible Assets Book Value per Share,a
+workingcapital,Working Capital,a
