@@ -6,6 +6,10 @@
 
 Here at the Lord's Vig (LV) we offer state of the art tools for optimizing your fantasy sports teams and ensuring you make the best decisions when gambling. 
 
+## Presentation
+
+Slides to our presentation can be found [here](https://docs.google.com/presentation/d/1uoSEKO_CzY3tWiS7wWERNEAjORk5LXj8cneoCqp16gU/edit?usp=sharing).
+
 ## Market Size
 
 Sports betting is a 203 BILLION dollar industry in the U.S. Couple that with the new betting regulations slowly being introduced; [See Canada's new Bill](https://www.cbc.ca/sports/single-event-sport-gambling-to-become-legal-as-bill-c218-passes-in-senate-1.6075816), the betting industry is set to grow even larger. Couple that with the market for Fantasy Sports, a [projected 320 million dollars in 2025](https://www.marketwatch.com/press-release/fantasy-sports-market-size-2021-with-growth-forecast-latest-industry-scope-and-future-trends-with-upcoming-technologies-global-business-share-analysis-till-2025-2021-07-06); and for [E-sports](https://www.gamesindustry.biz/articles/2021-05-27-ultimate-team-modes-make-up-29-percent-of-eas-business) which was an astounding 1.62 billion dollars for EA Sports alone last year, and you begin to see the importance of a platform to help users optimize their strategies and stay ahead of the competition.  Sports are such a treaseured part of every countries culture-as evidenced by the  Olympics currently being held in Japan. Betting and Fantasy help us further connect with the game, especially those of us who were never born with the athletic tools to succeed where others have. 
@@ -17,18 +21,16 @@ Sports betting is a 203 BILLION dollar industry in the U.S. Couple that with the
 - DraftKings: 19 billion dollar market cap;
 - Bet 365: 
 
+## Business Model
+
+If we were to try to scale our package into a business we would plan on a SaS (Software as a service) model. We would offer users some resources for free to gain popularity; and then charge a flat monthly subscription rate (and offer a discounted yearly rate) to use our platform. For professional users (Sports teams, professional gamblers, ect) we would charge a higher rate, but maintain support and have custom analytics & reports prepared for these clients. For further information see below or at this [link](img/cdl.jpg).
+
+![bus](img/bus.jpg)
+
 ## Technologies Used
 
 LV is a python package that can be run locally. We make use of quantum hardware from DWave and IBM. We also make use of a photonics computer simulator from Xanadu. 
 
-
-## Business Model
-
-
-
-## Presentation
-
-Slides to our presentation can be found [here](https://docs.google.com/presentation/d/1uoSEKO_CzY3tWiS7wWERNEAjORk5LXj8cneoCqp16gU/edit?usp=sharing).
 
 
 ## Setup
