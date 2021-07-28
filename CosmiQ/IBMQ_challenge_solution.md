@@ -125,8 +125,6 @@ The Python code using Qiskit Pulse can be found in the [ibmq](ibmq) subfolder.
 
 Please review the implementation of the above calibration technique and single-qutrit gates in the [ibmq/class_gates Jupyter notebook](ibmq/class_gates.ipynb).
 
-The [ibmq/Presentation Jupyter notebook](ibmq/Presentation.ipynb) provides a summary and some additional examples.
-
 ## References and Further Reading
 
 1. [Front. Phys. **8**, 479 (2019)](www.frontiersin.org/articles/10.3389/fphy.2020.589504/full).
