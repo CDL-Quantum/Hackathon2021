@@ -1,6 +1,6 @@
 # D-Wave challenge:  QUTO vs QUBO
 
-## Partitionin Equal Sum 
+## Partitioning Equal Sum 
 
 Let's consider the partitioning equal sum problem where we want to separate a set of values into two groups (*A* and *B*) that have an equal sum. 
 For example, [10,3,5,9,9] can be breaken into two groups, [10,3,5] and [9,9].
@@ -63,7 +63,7 @@ For this toy problem we have:
 |                     | QUBO | QUTO |
 |:-------------------:|:----:|:----:|
 |       Variable      |  3N  |   N  |
-| Linear constraints  |   N  |   1  |
+| Linear constraints  |   N+1  |   1  |
 |         Cost        |   1  |   1  |
 
 
