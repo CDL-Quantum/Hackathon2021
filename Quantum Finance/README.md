@@ -36,6 +36,8 @@ While large firms currently dominate the demand for market intelligence, access 
 
 The product will be sold on a subscription basis (monthly or yearly). It will be marketed directly to suitable retailers, and we will also seek other distribution channels, such as engaging with Spotify.
 
+## Business applications
+For business applications, check [here](https://github.com/ManinderPanesar/Hackathon2021/blob/Week3-Hackathon/Quantum%20Finance/Business%20Application.md)
 
 ## Contributors 
 David Orrell
