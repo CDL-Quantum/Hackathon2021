@@ -1,4 +1,5 @@
 ## Business application
+![business](./data/business.JPG)
 
 The grid of the future needs to manage the increasing complexity and needs of  electrical power and is at the same time, a key player in the fight against climate change.
 
