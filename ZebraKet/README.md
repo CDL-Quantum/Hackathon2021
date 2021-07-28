@@ -4,48 +4,52 @@
 
 ## Project Description 
 We show how an online grocer will optimize between two objectives: 
-1) selection on least number of suppliers provding all required inventory 
-2) maximizing inventory profit. 
+1) selection on least number of suppliers providing all required inventory 
+2) maximizing inventory profit
 
-We also provide a novel approach to solving competing supply-chain objectives through our Chained Optimization Rules Engine&reg; CORE&reg; method. This allows one to arbitrarily chain qubos together and solve complex optimization problems via multiple simple qubos.
+We also provide a novel approach to solving competing supply-chain objectives through our Chained Optimization Rules Engine&reg; CORE&reg; method. This allows one to arbitrarily chain QUBOs together and solve complex optimization problems via multiple simple QUBOs.
 
 ## Setup
 1. Make sure you have Anaconda installed and configured.
-2. conda env create -f environment.yml
+2. `conda env create -f environment.yml`
+3. `conda activate zebraket-cdl-hackathon-2021`
     
-Original environment creation steps (only do this if step 2 did not work): 
+Original environment creation steps (*only do this if step 2 did not work*): 
 ```
 conda create -n zebraket-cdl-hackathon-2021 python=3.9
-source activate zebraket-cdl-hackathon-2021
-conda install --name zebraket-cdl-hackathon-2021 ipykernel -y
-conda install --name zebraket-cdl-hackathon-2021 pylint -y
-conda install pandas==1.3.0
+conda activate zebraket-cdl-hackathon-2021
+conda install ipykernel
+conda install pylint
+conda install pandas
 pip install dwave-ocean-sdk
 ```
 
+3. If you have not already, set your dwave API key with
+  `dwave config create`
+
+
 ## How to Use
 
-#### We recommend you checkout our notebooks in [./notebooks](./notebooks/README.md) with detailed information about our code. 
-
+We recommend you checkout our [notebooks](./notebooks/README.md) with detailed information about our code. 
 
 ## Challenges Solved
 
-- Objective 1: We want to limit the number of suppliers based on the set of items they provide. This pre-selection was formulated into the "set cover" problem.
+### Objective 1: Supplier Optimization
+We formulate and solve a typical logistic problem for an online grocer: minimize the number of suppliers needed to fill your inventory. See this [notebook](./notebooks/SetCoverBQM.ipynb) for more details. In brief, this is done by modelling the problem as a "set cover" problem:
 
 <p align="center">
   <img  height="200" src="./resources/equation1.png">
 </p>
 
-We convert this formulation into a binary quadratic model (BQM) and solve using D-Wave's Hybrid Solver with a small, medium and large dataset.  We then solve our "real" dataset.
+This can be converted into a binary quadratic model (BQM) and solved. We use D-Wave's Hybrid Solver and solve it on a real dataset as well as simulated small, medium and large sized dataset. 
 
-- Objective 2: We want to maximize the overall profit by selecting an optimal set of inventory from the chosen suppliers while staying within our budget. This profit maximization is performed using the Knapsack formulation.
-
+### Objective 2: Profit Optimization
+We formulate and solve another typical logistic problem for an online grocer: maximize overall profit by selecting an optimal set of inventory. See this [notebook](./notebooks/KnapsackDQM.ipynb) for more details. In brief, we formulate the problem as a discrete knapsack formulation:
 <p align="center">
   <img  height="200" src="./resources/equation2.png">
 </p>
 
-We develop a QUBO formulation of this using Andrew Lucas's formula[1].  However, we use our own Lagrange terms. We solve this also on a small, medium and large dataset.  We also then solve our "real" dataset.
-
+We develop a discrete quadratic model (DQM) formulation of this using Andrew Lucas's formula[1]. However, we use our own Lagrange terms. We use D-Wave's Hybrid Solver and solve it on a real dataset as well as simulated small, medium and large sized dataset. 
 
 - Summary of Results
 
