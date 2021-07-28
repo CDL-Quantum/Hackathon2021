@@ -18,6 +18,11 @@ def sig(x):
     return 1 / (1 + np.exp(-1 * x))
 
 
+def zero_padding(a, tgt_size):
+    result = np.zeros((a.shape[0], tgt_size))
+    result[:a.shape[0], :a.shape[1]] = a
+    return result
+
 def samples(lst, k):
     n = len(lst)
     indices = []

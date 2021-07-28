@@ -1,15 +1,15 @@
 import itertools
 import math
-from abc import abstractmethod, ABCMeta, ABC
+from abc import abstractmethod, ABCMeta
 from typing import Union, List, Optional, Dict
 
 import numpy as np
-
 from pyquil import Program, get_qc
 from pyquil.api import QuantumComputer
 from pyquil.gates import RZ, H, CNOT, MEASURE, RY, CZ
 
 DEFAULT_SHOTS = 10000
+DEBUG = False
 
 
 class ParamCircuitInterface(metaclass=ABCMeta):
@@ -69,6 +69,7 @@ class ParamCircuitInterface(metaclass=ABCMeta):
             else:
                 print("set qpu backend first.")
                 raise RuntimeError
+            self._qvm_executable = self._qpu.compile(self.circuit)
         for p_name in self._param_name:
             for i, v in enumerate(x[p_name]):
                 self._qvm_executable.write_memory(region_name=p_name, value=v, offset=i)
@@ -158,7 +159,7 @@ class AmplitudeEncoding(ParamCircuitInterface):
         assert np.isclose(n, int(n))
         self._num_qubits = int(n)
         self._param_name = [param_name]
-        self.num_params = (2 ** num_amps) - 1
+        self.num_params = num_amps - 1
 
     def _circuit_construction(self, add_measure=True) -> Program:
         p = Program()
@@ -220,7 +221,7 @@ def all_betas(amps):
     :return dict: key: (s, j), value: beta angle
     """
     n = math.log(len(amps), 2)
-    assert np.isclose(n, int(n)), "Specify 2^n amplitudes for some n"
+    assert np.isclose(n, int(n)), f"Specify 2^n amplitudes for some n={n}, amp={amps}"
     n = int(n)
     d_betas = {}
     for s in range(1, n + 1):
@@ -251,4 +252,6 @@ def all_betas(amps):
                 pass
             # finally, compute the beta angles
             d_betas[s, j] = -2 * np.arcsin(ratio)
+    if DEBUG:
+        print(d_betas)
     return d_betas

@@ -1,5 +1,6 @@
 import math
 from collections import Counter
+from copy import deepcopy
 
 import numpy as np
 from qcs_api_client.util.errors import QCSHTTPStatusError
@@ -148,7 +149,7 @@ class PyquilVariationalClassifier:
             n = math.log(len(data_point), 2)
             assert np.isclose(n, int(n)), "Specify 2^n amplitudes for some n"
             n = int(n)
-            input_dict = {qfm_param_name: flatten_betas(all_betas(data_point), n),
+            input_dict = {qfm_param_name: flatten_betas(data_point, n),
                           vc_param_name: train_params}
         else:
             input_dict = {qfm_param_name: data_point,
