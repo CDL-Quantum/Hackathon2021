@@ -43,11 +43,36 @@ As a hint, problems with graph structure like the maximum independent set, struc
 Check out https://cloud.dwavesys.com/leap/examples/ for ideas, but use your creativity! The best projects would be the ones that solve the most practical problems.
 
 **Note**: Refer to the Bootcamp training for ideas on how to use the most recent Ocean features.
+
 ## Project Details: 
-  - Further walkthrough of what you did 
-  - Links to any Jupyter notebooks/scripts
-  - Business applications
-  - Link to Presentation
+
+Optimization models have been widely used in the electric power industry to solve the unit commitment problem (UC), the process of scheduling and dispatching electric power generation resources.
+UC is considered an NP-hard problem, and an active field of research. The inclusion of renewable energies into the system poses an additional challenge.
+Deterministic, meta-heuristic and combinatorial approaches, from deep learning to 
+non-linear programming and simulated annealing have been applied with different degrees of success.
+
+**Our solution provides a prototype to solve UC in a Green Optimization framework by using Quantum Annealing.** 
+
+We call this problem the **Green Unit Commitment problem** (GUC).
+
+GUC can be formulated as a (multi-objective) QUBO problem, amenable to be solved on a quantum computer, with a cost function expressing the trade-off between:
+- **Operational costs**: usage, maintenance, fuel and on-off related costs
+- **Carbon emission costs**: proxied by price of Renewable Energy Certificates or carbon taxes
+
+We define the variables related to the activity of a given energy source at a given time in the schedule.
+Thus, the trade-off cost vs carbon emission can easily be implemented in QUBO. 
+For details on the implementation please check the  [Green optimization notebook](./Green_optimization_QuantumAnnealing.ipynb).
+
+We optimize the GUC on the D-Wave Leap Hybrid Solver to find solutions that maximize the revenue while minimizing the carbon emission. 
+Alternative quantum and classical implementations have been performed to test the performance of the solver. 
+These include Simulated Annealing (D-Wave), Quantum Annealing (D-Wave) and QAOA (Rigetti SDK).
+For the QAOA implementation, we provide two notebooks (linked in the [main notebook](./Green_optimization_QuantumAnnealing.ipynb)) 
+with:
+- implementation of QAOA in [Rigetti PyQuil framework](./Green_optimization_QuantumAnnealing_QAOA_Rigetti.ipynb))
+- implementation of QAOA in [IBM Qiskit frameworks](./Green_optimization_QuantumAnnealing_QAOA_IBM.ipynb)).
+
+Finally, an extension with more realistic scenarios and a larger
+energy network is provided in [this](./Green_optimization_QuantumAnnealing_XL.ipynb) notebook. 
 
 ## Contributors 
 All authors equally contributed to the project and they are listed in alphabetic order:
