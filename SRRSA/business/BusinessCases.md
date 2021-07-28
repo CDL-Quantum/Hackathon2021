@@ -35,6 +35,13 @@ We believe the true representation and description of a chaotic system such as t
 ## Business model
 We offer our forecast products in a SaaS subscription model.
 
+<table align="center">
+     <tr>
+        <td><img src="./Aviation.jpg" width="400"></td>
+        <td><img src="./WeatherForecast.jpg" width="450"></td>
+    </tr>
+</table>
+
 ## Verticals
 The platform assists following industries to optimize weather risk:
 * The global aviation weather forecasting services market is projected to reach US$ 447.6 million in 2024 [7].
