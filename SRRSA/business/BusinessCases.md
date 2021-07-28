@@ -6,7 +6,7 @@
 <table  align="center">
     <tr>
         <td>
-            <img src="" width=400>
+            <img src="SRRSA/business/Aviation-weather-forecast-chart..jpg" width=400>
         </td>
         <td>
             <img src="" width=400>
