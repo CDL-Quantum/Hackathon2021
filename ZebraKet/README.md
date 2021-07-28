@@ -70,7 +70,7 @@ Results for objective 2: Inventory Profit (Total Profit Potential, Inventory)
 
 The detailed explanation of the business motivation, importance of this use case and applicability to other industries and similar competing objectives is described in the business applications document.
 
-
+For more details refer to the [Business Application found here](./Business_Application.md)
   - Links to any Jupyter notebooks/scripts
   - Business applications
   - Link to Presentation
