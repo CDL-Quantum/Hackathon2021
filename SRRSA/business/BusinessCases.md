@@ -37,7 +37,7 @@ Many machine learning models have been implemented such as Extra Tree Regression
 We believe the true representation and description of a chaotic system as the weather can be achieved with quantum computing and algorithms due to the underlying similarity of both systems. Quantum is at the beginning of its realisation potential. We are aware of the limitations the current devices have and this helps us build better solutions by incorporating technology advancements as soon as they are achieved. We grow our platform together with quantum technology as the future belongs to quantum especially in predicting inherently complex systems.
 
 ## Business model
-SaaS 
+We offer our forecast products in a SaaS subscription model.
 
 ## Verticals
 The platform assists following industries to optimize weather risk:
