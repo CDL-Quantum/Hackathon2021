@@ -59,7 +59,7 @@ Please refer to the [CDL Quantum Hackathon 2021 README file](../README.md) for m
   The Xanadu's Challenge solution overview including references to related Python code and Jupyter notebooks can be found in the [Xanadu Challenge Solution Overview](Xanadu_challenge_solution.md) file.
 
   - Business applications - **TODO**
-  - Link to Presentation - **TODO**
+  - Link to Presentation - [CosmiQ Presentation](https://docs.google.com/presentation/d/11hNlrG5h4nE9QYco3dloQPALMRBJFJ-N-VslGnBzO68/edit?usp=sharing)
 
 
 ## Contributors
