@@ -3,7 +3,11 @@
 </p>
 
 ## Project Description 
-We show how an online grocer will optimize between two objectives 1) selection on least number of suppliers provding all required inventory and 2) maximizing inventory profit. We also provide a novel approach to solving competing supply-chain objectives through our Chained Optimization Rules Engine&reg; CORE&reg; method which allows one to arbitrarily chain qubos together and solve complex optimization problems via simple qubos.
+We show how an online grocer will optimize between two objectives: 
+1) selection on least number of suppliers provding all required inventory 
+2) maximizing inventory profit. 
+
+We also provide a novel approach to solving competing supply-chain objectives through our Chained Optimization Rules Engine&reg; CORE&reg; method. This allows one to arbitrarily chain qubos together and solve complex optimization problems via multiple simple qubos.
 
 ## Setup
 1. Make sure you have Anaconda installed and configured.
@@ -20,8 +24,9 @@ pip install dwave-ocean-sdk
 ```
 
 ## How to Use
-Example:
-python -m  services.classical_optimizers
+
+#### We recommend you checkout our notebooks in [./notebooks](./notebooks/README.md) with detailed information about our code. 
+
 
 ## Challenges Solved
 
