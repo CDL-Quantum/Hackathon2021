@@ -113,7 +113,7 @@ The solutions found by QAOA do not match the optimal soluions of DMRG, but we ha
 <img src="./images/wall_street.jpg" height="200">
 </p>
   
-In our work we have proposed a solution to the well known optimization problem using the most recent development in the field of quantum computing. The business potential for this technology is extraordinary in the field of finance. Qutrits have the ability to represent `1.5 ^ n` times more information than `n` qubits, which will be a crucial difference maker for the portfolio optimization. Currently, the price for running a single task on the quantum computer is around 30 cents. While this might not seem like a lot, we need to understand that if an entire department is using a quantum computer to calculate complex simulations the costs increase exponentially. 
+In our work we have proposed a solution to the well known optimization problem using the most recent development in the field of quantum computing. The business potential for this technology is extraordinary in the field of finance. Qutrits have the ability to represent `1.5 ^ n` times more information than `n` qubits, which will be a crucial difference maker for the portfolio optimization. Currently, the price for running a single task on the quantum computer is around 30 cents.[Costs to run](https://aws.amazon.com/braket/pricing/) While this might not seem like a lot, we need to understand that if an entire department is using a quantum computer to calculate complex simulations the costs increase exponentially. 
 
 In 2019, Top ten asset managers have more than 30 trillion assets under management[3] and are in a continuous competition with each other to increase their market share. While quantum computing for finance is still in the nascent stages of development, there is an strong interest on behalf of the asset managers in quantum technologies. For instance, companies like J.P. Morgan Chase & Co. and Goldman Sachs have dedicated division for the development of the quantum algorithms for the NISQ devices. 
 
@@ -133,8 +133,9 @@ Additionally, we can also consider a use case where an investment manager holds 
 ## References
 
 1. [Samuel Palmer, Serkan Sahin, Rodrigo Hernandez, Samuel Mugel, and Roman Orus "Quantum Portfolio Optimization with Investment Bands and Target Volatility"](https://arxiv.org/abs/2106.06735)
-2. [The World Bank Data on the Number of the Total Listed Companies](https://data.worldbank.org/indicator/CM.MKT.LDOM.NO)
-3. [Top 10 Asset Management Firms in the World](https://www.statista.com/statistics/431790/leading-asset-management-companies-worldwide-by-assets/)
-4. [Vanguard Total Stock Market Index Fund Admiral Shares](https://www.nasdaq.com/market-activity/funds-and-etfs/vtsax)
+2. [Costs to Run Quantum Computer](https://aws.amazon.com/braket/pricing/)
+3. [The World Bank Data on the Number of the Total Listed Companies](https://data.worldbank.org/indicator/CM.MKT.LDOM.NO)
+4. [Top 10 Asset Management Firms in the World](https://www.statista.com/statistics/431790/leading-asset-management-companies-worldwide-by-assets/)
+5. [Vanguard Total Stock Market Index Fund Admiral Shares](https://www.nasdaq.com/market-activity/funds-and-etfs/vtsax)
 
 [Back to README](README.md)
