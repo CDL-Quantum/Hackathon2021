@@ -17,7 +17,7 @@ class FlatNetwork():
  
         #Variables needed for graph creation                              
         self.qubitmap = lambda t,i,q: t*L[1]*L[2] + i*L[2] + q
-        self.maxl = abs(self.qubitmap(0,0,0) - self.qubitmap(1,L[1],L[2]-1))   #Longest long-range connection 
+        self.maxl = abs(self.qubitmap(0,0,0) - self.qubitmap(0,L[1]-1,L[2]-1))   #Longest long-range connection 
         print('Max MPO dim: ',self.maxl)
         
         #Store mpos
@@ -30,7 +30,7 @@ class FlatNetwork():
         if(init):    
             #Parameters
             self.mu = lambda t,i: 1.0 
-            self.rho = 1000.0
+            self.rho = 2.0*self.K 
  
             #Flash best rho
             constmax = (self.K-1)/2.0 - 1
@@ -74,7 +74,14 @@ class FlatNetwork():
         
         I = dmrg.I(d = self.d)        
         N2 = dmrg.N(1.0, d = self.d)
-        
+
+        #Need a way to get correct indx      
+        L = self.L[0]*self.L[1]*self.L[2] 
+        bm = self.L[1]*self.L[2]        
+        def ridx(idx):
+            return int(idx/bm), int(idx%bm/self.L[2]), (idx%bm%self.L[2])
+ 
+
         for t in range(0,self.L[0]):
             for i in range(0, self.L[1]):
                 for q in range(0,self.L[2]):
@@ -116,26 +123,19 @@ class FlatNetwork():
                         continue
                                
                     #now set last row -- for everything all the way to the last qubit
-                        
-                    #Term 2
-                    for qp in range(q+1, self.L[2]):
-                        sep = abs(qm(t,i,q) - qm(t,i,qp))
-                        lo.set(targetrow,sep,dmrg.N(2.0*(self.rho)/K2*pds[q]*pds[qp],d=self.d))
-                            
-                    for j in range(i+1,self.L[1]):
-                        for qp in range(q+1, self.L[2]):
-                            #Term 4 
-                            sep = abs(qm(t,j,qp) - qm(t,i,q))
-                            lo.set(targetrow,sep,dmrg.N(4.0/K2*pds[q]*pds[qp]*(self.rho),d=self.d))
+                    
+                    fidx = qm(t,i,q)
+                    for j in range(self.L[1]):
+                        for qp in range(self.L[2]):
+                            nidx = qm(t,j,qp)
+                            if(nidx>fidx):
+                                sep = abs(fidx - qm(t,j,qp))
+                                lo.add(targetrow,sep,dmrg.N((2.0*self.rho)/K2*pds[q]*pds[qp],d=self.d))                        
 
-                        #Term 3
-                        sep = abs(qm(t,j,q) - qm(t,i,q))
-                        lo.set(targetrow,sep,dmrg.N(2.0/K2*pds[q]**2*(self.rho),d=self.d))    
-                                                
                     mpoc.append(lo)
                     #print(pairs)
                     #lo.show()                    
-         
+                     
         self.mpoc = mpoc
         return mpoc
  
@@ -146,9 +146,14 @@ class FlatNetwork():
         K = self.K*self.Kscale
         K2 = K*K      
         
+        #Need a way to get correct indx      
+        L = self.L[0]*self.L[1]*self.L[2] 
+        bm = self.L[1]*self.L[2]        
+        def ridx(idx):
+            return int(idx/bm), int(idx%bm/self.L[2]), (idx%bm%self.L[2])
+        
         S = {}
         D = {}
-        
         for t in range(0,self.L[0]):
             for i in range(0, self.L[1]):
                 for q in range(0,self.L[2]):
@@ -166,19 +171,12 @@ class FlatNetwork():
                     if(t==self.L[0]-1 and i==self.L[1]-1 and q==self.L[2]-1):                        
                         continue
                     
-                    #Term 2
-                    for qp in range(q+1, self.L[2]):
-                        D[(qm(t,i,q),qm(t,i,qp))] = 2.0*(self.rho)/K2*pds[q]*pds[qp]
-                            
-                    for j in range(i+1,self.L[1]):
-                        for qp in range(q+1, self.L[2]):
-                            #Term 4 
-                            sep = abs(qm(t,j,qp) - qm(t,i,q))
-                            D[(qm(t,i,q),qm(t,j,qp))] = 4.0/K2*pds[q]*pds[qp]*(self.rho)
-
-                        #Term 3
-                        sep = abs(qm(t,j,q) - qm(t,i,q))
-                        D[(qm(t,i,q),qm(t,j,q))] = 2.0/K2*pds[q]**2*(self.rho)
+                    fidx = qm(t,i,q)
+                    for j in range(self.L[1]):
+                        for qp in range(self.L[2]):
+                            nidx = qm(t,j,qp)
+                            if(nidx>fidx):
+                                D[(fidx,nidx)] = 2.0*self.rho/K2*pds[q]*pds[qp]
                                                    
         #Trim
         St = {key: S[key] for key in S if(abs(S[key]) > threshold)}
@@ -266,14 +264,18 @@ class FlatNetwork():
         mpos = self.make_mpos()        
         newmpo = dmrg.MPO.outer(mpos[0],mpos[1])
         #print(newmpo.ops[0][0])
-        for i in range(2,self.L):            
+        L = int(np.prod(self.L))
+        for i in range(2,L):            
             newmpo = dmrg.MPO.outer(newmpo,mpos[i])
             #print(newmpo.ops[0][0])
         #print('Final Hamiltonian is: ',newmpo.ops[0][0])
-        
+ 
         lh = newmpo.op[0,0]
+        #for i in range(self.d**L):
+        #    print(ss(i).zfill(L), lh[i,i]+self.offset)
+
         [ev, psi0] = las.eigsh(lh,k=nstates,which='SA',maxiter=lh.shape[0]*10,tol=tol,ncv=100)        
-        return ev, psi0
+        return ev+self.offset, psi0
        
     #Given an arbitary qubit representation return weights    
     def returnWeights(self,x):
@@ -400,6 +402,32 @@ class FlatNetwork():
 
         return fvs 
 
+    def iterateSol(self):
+
+        L = int(np.prod(self.L))
+        res = np.zeros(self.d**L)
+        for s in range(self.d**L):
+            
+            sx = ss(s).zfill(L)
+            w = self.returnWeights(sx) 
+            tpot = 0.0
+            tkin = 0.0
+            for t in range(self.L[0]):
+                le1 = 0.0
+                le2 = 0.0
+                for i in range(self.L[1]):
+                    le1 += -self.mu(t,i)*w[t,i] 
+                    le2 += w[t,i]
+                    #print('\t\t',t,i,w[t,i])
+                tpot += le1
+                tkin += (le2-1)**2
+            te = tpot + self.rho*tkin
+
+            print(sx,tpot,tkin,te)
+            res[s] = te
+
+        return res
+
 def ss(x, d = 3):
     s = ''
     m = x
@@ -409,19 +437,21 @@ def ss(x, d = 3):
         m = int(m/d)
    
     return s
-    
+   
+
+ 
 if __name__ == '__main__':
     
     d = 3
     #Nt x N x N_q
-    L = [1,3,2]
+    L = [2,2,2]
     fn = FlatNetwork(L, d, init = True)
     print('Resolution: ',1.0/d**L[2])   
  
     mpos = fn.mpoc
     print('Number of MPOs:',len(mpos))
-    #for mpo in mpos:
-    #    mpo.show()
+    for mpo in mpos:
+        mpo.show()
         
     #Testing
     '''
@@ -438,26 +468,57 @@ if __name__ == '__main__':
     mps = dmrg.MPS.scalarMPS([2,2,2,2], d = 3)
     print(dm.energyWith(mps))
     '''
+
     
-    e, mps = fn.run()
-    amp2 = np.array(mps.getAmp())
+    #Test with ED
+    '''    
+    print('----- ED TEST ------')
+    e, psi = fn.runED()
+    amp2 = np.array(np.abs(psi))
     ns = d**np.prod(L)
-    print(amp2)
-    
-    print('Number of states: ',ns)
-        
+    #print(amp2)    
+    print('Number of states: ',ns)        
     ampl = np.where(np.abs(amp2)>1.0e-8)[0]
     print('Sols size: ',len(ampl))
     ampv = amp2[ampl]
     config = [ss(x).zfill(np.prod(L)) for x in ampl]
     print(config)
     print(ampv**2)  
-    print(fn.returnWeights(config[0]))
+    fnw = fn.returnWeights(config[0])
+    print(fnw, np.sum(fnw))
+    '''
+ 
+    print('-------------------')    
+    #sol = fn.iterateSol()
+    #print(sol)
+    print('-------------------')
+    
+    e, mps = fn.run()
+    amp2 = np.array(mps.getAmp())
+    ns = d**np.prod(L)
+    #print(amp2)    
+    print('Number of states: ',ns)        
+    ampl = np.where(np.abs(amp2)>1.0e-8)[0]
+    print('Sols size: ',len(ampl))
+    ampv = amp2[ampl]
+    config = [ss(x).zfill(np.prod(L)) for x in ampl]
+    print(config)
+    print(ampv**2)  
+    fnw = fn.returnWeights(config[0])
+    print(fnw, np.sum(fnw))
    
+    print("From Compute:")
     soln = fn.computeWeights(mps)
-    print(soln) 
+    for t in range(L[0]):
+        ssum = 0.0
+        for i in range(L[1]):            
+            ssum += soln[(t,i)]
+            print(t,i,soln[(t,i)],ssum) 
+        print('\n')
 
+     
     #Get Hamiltonian
     S,D = fn.getHamiltonian()
     print('Singles: ',S)    
     print('Doubles: ',D)
+    
